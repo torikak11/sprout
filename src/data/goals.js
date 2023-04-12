@@ -1,3 +1,4 @@
+
 export default [
     {
         name: "Create a mobile app",
@@ -19,7 +20,13 @@ export default [
             },
         },
         due: "2023-05-05",
-        plantID: "1",
+        plant: {
+            id: "1",
+            name: "Lavender",
+            image: require("../../assets/images/large-plant.png"),
+        },
+        color: '#7C826B',
+        percentage: 100,
     },
     {
         name: "Read 10 books",
@@ -76,7 +83,13 @@ export default [
             },
         },
         due: "2024-01-01",
-        plantID: "1",
+        plant: {
+            id: "1",
+            name: "Lavender",
+            image: require("../../assets/images/medium-plant.png")
+        },
+        color: '#c5d9d9',
+        percentage: 40,
     },
     {
         name: "Learn 500 vocabulary words in French",
@@ -108,7 +121,13 @@ export default [
             },
         },
         due: "2023-06-25",
-        plantID: "1",
+        plant: {
+            id: "1",
+            name: "Lavender",
+            image: require("../../assets/images/small-plant.png")
+        },
+        color: '#DBB18A',
+        percentage: 20,
     },
     {
         name: "Do 15 pullups",
@@ -116,7 +135,7 @@ export default [
             step: {
                 id: "1",
                 name: "Do 5 pullups",
-                complete: true,
+                complete: false,
             },
             step: {
                 id: "2",
@@ -130,6 +149,12 @@ export default [
             },
         },
         due: "None",
-        plantID: "1",
+        plant: {
+            id: "1",
+            name: "Lavender",
+            image: require("../../assets/images/small-plant.png")
+        },
+        color: '#1D2A2E',
+        percentage: 0,
     },
 ]
