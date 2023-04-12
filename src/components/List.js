@@ -1,20 +1,22 @@
-import { COLORS, SIZE, SHADOWS } from "../data/theme";
+import { COLORS, SIZE, SHADOWS, FONTS } from "../data/theme";
 import { StyleSheet, View, Text } from "react-native";
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 export const VerticalList = (props) => {
     return (
         <View style={[styles.container, {backgroundColor: props.background}]} >
-            <View style={styles.nameContainer}>
+            <View style={styles.contentContainer}>
+                <View style={styles.progressContainer}>
+                    <Text style={styles.percentage}>
+                        {props.percentage}%
+                    </Text>
+                </View>
                 <Text style={styles.text}>
-                    {props.name.length > 25 ? props.name.slice(0,26) + '...' : props.name}
+                    {props.name.length > 20 ? props.name.slice(0,21) + '...' : props.name}
                 </Text>
-                <Ionicons name="arrow-forward-outline" size={36} color={COLORS.white100} />
-            </View>
-            <View style={styles.progressContainer}>
-                <Text style={styles.percentage}>
-                    {props.percentage}%
-                </Text>
+                <View style={styles.iconContainer}>
+                    <Ionicons name="arrow-forward-outline" size={32} color={COLORS.white100} />
+                </View>
             </View>
         </View>
     );
@@ -22,27 +24,32 @@ export const VerticalList = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 20,
+        paddingHorizontal: 20,
+        paddingVertical: 25,
         marginVertical: 8,
         marginHorizontal: 20,
         borderRadius: 20,
         ...SHADOWS.shadow01,
     },
-    nameContainer: {
+    contentContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
         alignItems: 'center',
+        justifyContent: 'flex-start',
+    },
+    iconContainer: {
+        marginLeft: 'auto',
     },
     text: {
         color: COLORS.white100,
         fontSize: SIZE.subheading,
+        fontFamily: FONTS.regular,
+        marginLeft: 10,
     },
     progressContainer: {
         justifyContent: 'center',
         alignItems: 'center',
-        paddingVertical: 7,
-        marginHorizontal: 30,
-        marginTop: 10,
+        width: 60,
+        height: 60,
         borderWidth: 2,
         borderRadius: 30,
         borderColor: COLORS.white100,
@@ -51,5 +58,5 @@ const styles = StyleSheet.create({
         fontSize: SIZE.subheading,
         color: COLORS.white100,
         fontWeight: 'bold',
-    }
+    },
 });

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { StatusBar, SafeAreaView, StyleSheet, View, FlatList, ImageBackground, Text, Image } from "react-native";
 import { FilledSmallButton, OutlineSmallButton } from '../components/Button';
-import { COLORS, SIZE } from "../data/theme";
+import { COLORS, FONTS, SIZE } from "../data/theme";
 import goals from "../data/goals";
 
 const Home = () => {
@@ -99,10 +99,12 @@ const styles = StyleSheet.create({
     textGreeting: {
         fontSize: SIZE.heading,
         color: COLORS.white100,
+        fontFamily: FONTS.bold,
     },
     textName : {
         fontSize: SIZE.heading02,
         color: COLORS.white100,
+        fontFamily: FONTS.regular,
     },
     plantContainer: {
         flex: 3,

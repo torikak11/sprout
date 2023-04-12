@@ -1,7 +1,7 @@
 import { StyleSheet, SafeAreaView, View, Text, FlatList } from "react-native";
 import { VerticalList } from "../components/List";
 import goals from "../data/goals";
-import { COLORS, SHADOWS, SIZE } from "../data/theme";
+import { COLORS, FONTS, SHADOWS, SIZE } from "../data/theme";
 
 export default function GoalsView() {
     const renderItem = ({ item }) => (
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     text: {
         color: COLORS.blue200,
         fontSize: SIZE.heading,
+        fontFamily: FONTS.regular,
         textAlign: 'center',
     }
 });

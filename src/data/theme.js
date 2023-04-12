@@ -19,7 +19,12 @@ export const SIZE = {
     body: 16,
     small: 14,
     span: 10,
-}
+};
+
+export const FONTS = {
+    bold: "PlayfairDisplayBold",
+    regular: "PlayfairDisplayRegular",
+};
 
 export const SHADOWS = {
     shadow01: {
