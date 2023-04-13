@@ -1,11 +1,12 @@
+import React from 'react';
 import { StyleSheet, SafeAreaView, View, Text, FlatList } from "react-native";
-import { VerticalList } from "../components/List";
+import { GoalsList } from "../components/List";
 import goals from "../data/goals";
 import { COLORS, FONTS, SHADOWS, SIZE } from "../data/theme";
 
-export default function GoalsView() {
+const GoalsView = () => {
     const renderItem = ({ item }) => (
-        <VerticalList
+        <GoalsList
             name={item.name}
             background={item.color}
             percentage={item.percentage}
@@ -22,6 +23,7 @@ export default function GoalsView() {
                     data={goals}
                     renderItem={renderItem}
                     showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{marginTop: 20}}
                 />
             </View>
         </SafeAreaView>
@@ -46,5 +48,7 @@ const styles = StyleSheet.create({
         fontSize: SIZE.heading,
         fontFamily: FONTS.regular,
         textAlign: 'center',
-    }
+    },
 });
+
+export default GoalsView;

@@ -27,6 +27,19 @@ export const OutlineSmallButton = (props) => {
     )
 };
 
+export const FilledLargeButton = (props) => {
+    return (
+        <Pressable 
+            style={styles.filledLargeButton}
+            onPress={props.onPress}
+        >
+            <Text style={styles.filledLargeButtonText}>
+                {props.name}
+            </Text>
+        </Pressable>
+    );
+};
+
 const styles = StyleSheet.create({
     filledSmallButton: {
         width: 90,
@@ -52,4 +65,17 @@ const styles = StyleSheet.create({
     outlineSmallButtonText: {
         color: COLORS.blue200,
     },
+    filledLargeButton: {
+        width: 220,
+        height: 50,
+        backgroundColor: COLORS.blue200,
+        borderRadius: 30,
+        ...SHADOWS.shadow01,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    filledLargeButtonText: {
+        fontSize: SIZE.body,
+        color: COLORS.white100,
+    }
 });

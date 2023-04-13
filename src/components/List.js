@@ -2,7 +2,7 @@ import { COLORS, SIZE, SHADOWS, FONTS } from "../data/theme";
 import { StyleSheet, View, Text } from "react-native";
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-export const VerticalList = (props) => {
+export const GoalsList = (props) => {
     return (
         <View style={[styles.container, {backgroundColor: props.background}]} >
             <View style={styles.contentContainer}>
@@ -11,7 +11,25 @@ export const VerticalList = (props) => {
                         {props.percentage}%
                     </Text>
                 </View>
-                <Text style={styles.text}>
+                <Text style={[styles.text, {marginLeft: 10}]}>
+                    {props.name.length > 20 ? props.name.slice(0,21) + '...' : props.name}
+                </Text>
+                <View style={styles.iconContainer}>
+                    <Ionicons name="arrow-forward-outline" size={32} color={COLORS.white100} />
+                </View>
+            </View>
+        </View>
+    );
+};
+
+export const HabitsList = (props) => {
+    return (
+        <View style={[styles.container, {backgroundColor: props.background}]} >
+            <View style={styles.contentContainer}>
+                {props.completed 
+                    ? <Ionicons name="checkmark-circle" size={48} color={COLORS.white100} /> 
+                    : <Ionicons name="checkmark-circle-outline" size={48} color={COLORS.white100} />}
+                <Text style={[styles.text, {marginLeft: 10}]}>
                     {props.name.length > 20 ? props.name.slice(0,21) + '...' : props.name}
                 </Text>
                 <View style={styles.iconContainer}>
@@ -43,7 +61,6 @@ const styles = StyleSheet.create({
         color: COLORS.white100,
         fontSize: SIZE.subheading,
         fontFamily: FONTS.regular,
-        marginLeft: 10,
     },
     progressContainer: {
         justifyContent: 'center',
@@ -57,6 +74,8 @@ const styles = StyleSheet.create({
     percentage: {
         fontSize: SIZE.subheading,
         color: COLORS.white100,
-        fontWeight: 'bold',
     },
+    streakContainer: {
+
+    }
 });

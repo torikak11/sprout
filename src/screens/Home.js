@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         fontFamily: FONTS.regular,
     },
     plantContainer: {
-        flex: 3,
+        flex: 4,
     },
     imageContainer: {
         padding: 20,
