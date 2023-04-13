@@ -26,7 +26,7 @@ const Home = () => {
         } else if (hour >= 17 && hour < 21) {
             greeting = 'Good Evening';
             image = require('../../assets/images/evening-landscape.png');
-        } else if (hour >= 21 && hour < 4) {
+        } else {
             greeting = 'Good Night';
             image = require('../../assets/images/night-landscape.png');
         }
@@ -78,10 +78,8 @@ const Home = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: StatusBar.currentHeight || 0,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: COLORS.white200,
     },
     image: {
         flex: 1,
