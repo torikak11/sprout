@@ -10,6 +10,7 @@ const HabitsView = () => {
             name={item.name}
             background={item.color}
             completed={item.completed}
+            onPress={() => console.warn("Pressed")}
         />
     )
 

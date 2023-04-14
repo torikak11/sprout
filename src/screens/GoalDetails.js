@@ -16,7 +16,7 @@ const GoalDetails = () => {
                 <Image source={require('../../assets/images/large-plant.png')} />
             </View>
             <View style={styles.detailsContainer}>
-                <ScrollView style={styles.scrollContainer}>
+                <ScrollView>
                     <View style={{alignItems: 'center'}}>
                         <View style={styles.border}>
                             <Text style={styles.nameText}>Create a mobile app</Text>
@@ -44,7 +44,7 @@ const GoalDetails = () => {
                                 complete={true}
                             />
                         </View>
-                        <View style={{marginTop: 10}}>
+                        <View style={{marginVertical: 10}}>
                             <FilledLargeButton 
                                 name="Delete Goal"
                             />
@@ -71,13 +71,11 @@ const styles = StyleSheet.create({
         flex: 2,
         alignItems: 'center',
     },
-    scrollContainer: {
+    detailsContainer: {
+        flex: 6,
         backgroundColor: COLORS.green200,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-    },
-    detailsContainer: {
-        flex: 6,
     },
     nameText: {
         marginTop: 20,

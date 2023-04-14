@@ -1,6 +1,6 @@
 import React from 'react';
 import Home from '../screens/Home';
-import GoalsView from '../screens/GoalsView';
+import GoalsNav from './GoalsNav';
 import HabitsView from '../screens/HabitsView'; 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { COLORS } from '../data/theme';
@@ -51,7 +51,7 @@ const BottomNav = () => {
             />
             <Tab.Screen 
             name={'Goals'} 
-            component={GoalsView} 
+            component={GoalsNav} 
             options={{
                 tabBarIcon: ({color, size}) => (
                 <IonIcons name="rose" color={color} size={size} />

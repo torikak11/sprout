@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         color: COLORS.blue200,
     },
     filledLargeButton: {
-        width: 220,
+        width: 300,
         height: 50,
         backgroundColor: COLORS.blue200,
         borderRadius: 30,

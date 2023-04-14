@@ -4,12 +4,13 @@ import { GoalsList } from "../components/List";
 import goals from "../data/goals";
 import { COLORS, FONTS, SHADOWS, SIZE } from "../data/theme";
 
-const GoalsView = () => {
+const GoalsView = ({ navigation }) => {
     const renderItem = ({ item }) => (
         <GoalsList
             name={item.name}
             background={item.color}
             percentage={item.percentage}
+            onPress={() => navigation.navigate('Goal Details')}
         />
     )
 

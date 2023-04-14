@@ -1,5 +1,5 @@
 import { COLORS, SIZE, SHADOWS, FONTS } from "../data/theme";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Pressable } from "react-native";
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 export const GoalsList = (props) => {
@@ -14,9 +14,9 @@ export const GoalsList = (props) => {
                 <Text style={[styles.text, {marginLeft: 10}]}>
                     {props.name.length > 20 ? props.name.slice(0,21) + '...' : props.name}
                 </Text>
-                <View style={styles.iconContainer}>
+                <Pressable onPress={props.onPress} style={styles.iconContainer}>
                     <Ionicons name="arrow-forward-outline" size={32} color={COLORS.white100} />
-                </View>
+                </Pressable>
             </View>
         </View>
     );
@@ -32,9 +32,9 @@ export const HabitsList = (props) => {
                 <Text style={[styles.text, {marginLeft: 10}]}>
                     {props.name.length > 20 ? props.name.slice(0,21) + '...' : props.name}
                 </Text>
-                <View style={styles.iconContainer}>
+                <Pressable onPress={props.onPress} style={styles.iconContainer}>
                     <Ionicons name="arrow-forward-outline" size={32} color={COLORS.white100} />
-                </View>
+                </Pressable>
             </View>
         </View>
     );
