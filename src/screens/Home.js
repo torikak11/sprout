@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { StatusBar, SafeAreaView, StyleSheet, View, FlatList, ImageBackground, Text, Image } from "react-native";
+import { SafeAreaView, StyleSheet, View, FlatList, ImageBackground, Text, Image } from "react-native";
 import { FilledSmallButton, OutlineSmallButton } from '../components/Button';
 import { COLORS, FONTS, SIZE } from "../data/theme";
 import goals from "../data/goals";
