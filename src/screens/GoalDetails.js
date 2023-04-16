@@ -8,10 +8,6 @@ import { FilledLargeButton } from '../components/Button';
 const GoalDetails = () => {
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.buttonContainer}>
-                <IonIcons name="arrow-back-outline" size={32} color={COLORS.blue200} />
-                <IonIcons name="brush-outline" size={32} color={COLORS.blue200} />
-            </View>
             <View style={styles.plantContainer}>
                 <Image source={require('../../assets/images/large-plant.png')} />
             </View>
@@ -59,13 +55,7 @@ const GoalDetails = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    buttonContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginHorizontal: 10,
+        backgroundColor: COLORS.white200,
     },
     plantContainer: {
         flex: 2,
