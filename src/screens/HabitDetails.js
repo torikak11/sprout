@@ -8,15 +8,11 @@ import { FilledLargeButton } from '../components/Button';
 const HabitDetails = () => {
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.buttonContainer}>
-                <IonIcons name="arrow-back-outline" size={32} color={COLORS.blue200} />
-                <IonIcons name="brush-outline" size={32} color={COLORS.blue200} />
-            </View>
             <View style={styles.plantContainer}>
                 <Image source={require('../../assets/images/large-plant.png')} />
             </View>
             <View style={styles.detailsContainer}>
-                <ScrollView style={styles.scrollContainer}>
+                <ScrollView>
                     <View style={{alignItems: 'center'}}>
                         <View style={styles.border}>
                             <Text style={styles.nameText}>Exercise/Stretch</Text>
@@ -45,25 +41,17 @@ const HabitDetails = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    buttonContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginHorizontal: 10,
+        backgroundColor: COLORS.white200,
     },
     plantContainer: {
         flex: 2,
         alignItems: 'center',
     },
-    scrollContainer: {
+    detailsContainer: {
+        flex: 6,
         backgroundColor: COLORS.green200,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-    },
-    detailsContainer: {
-        flex: 6,
     },
     nameText: {
         marginTop: 20,

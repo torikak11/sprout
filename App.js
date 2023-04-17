@@ -2,7 +2,7 @@ import React from 'react';
 import BottomNav from './src/components/BottomNav';
 import { NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from 'react-native';
 
 export default function App() {
   const [loaded] = useFonts({
@@ -14,8 +14,8 @@ export default function App() {
 
   return (
     <NavigationContainer>
+      <StatusBar barStyle="dark-content" />
       <BottomNav />
-      <StatusBar style="auto" />
     </NavigationContainer>
   );
 };

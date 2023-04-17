@@ -1,7 +1,7 @@
 import React from 'react';
 import Home from '../screens/Home';
 import GoalsNav from './GoalsNav';
-import HabitsView from '../screens/HabitsView'; 
+import HabitsNav from './HabitsNav';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { COLORS } from '../data/theme';
 import IonIcons from '@expo/vector-icons/Ionicons';
@@ -60,7 +60,7 @@ const BottomNav = () => {
             />
             <Tab.Screen 
             name={'Habits'} 
-            component={HabitsView} 
+            component={HabitsNav} 
             options={{
                 tabBarIcon: ({color, size}) => (
                 <IonIcons name="leaf" color={color} size={size} />
