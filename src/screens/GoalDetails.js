@@ -12,7 +12,7 @@ const GoalDetails = () => {
                 <Image source={require('../../assets/images/large-plant.png')} />
             </View>
             <View style={styles.detailsContainer}>
-                <ScrollView>
+                <ScrollView contentContainerStyle={{paddingBottom: 70, paddingTop: 20}}>
                     <View style={{alignItems: 'center'}}>
                         <View style={styles.border}>
                             <Text style={styles.nameText}>Create a mobile app</Text>
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     },
     border: {
         width: '80%',
-        borderBottomColor: COLORS.green100,
+        borderBottomColor: COLORS.white200,
         borderBottomWidth: 1,
         alignItems: 'center',
         paddingBottom: 15,

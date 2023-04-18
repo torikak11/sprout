@@ -4,6 +4,7 @@ import IonIcons from '@expo/vector-icons/Ionicons';
 import { Pressable } from "react-native";
 import HabitsView from '../screens/HabitsView'; 
 import HabitDetails from "../screens/HabitDetails";
+import EditHabit from "../screens/EditHabit";
 
 const HabitsNav = () => {
     const Stack = createStackNavigator();
@@ -11,6 +12,12 @@ const HabitsNav = () => {
     return (
         <Stack.Navigator 
             screenOptions={{
+                headerStyle: {
+                    backgroundColor: COLORS.white200,
+                    borderBottomWidth: 0,
+                    shadowOpacity: 0,
+                    elevation: 0,
+                },
                 headerBackTitleVisible: false,
                 headerBackImage: () => (
                     <IonIcons name="arrow-back-outline" size={32} color={COLORS.blue200} />
@@ -27,20 +34,21 @@ const HabitsNav = () => {
             <Stack.Screen 
                 name="Habit Details" 
                 component={HabitDetails} 
-                options={{ 
+                options={({navigation}) =>({ 
                     presentation: 'modal',
                     title: '',
-                    headerStyle: {
-                        backgroundColor: COLORS.white200,
-                        borderBottomWidth: 0,
-                        shadowOpacity: 0,
-                        elevation: 0,
-                    },
                     headerRight: () => (
-                        <Pressable style={{marginRight: 5}}>
+                        <Pressable onPress={() => navigation.navigate('Edit Habit')} style={{marginRight: 5}}>
                             <IonIcons name="brush-outline" size={30} color={COLORS.blue200} />
                         </Pressable>
                     )
+                })}
+            />
+            <Stack.Screen 
+                name="Edit Habit" 
+                component={EditHabit}
+                options={{
+                    title: '',
                 }}
             />
         </Stack.Navigator>

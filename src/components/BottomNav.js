@@ -2,6 +2,7 @@ import React from 'react';
 import Home from '../screens/Home';
 import GoalsNav from './GoalsNav';
 import HabitsNav from './HabitsNav';
+import Store from '../screens/Store';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { COLORS } from '../data/theme';
 import IonIcons from '@expo/vector-icons/Ionicons';
@@ -33,10 +34,10 @@ const BottomNav = () => {
             />
             <Tab.Screen 
             name={'Store'} 
-            component={Home} 
+            component={Store} 
             options={{
-                tabBarIcon: ({color, size}) => (
-                <IonIcons name="pricetag" color={color} size={size} />
+                tabBarIcon: ({color}) => (
+                <IonIcons name="basket" color={color} size={32} />
                 )
             }}
             />
@@ -54,7 +55,7 @@ const BottomNav = () => {
             component={GoalsNav} 
             options={{
                 tabBarIcon: ({color, size}) => (
-                <IonIcons name="rose" color={color} size={size} />
+                <IonIcons name="flower" color={color} size={size} />
                 )
             }}
             />

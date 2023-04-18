@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, View, FlatList, ImageBackground, Text, Image } from "react-native";
+import { SafeAreaView, StyleSheet, View, FlatList, ImageBackground, Text, Image, Pressable } from "react-native";
 import { FilledSmallButton, OutlineSmallButton } from '../components/Button';
 import { COLORS, FONTS, SIZE } from "../data/theme";
 import goals from "../data/goals";
+import habits from "../data/habits";
 
 const Home = () => {
     //sets state to current time for greeting
@@ -34,6 +35,15 @@ const Home = () => {
         setImage(image);
       });
 
+    const renderItem = ({item}) => (
+        <View style={styles.imageContainer}> 
+            <Image 
+                source={item.plant.image}
+                style={styles.images}
+            />
+        </View>
+    );
+
     return (
         <SafeAreaView style={styles.container}>
             <ImageBackground 
@@ -45,23 +55,34 @@ const Home = () => {
                     <Text style={styles.textName}>Victoria</Text>
                 </View>
                 <View style={styles.plantContainer}>
-                    <FlatList 
-                        data={goals}
-                        renderItem={({ item }) => (
-                            <View style={styles.imageContainer}> 
-                                <Image 
-                                    source={item.plant.image}
-                                    style={styles.images}
-                                />
-                            </View>
-                        )}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                    />
+                    {pressed === 1
+                        ? <FlatList 
+                            data={goals}
+                            renderItem={renderItem}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                        : pressed === 2
+                        ? <FlatList 
+                            data={goals}
+                            renderItem={renderItem}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                        : <FlatList 
+                            data={habits}
+                            renderItem={renderItem}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    }
                 </View>
                 <View style={styles.buttonContainer}>
                     {pressed === 1 
-                        ? <FilledSmallButton name="All" onPress={() => setPressed(1)} /> 
+                        ? <FilledSmallButton 
+                            name="All" 
+                            onPress={() => setPressed(1)} 
+                        /> 
                         : <OutlineSmallButton name="All" onPress={() => setPressed(1)} />}
                     {pressed === 2 
                         ? <FilledSmallButton name="Goals" onPress={() => setPressed(2)} /> 

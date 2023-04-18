@@ -1,7 +1,7 @@
 export default [
     {
         id: "1",
-        name: "Lavender",
+        value: "Lavender",
         images: {
             small: "../../assets/images/small-plant.png",
             medium: "../../assets/images/medium-plant.png",
@@ -11,12 +11,42 @@ export default [
     },
     {
         id: "2",
-        name: "Tomato",
+        value: "Tomato",
         images: {
             small: "../../assets/images/small-plant.png",
             medium: "../../assets/images/medium-plant.png",
             large: "../../assets/images/large-plant.png",
         },
         type: "habit",
-    }
+    },
+    {
+        id: "1",
+        value: "Lavender",
+        images: {
+            small: "../../assets/images/small-plant.png",
+            medium: "../../assets/images/medium-plant.png",
+            large: "../../assets/images/large-plant.png",
+        },
+        type: "goal"
+    },
+    {
+        id: "1",
+        value: "Lavender",
+        images: {
+            small: "../../assets/images/small-plant.png",
+            medium: "../../assets/images/medium-plant.png",
+            large: "../../assets/images/large-plant.png",
+        },
+        type: "goal"
+    },
+    {
+        id: "1",
+        value: "Lavender",
+        images: {
+            small: "../../assets/images/small-plant.png",
+            medium: "../../assets/images/medium-plant.png",
+            large: "../../assets/images/large-plant.png",
+        },
+        type: "goal"
+    },
 ]

@@ -7,7 +7,11 @@ export default [
         completed: true,
         harvest: false,
         streak: 3,
-        plantID: "2",
+        plant: {
+            id: "1",
+            name: "Lavender",
+            image: require("../../assets/images/medium-plant.png")
+        },
         color: COLORS.green100,
     },
     {
@@ -16,7 +20,11 @@ export default [
         completed: false,
         harvest: true,
         streak: 4,
-        plantID: "2",
+        plant: {
+            id: "1",
+            name: "Tomato",
+            image: require("../../assets/images/large-plant.png"),
+        },
         color: COLORS.blue200,
     },
     {
@@ -25,7 +33,11 @@ export default [
         completed: true,
         harvest: false,
         streak: 7,
-        plantID: "2",
+        plant: {
+            id: "1",
+            name: "Tomato",
+            image: require("../../assets/images/large-plant.png"),
+        },
         color: COLORS.coral200,
     },
     {
@@ -34,7 +46,11 @@ export default [
         completed: false,
         harvest: false,
         streak: 0,
-        plantID: "2",
+        plant: {
+            id: "1",
+            name: "Tomato",
+            image: require("../../assets/images/small-plant.png")
+        },
         color: COLORS.blue100,
     },
 ]

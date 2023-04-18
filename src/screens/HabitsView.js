@@ -37,7 +37,7 @@ const HabitsView = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: COLORS.white200,
+        backgroundColor: COLORS.white200
     },
     headingContainer: {
         flex: 1,

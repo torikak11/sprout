@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     },
     detailsContainer: {
         flex: 6,
-        backgroundColor: COLORS.green200,
+        backgroundColor: COLORS.green100,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
     },
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     },
     border: {
         width: '80%',
-        borderBottomColor: COLORS.green100,
+        borderBottomColor: COLORS.white200,
         borderBottomWidth: 1,
         alignItems: 'center',
         paddingBottom: 15,
