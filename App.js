@@ -1,5 +1,5 @@
 import React from 'react';
-import BottomNav from './src/components/BottomNav';
+import BottomNav from './src/navigation/BottomNav';
 import { NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { StatusBar } from 'react-native';

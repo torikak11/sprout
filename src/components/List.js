@@ -11,11 +11,15 @@ export const GoalsList = (props) => {
                         {props.percentage}%
                     </Text>
                 </View>
-                <Text style={[styles.text, {marginLeft: 10}]}>
-                    {props.name.length > 20 ? props.name.slice(0,21) + '...' : props.name}
-                </Text>
-                <Pressable onPress={props.onPress} style={styles.iconContainer}>
-                    <Ionicons name="arrow-forward-outline" size={32} color={COLORS.white100} />
+                <Pressable onPress={props.onPress} style={styles.pressContainer}>
+                    <View style={{flex: 1}}>
+                        <Text style={[styles.text, {marginLeft: 10}]} numberOfLines={1} >
+                            {props.name}
+                        </Text>
+                    </View>
+                    <View style={styles.iconContainer}> 
+                        <Ionicons name="arrow-forward-outline" size={32} color={COLORS.white100} />
+                    </View>
                 </Pressable>
             </View>
         </View>
@@ -24,16 +28,22 @@ export const GoalsList = (props) => {
 
 export const HabitsList = (props) => {
     return (
-        <View style={[styles.container, {backgroundColor: props.background}]} >
+        <View style={[styles.container, {backgroundColor: props.background}]}>
             <View style={styles.contentContainer}>
-                {props.completed 
-                    ? <Ionicons name="checkmark-circle" size={48} color={COLORS.white100} /> 
-                    : <Ionicons name="checkmark-circle-outline" size={48} color={COLORS.white100} />}
-                <Text style={[styles.text, {marginLeft: 10}]}>
-                    {props.name.length > 20 ? props.name.slice(0,21) + '...' : props.name}
-                </Text>
-                <Pressable onPress={props.onPress} style={styles.iconContainer}>
-                    <Ionicons name="arrow-forward-outline" size={32} color={COLORS.white100} />
+                <Pressable onPress={props.checkOnPress}>
+                    {props.complete 
+                        ? <Ionicons name="checkmark-circle" size={48} color={COLORS.white100} /> 
+                        : <Ionicons name="checkmark-circle-outline" size={48} color={COLORS.white100} />}
+                </Pressable>
+                <Pressable onPress={props.arrowOnPress} style={styles.pressContainer}>
+                    <View style={{flex: 1}}>
+                        <Text style={styles.text} numberOfLines={1}>
+                            {props.name}
+                        </Text>
+                    </View>
+                    <View style={styles.iconContainer}>
+                        <Ionicons name="arrow-forward-outline" size={32} color={COLORS.white100} />
+                    </View>
                 </Pressable>
             </View>
         </View>
@@ -54,8 +64,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
-    iconContainer: {
-        marginLeft: 'auto',
+    pressContainer: {
+        width: '80%',
+        height: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
     text: {
         color: COLORS.white100,
@@ -75,7 +89,7 @@ const styles = StyleSheet.create({
         fontSize: SIZE.subheading,
         color: COLORS.white100,
     },
-    streakContainer: {
-
+    iconContainer: {
+        marginLeft: 'auto'
     }
 });

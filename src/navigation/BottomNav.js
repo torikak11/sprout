@@ -3,6 +3,7 @@ import Home from '../screens/Home';
 import GoalsNav from './GoalsNav';
 import HabitsNav from './HabitsNav';
 import Store from '../screens/Store';
+import NewGoalNav from './NewGoalNav';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { COLORS } from '../data/theme';
 import IonIcons from '@expo/vector-icons/Ionicons';
@@ -43,7 +44,7 @@ const BottomNav = () => {
             />
             <Tab.Screen 
             name={'New'} 
-            component={Home} 
+            component={NewGoalNav} 
             options={{
                 tabBarIcon: ({color, size}) => (
                 <IonIcons name="add-circle" color={color} size={size} />

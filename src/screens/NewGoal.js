@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { SafeAreaView, ScrollView, View, Text, TextInput, StyleSheet, Pressable, Image } from "react-native";
 import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
+import { Task } from "../components/Task";
 import { FilledLargeButton } from "../components/Button";
+import IonIcons from '@expo/vector-icons/Ionicons';
 import { SelectList } from 'react-native-dropdown-select-list';
 import plants from "../data/plants";
 
 const EditGoal = () => {
-    const [name, setName] = useState('Exercise/Stretch');
-    const [plant, setPlant] = useState('Tomato');
-    const [color, setColor] = useState('Light Green')
+    const [name, setName] = useState('');
+    const [plant, setPlant] = useState('');
 
     const colors = [
         {key: '1', value: 'Light Green'},
@@ -20,7 +21,7 @@ const EditGoal = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={{paddingTop: 20, alignItems: 'center'}}>
+            <ScrollView contentContainerStyle={{alignItems: 'center', paddingBottom: 70, paddingTop: 20}}>
                 <View style={styles.border}>
                     <Text style={styles.label}>NAME</Text>
                     <TextInput 
@@ -30,12 +31,40 @@ const EditGoal = () => {
                     />
                 </View>
                 <View style={styles.border}>
+                    <Text style={styles.label}>STEPS</Text>
+                    <Task 
+                        text="Design wireframe in Figma"
+                        complete={true}
+                    />
+                    <Task 
+                        text="Design static layout in Figma"
+                        complete={true}
+                    />
+                    <Task 
+                        text="Create project in React Native"
+                        complete={true}
+                    />
+                    <Pressable style={styles.stepButtonContainer}>
+                        <IonIcons name="add" size={32} color={COLORS.white100} />
+                        <Text style={styles.text}>Add new step</Text>
+                    </Pressable>
+                </View>
+                <View style={styles.border}>
+                    <Text style={styles.label}>DATE DUE</Text>
+                    <View style={styles.dateContainer}>
+                        <Text style={styles.text}>date</Text>
+                        <Pressable>
+                            <IonIcons name="calendar" size={32} color={COLORS.white100} />
+                        </Pressable>
+                    </View>
+                </View>
+                <View style={styles.border}>
                     <Text style={styles.label}>COLOR</Text>
                     <View style={styles.colorContainer}>
                         <Pressable style={[styles.colorBox, {backgroundColor: COLORS.blue100}]}></Pressable>
                         <Pressable style={[styles.colorBox, {backgroundColor: COLORS.blue200}]}></Pressable>
-                        <Pressable style={[styles.colorBox, {backgroundColor: COLORS.green100, borderWidth: 2, borderColor: COLORS.white100}]}></Pressable>
-                        <Pressable style={[styles.colorBox, {backgroundColor: COLORS.green200}]}></Pressable>
+                        <Pressable style={[styles.colorBox, {backgroundColor: COLORS.green100}]}></Pressable>
+                        <Pressable style={[styles.colorBox, {backgroundColor: COLORS.green200, borderWidth: 2, borderColor: COLORS.white100}]}></Pressable>
                         <Pressable style={[styles.colorBox, {backgroundColor: COLORS.coral200}]}></Pressable>
                     </View>
                 </View>
@@ -65,7 +94,7 @@ const EditGoal = () => {
                 <View style={{marginTop: 20}}>
                     <FilledLargeButton name="Save" />
                 </View>
-            </View>
+            </ScrollView>
         </SafeAreaView>
     );
 };
@@ -73,7 +102,7 @@ const EditGoal = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: COLORS.green100,
+        backgroundColor: COLORS.green200,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
     },
@@ -97,6 +126,22 @@ const styles = StyleSheet.create({
         fontFamily: FONTS.regular,
         color: '#333',
         ...SHADOWS.shadow01
+    },
+    stepButtonContainer: {
+        marginTop: 10,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    text: {
+        marginLeft: 5,
+        color: COLORS.white100,
+        fontSize: SIZE.body,
+    },
+    dateContainer: {
+        width: '40%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
     imageBackground: {
         backgroundColor: COLORS.white100,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView, View, Text, FlatList, StyleSheet } from 'react-native';
 import habits from '../data/habits';
 import { HabitsList } from '../components/List';
@@ -6,14 +6,16 @@ import { COLORS, FONTS, SIZE } from '../data/theme';
 import { useNavigation } from '@react-navigation/native';
 
 const HabitsView = () => {
+    const [complete, setComplete] = useState(false);
     const navigation = useNavigation();
 
     const renderItem = ({ item }) => (
         <HabitsList
             name={item.name}
             background={item.color}
-            completed={item.completed}
-            onPress={() => navigation.navigate('Habit Details')}
+            complete={item.completed}
+            arrowOnPress={() => navigation.navigate('Habit Details')}
+            checkOnPress={() => console.warn("pressed")}
         />
     )
 

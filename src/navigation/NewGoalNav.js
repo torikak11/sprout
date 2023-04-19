@@ -1,13 +1,12 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import GoalsView from "../screens/GoalsView";
-import GoalDetails from "../screens/GoalDetails";
-import EditGoal from "../screens/EditGoal";
+import AddNew from "../screens/AddNew";
+import NewGoal from '../screens/NewGoal';
+import NewHabit from "../screens/NewHabit";
 import { COLORS } from "../data/theme";
 import IonIcons from '@expo/vector-icons/Ionicons';
 import { Pressable } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
-const GoalsNav = () => {
+const NewGoalNav = () => {
     const Stack = createStackNavigator();
 
     return (
@@ -26,28 +25,22 @@ const GoalsNav = () => {
             }}
         >
             <Stack.Screen 
-                name="Stack Goals" 
-                component={GoalsView} 
+                name="Add New" 
+                component={AddNew} 
                 options={{
                     headerShown: false,
                 }}
             />
             <Stack.Screen 
-                name="Goal Details" 
-                component={GoalDetails} 
-                options={({navigation}) => ({ 
-                    presentation: 'modal',
+                name="New Goal" 
+                component={NewGoal} 
+                options={{
                     title: '',
-                    headerRight: () => (
-                        <Pressable onPress={() => navigation.navigate('Edit Goal')} style={{marginRight: 5}}>
-                            <IonIcons name="brush-outline" size={30} color={COLORS.blue200} />
-                        </Pressable>
-                    )
-                })}
+                }}
             />
             <Stack.Screen 
-                name="Edit Goal" 
-                component={EditGoal}
+                name="New Habit" 
+                component={NewHabit} 
                 options={{
                     title: '',
                 }}
@@ -56,4 +49,4 @@ const GoalsNav = () => {
     );
 };
 
-export default GoalsNav;
+export default NewGoalNav;

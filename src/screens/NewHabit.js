@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { SafeAreaView, ScrollView, View, Text, TextInput, StyleSheet, Pressable, Image } from "react-native";
+import { SafeAreaView, View, Text, TextInput, StyleSheet, Pressable, Image } from "react-native";
 import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
 import { FilledLargeButton } from "../components/Button";
 import { SelectList } from 'react-native-dropdown-select-list';
 import plants from "../data/plants";
 
-const EditGoal = () => {
-    const [name, setName] = useState('Exercise/Stretch');
-    const [plant, setPlant] = useState('Tomato');
-    const [color, setColor] = useState('Light Green')
+const NewHabit = () => {
+    const [name, setName] = useState('');
+    const [plant, setPlant] = useState('');
+    const [color, setColor] = useState('')
 
     const colors = [
         {key: '1', value: 'Light Green'},
@@ -34,8 +34,8 @@ const EditGoal = () => {
                     <View style={styles.colorContainer}>
                         <Pressable style={[styles.colorBox, {backgroundColor: COLORS.blue100}]}></Pressable>
                         <Pressable style={[styles.colorBox, {backgroundColor: COLORS.blue200}]}></Pressable>
-                        <Pressable style={[styles.colorBox, {backgroundColor: COLORS.green100, borderWidth: 2, borderColor: COLORS.white100}]}></Pressable>
-                        <Pressable style={[styles.colorBox, {backgroundColor: COLORS.green200}]}></Pressable>
+                        <Pressable style={[styles.colorBox, {backgroundColor: COLORS.green100}]}></Pressable>
+                        <Pressable style={[styles.colorBox, {backgroundColor: COLORS.green200, borderWidth: 2, borderColor: COLORS.white100}]}></Pressable>
                         <Pressable style={[styles.colorBox, {backgroundColor: COLORS.coral200}]}></Pressable>
                     </View>
                 </View>
@@ -73,7 +73,7 @@ const EditGoal = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: COLORS.green100,
+        backgroundColor: COLORS.green200,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
     },
@@ -131,4 +131,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default EditGoal;
+export default NewHabit;
