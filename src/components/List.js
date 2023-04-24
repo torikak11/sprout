@@ -8,7 +8,7 @@ export const GoalsList = (props) => {
             <View style={styles.contentContainer}>
                 <View style={styles.progressContainer}>
                     <Text style={styles.percentage}>
-                        {props.percentage}%
+                        {props.percentage === 100 ? <Ionicons name="checkmark" size={32} color={COLORS.white100} /> : props.percentage + "%"}
                     </Text>
                 </View>
                 <Pressable onPress={props.onPress} style={styles.pressContainer}>

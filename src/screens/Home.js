@@ -4,6 +4,8 @@ import { FilledSmallButton, OutlineSmallButton } from '../components/Button';
 import { COLORS, FONTS, SIZE } from "../data/theme";
 import goals from "../data/goals";
 import habits from "../data/habits";
+import all from "../data/habits";
+
 
 const Home = () => {
     //sets state to current time for greeting
@@ -57,7 +59,7 @@ const Home = () => {
                 <View style={styles.plantContainer}>
                     {pressed === 1
                         ? <FlatList 
-                            data={goals}
+                            data={all}
                             renderItem={renderItem}
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}
@@ -79,10 +81,7 @@ const Home = () => {
                 </View>
                 <View style={styles.buttonContainer}>
                     {pressed === 1 
-                        ? <FilledSmallButton 
-                            name="All" 
-                            onPress={() => setPressed(1)} 
-                        /> 
+                        ? <FilledSmallButton name="All" onPress={() => setPressed(1)} /> 
                         : <OutlineSmallButton name="All" onPress={() => setPressed(1)} />}
                     {pressed === 2 
                         ? <FilledSmallButton name="Goals" onPress={() => setPressed(2)} /> 

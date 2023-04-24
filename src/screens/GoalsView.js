@@ -24,7 +24,7 @@ const GoalsView = () => {
             </View>
             <View style={styles.listContainer}>
                 <FlatList
-                    data={goals}
+                    data={goals.sort((a, b) => a.percentage - b.percentage)}
                     renderItem={renderItem}
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{marginTop: 20}}

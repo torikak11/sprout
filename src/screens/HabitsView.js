@@ -6,7 +6,6 @@ import { COLORS, FONTS, SIZE } from '../data/theme';
 import { useNavigation } from '@react-navigation/native';
 
 const HabitsView = () => {
-    const [complete, setComplete] = useState(false);
     const navigation = useNavigation();
 
     const renderItem = ({ item }) => (
@@ -26,7 +25,7 @@ const HabitsView = () => {
             </View>
             <View style={styles.listContainer}>
                 <FlatList
-                    data={habits}
+                    data={habits.sort((a, b) => a.completed - b.completed)}
                     renderItem={renderItem}
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{marginTop: 20}}
