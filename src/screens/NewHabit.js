@@ -44,7 +44,7 @@ const NewHabit = () => {
                     <View style={styles.plantContainer}>
                         <View style={styles.imageBackground}>
                             <Image 
-                                source={require('../../assets/images/small-plant.png')} 
+                                source={require('../../assets/images/s-tomato.png')} 
                                 style={styles.image}
                             />
                         </View>

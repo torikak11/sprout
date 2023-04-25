@@ -24,31 +24,10 @@ const EditGoal = () => {
                 </View>
                 <View style={styles.border}>
                     <Text style={styles.label}>STEPS</Text>
-                    <Task 
-                        text="Design wireframe in Figma"
-                        complete={true}
-                    />
-                    <Task 
-                        text="Design static layout in Figma"
-                        complete={true}
-                    />
-                    <Task 
-                        text="Create project in React Native"
-                        complete={true}
-                    />
                     <Pressable style={styles.stepButtonContainer}>
                         <IonIcons name="add" size={32} color={COLORS.white100} />
                         <Text style={styles.text}>Add new step</Text>
                     </Pressable>
-                </View>
-                <View style={styles.border}>
-                    <Text style={styles.label}>DATE DUE</Text>
-                    <View style={styles.dateContainer}>
-                        <Text style={styles.text}>date</Text>
-                        <Pressable>
-                            <IonIcons name="calendar" size={32} color={COLORS.white100} />
-                        </Pressable>
-                    </View>
                 </View>
                 <View style={styles.border}>
                     <Text style={styles.label}>COLOR</Text>

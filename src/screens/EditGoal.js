@@ -1,25 +1,30 @@
 import React, { useState } from "react";
 import { SafeAreaView, ScrollView, View, Text, TextInput, StyleSheet, Pressable, Image, FlatList } from "react-native";
 import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
-import { Task } from "../components/Task";
 import { FilledLargeButton } from "../components/Button";
 import IonIcons from '@expo/vector-icons/Ionicons';
 import { SelectList } from 'react-native-dropdown-select-list';
 import plants from "../data/plants";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ColorBox } from "../components/Button";
+import { useNavigation } from "@react-navigation/native";
+import { goalsSlice } from '../store/goalsSlice';
 
 const EditGoal = () => {
     const goal = useSelector((state) => state.goals.selectedGoal);
+    const dispatch = useDispatch();
+    const navigation = useNavigation();
     const [name, setName] = useState(goal.name);
     const [plant, setPlant] = useState(goal.plant);
-    const [color, setColor] = useState(goal.color)
+    const [color, setColor] = useState(goal.color);
 
     const renderItem = ({ item }) => (
-        <Task 
-            text={item.name}
-            complete={item.complete}
-        />
+        <View style={styles.stepContainer}>
+            <TextInput 
+                style={styles.input}
+                value={item.name}
+            />
+        </View>
     )
 
     return (
@@ -30,7 +35,7 @@ const EditGoal = () => {
                         ? <Text style={[styles.label, {color: COLORS.white100}]}>NAME</Text> 
                         : <Text style={styles.label}>NAME</Text>}
                     <TextInput 
-                        style={[styles.input, {width: 300}]}
+                        style={styles.input}
                         value={name} 
                         onChangeText={name => setName(name)}
                     />
@@ -39,7 +44,7 @@ const EditGoal = () => {
                     {color === COLORS.blue200 
                         ? <Text style={[styles.label, {color: COLORS.white100}]}>STEPS</Text> 
                         : <Text style={styles.label}>STEPS</Text>}
-                    <View style={styles.stepContainer}>
+                    <View style={styles.stepsContainer}>
                         <FlatList 
                             data={goal.steps}
                             renderItem={renderItem}
@@ -50,17 +55,6 @@ const EditGoal = () => {
                         <IonIcons name="add" size={32} color={COLORS.white100} />
                         <Text style={styles.text}>Add new step</Text>
                     </Pressable>
-                </View>
-                <View style={styles.border}>
-                    {color === COLORS.blue200 
-                        ? <Text style={[styles.label, {color: COLORS.white100}]}>DATE DUE</Text> 
-                        : <Text style={styles.label}>DATE DUE</Text>}
-                    <View style={styles.dateContainer}>
-                        <Text style={styles.text}>date</Text>
-                        <Pressable>
-                            <IonIcons name="calendar" size={32} color={COLORS.white100} />
-                        </Pressable>
-                    </View>
                 </View>
                 <View style={styles.border}>
                     {color === COLORS.blue200 
@@ -110,7 +104,24 @@ const EditGoal = () => {
                     </View>
                 </View>
                 <View style={{marginTop: 20}}>
-                    {color === COLORS.blue200 ? <FilledLargeButton name="Save" dark={true} /> : <FilledLargeButton name="Save" dark={false} />}
+                    {color === COLORS.blue200 
+                        ? <FilledLargeButton 
+                            name="Save" 
+                            dark={true}
+                            onPress={() => {
+                                dispatch(goalsSlice.actions.setSelectedGoal(goal.id));
+                                navigation.navigate('Goal Details');
+                            }}  
+                            /> 
+                        : <FilledLargeButton 
+                            name="Save" 
+                            dark={false} 
+                            onPress={() => {
+                                dispatch(goalsSlice.actions.setSelectedGoal(goal.id));
+                                navigation.navigate('Goal Details');
+                            }} 
+                            />
+                    }
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -138,6 +149,7 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 40,
+        width: 300,
         borderRadius: 10,
         paddingHorizontal: 5,
         backgroundColor: COLORS.white100,
@@ -192,9 +204,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginHorizontal: 0,
     },
-    stepContainer: {
+    stepsContainer: {
         width: '100%',
         justifyContent: 'flex-start'
+    },
+    stepContainer: {
+        marginBottom: 10,
     }
 });
 

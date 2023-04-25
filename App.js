@@ -17,7 +17,6 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <StatusBar barStyle="dark-content" />
         <BottomNav />
       </NavigationContainer>
     </Provider>

@@ -4,10 +4,14 @@ import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
 import { FilledLargeButton, ColorBox } from "../components/Button";
 import { SelectList } from 'react-native-dropdown-select-list';
 import plants from "../data/plants";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import { habitsSlice } from "../store/habitsSlice";
 
 const EditGoal = () => {
     const habit = useSelector((state) => state.habits.selectedHabit);
+    const dispatch = useDispatch();
+    const navigation = useNavigation();
     const [name, setName] = useState(habit.name);
     const [plant, setPlant] = useState(habit.plant.name);
     const [color, setColor] = useState(habit.color);
@@ -73,7 +77,24 @@ const EditGoal = () => {
                     </View>
                 </View>
                 <View style={{marginTop: 20}}>
-                    {color === COLORS.blue200 ? <FilledLargeButton name="Save" dark={true} /> : <FilledLargeButton name="Save" dark={false} />}
+                    {color === COLORS.blue200 
+                        ? <FilledLargeButton 
+                            name="Save" 
+                            dark={true} 
+                            onPress={() => {
+                                dispatch(habitsSlice.actions.setSelectedHabit(habit.id));
+                                navigation.navigate('Habit Details');
+                            }} 
+                            /> 
+                        : <FilledLargeButton 
+                            name="Save" 
+                            dark={false} 
+                            onPress={() => {
+                                dispatch(habitsSlice.actions.setSelectedHabit(habit.id));
+                                navigation.navigate('Habit Details');
+                            }} 
+                            />
+                    }
                 </View>
             </View>
         </SafeAreaView>

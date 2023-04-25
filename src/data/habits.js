@@ -49,7 +49,7 @@ export default [
         plant: {
             id: "1",
             name: "Tomato",
-            image: require("../../assets/images/small-plant.png")
+            image: require("../../assets/images/s-tomato.png")
         },
         color: COLORS.blue100,
     },

@@ -4,9 +4,11 @@ import { COLORS, FONTS, SIZE } from '../data/theme';
 import { Task } from '../components/Task';
 import { FilledLargeButton } from '../components/Button';
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 const GoalDetails = () => {
     const goal = useSelector((state) => state.goals.selectedGoal);
+    const navigation = useNavigation();
 
     const renderItem = ({ item }) => (
         <Task 
@@ -50,8 +52,21 @@ const GoalDetails = () => {
                         </View>
                         <View style={{marginVertical: 10}}>
                             {goal.color === COLORS.blue200 
-                                ? <FilledLargeButton name="Delete Goal" dark={true} /> 
-                                : <FilledLargeButton name="Delete Goal" dark={false} />}
+                                ? <FilledLargeButton 
+                                    name="Delete Goal" 
+                                    dark={true}
+                                    onPress={() => {
+                                        navigation.navigate("Stack Goals")
+                                    }} 
+                                    /> 
+                                : <FilledLargeButton 
+                                    name="Delete Goal" 
+                                    dark={false}
+                                    onPress={() => {
+                                        navigation.navigate("Stack Goals")
+                                    }}  
+                                    />
+                            }
                         </View>
                     </View>
                 </ScrollView>
