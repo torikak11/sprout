@@ -1,19 +1,25 @@
 import React from 'react';
 import { StyleSheet, SafeAreaView, View, Text, FlatList } from "react-native";
 import { GoalsList } from "../components/List";
-import goals from "../data/goals";
-import { COLORS, FONTS, SHADOWS, SIZE } from "../data/theme";
+import { COLORS, FONTS, SIZE } from "../data/theme";
 import { useNavigation } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
+import { goalsSlice } from '../store/goalsSlice';
 
 const GoalsView = () => {
     const navigation = useNavigation();
+    const goals = useSelector(state => state.goals.goals);
+    const dispatch = useDispatch();
 
     const renderItem = ({ item }) => (
         <GoalsList
             name={item.name}
             background={item.color}
             percentage={item.percentage}
-            onPress={() => navigation.navigate('Goal Details')}
+            onPress={() => {
+                dispatch(goalsSlice.actions.setSelectedGoal(item.id));
+                navigation.navigate('Goal Details');
+            }}
         />
     )
 
@@ -24,7 +30,7 @@ const GoalsView = () => {
             </View>
             <View style={styles.listContainer}>
                 <FlatList
-                    data={goals.sort((a, b) => a.percentage - b.percentage)}
+                    data={goals}
                     renderItem={renderItem}
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{marginTop: 20}}

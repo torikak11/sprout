@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import {React, useState} from 'react';
 import { SafeAreaView, View, Text, FlatList, StyleSheet } from 'react-native';
-import habits from '../data/habits';
 import { HabitsList } from '../components/List';
 import { COLORS, FONTS, SIZE } from '../data/theme';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { habitsSlice } from '../store/habitsSlice';
 
 const HabitsView = () => {
+    const habits = useSelector(state => state.habits.habits);
+    const dispatch = useDispatch();
     const navigation = useNavigation();
 
     const renderItem = ({ item }) => (
@@ -13,7 +16,10 @@ const HabitsView = () => {
             name={item.name}
             background={item.color}
             complete={item.completed}
-            arrowOnPress={() => navigation.navigate('Habit Details')}
+            arrowOnPress={() => {
+                dispatch(habitsSlice.actions.setSelectedHabit(item.id));
+                navigation.navigate('Habit Details');
+            }}
             checkOnPress={() => console.warn("pressed")}
         />
     )
@@ -25,7 +31,7 @@ const HabitsView = () => {
             </View>
             <View style={styles.listContainer}>
                 <FlatList
-                    data={habits.sort((a, b) => a.completed - b.completed)}
+                    data={habits}
                     renderItem={renderItem}
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{marginTop: 20}}

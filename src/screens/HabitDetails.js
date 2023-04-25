@@ -1,35 +1,38 @@
 import React from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, Image, Text } from 'react-native';
-import IonIcons from '@expo/vector-icons/Ionicons';
 import { COLORS, FONTS, SIZE } from '../data/theme';
-import { Task } from '../components/Task';
 import { FilledLargeButton } from '../components/Button';
+import { useSelector } from 'react-redux';
 
 const HabitDetails = () => {
+    const habit = useSelector((state) => state.habits.selectedHabit);
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.plantContainer}>
-                <Image source={require('../../assets/images/large-plant.png')} />
+                <Image source={habit.plant.image} />
             </View>
-            <View style={styles.detailsContainer}>
+            <View style={[styles.detailsContainer, {backgroundColor: habit.color}]}>
                 <ScrollView>
                     <View style={{alignItems: 'center'}}>
                         <View style={styles.border}>
-                            <Text style={styles.nameText}>Exercise/Stretch</Text>
+                            <Text style={styles.nameText}>{habit.name}</Text>
                         </View>
                         <View style={styles.border}>
-                            <Text style={styles.label}>PROGRESS</Text>
+                            {habit.color === COLORS.blue200 
+                                ? <Text style={[styles.label, {color: COLORS.white200}]}>PROGRESS</Text> 
+                                : <Text style={styles.label}>PROGRESS</Text>}
                             <View style={styles.progressContainer}>
                                 <Text style={styles.percentage}>
-                                    3
+                                    {habit.streak}
                                 </Text>
                             </View>
                             <Text style={styles.text}>day streak</Text>
                         </View>
                         <View style={{marginTop: 10,}}>
-                            <FilledLargeButton 
-                                name="Delete Goal"
-                            />
+                        {habit.color === COLORS.blue200 
+                            ? <FilledLargeButton name="Delete Habit" dark={true} /> 
+                            : <FilledLargeButton name="Delete Habit" dark={false} />}
                         </View>
                     </View>
                 </ScrollView>
@@ -49,7 +52,6 @@ const styles = StyleSheet.create({
     },
     detailsContainer: {
         flex: 6,
-        backgroundColor: COLORS.green100,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
     },

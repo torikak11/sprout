@@ -1,49 +1,57 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, ScrollView, View, Image, Text } from 'react-native';
-import IonIcons from '@expo/vector-icons/Ionicons';
+import { SafeAreaView, StyleSheet, ScrollView, View, Image, Text, FlatList } from 'react-native';
 import { COLORS, FONTS, SIZE } from '../data/theme';
 import { Task } from '../components/Task';
 import { FilledLargeButton } from '../components/Button';
+import { useSelector } from 'react-redux';
 
 const GoalDetails = () => {
+    const goal = useSelector((state) => state.goals.selectedGoal);
+
+    const renderItem = ({ item }) => (
+        <Task 
+            text={item.name}
+            complete={item.complete}
+        />
+    )
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.plantContainer}>
-                <Image source={require('../../assets/images/large-plant.png')} />
+                <Image source={goal.plant.image} style={styles.image} />
             </View>
-            <View style={styles.detailsContainer}>
+            <View style={[styles.detailsContainer, {backgroundColor: goal.color}]}>
                 <ScrollView contentContainerStyle={{paddingBottom: 70, paddingTop: 20}}>
                     <View style={{alignItems: 'center'}}>
                         <View style={styles.border}>
-                            <Text style={styles.nameText}>Create a mobile app</Text>
+                            <Text style={styles.nameText}>{goal.name}</Text>
                         </View>
                         <View style={styles.border}>
-                            <Text style={styles.label}>PROGRESS</Text>
+                            {goal.color === COLORS.blue200 
+                                ? <Text style={[styles.label, {color: COLORS.white200}]}>PROGRESS</Text> 
+                                : <Text style={styles.label}>PROGRESS</Text>}
                             <View style={styles.progressContainer}>
                                 <Text style={styles.percentage}>
-                                    100%
+                                    {goal.percentage}%
                                 </Text>
                             </View>
                         </View>
                         <View style={styles.border}>
-                            <Text style={styles.label}>STEPS</Text>
-                            <Task 
-                                text="Design wireframe in Figma"
-                                complete={true}
-                            />
-                            <Task 
-                                text="Design static layout in Figma"
-                                complete={true}
-                            />
-                            <Task 
-                                text="Create project in React Native"
-                                complete={true}
-                            />
+                            {goal.color === COLORS.blue200 
+                                ? <Text style={[styles.label, {color: COLORS.white200}]}>STEPS</Text> 
+                                : <Text style={styles.label}>STEPS</Text>}
+                            <View style={styles.stepContainer}>
+                                <FlatList 
+                                    data={goal.steps}
+                                    renderItem={renderItem}
+                                    scrollEnabled={false}
+                                />
+                            </View>
                         </View>
                         <View style={{marginVertical: 10}}>
-                            <FilledLargeButton 
-                                name="Delete Goal"
-                            />
+                            {goal.color === COLORS.blue200 
+                                ? <FilledLargeButton name="Delete Goal" dark={true} /> 
+                                : <FilledLargeButton name="Delete Goal" dark={false} />}
                         </View>
                     </View>
                 </ScrollView>
@@ -60,10 +68,13 @@ const styles = StyleSheet.create({
     plantContainer: {
         flex: 2,
         alignItems: 'center',
+        paddingLeft: 30,
+    },
+    image: {
+        resizeMode: 'contain',
     },
     detailsContainer: {
         flex: 6,
-        backgroundColor: COLORS.green200,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
     },
@@ -100,6 +111,10 @@ const styles = StyleSheet.create({
         fontSize: SIZE.subheading,
         color: COLORS.white100,
     },
+    stepContainer: {
+        width: '100%',
+        justifyContent: 'flex-start'
+    }
 });
 
 export default GoalDetails;

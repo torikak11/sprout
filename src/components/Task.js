@@ -8,7 +8,7 @@ export const Task = (props) => {
             {props.complete 
                 ? <Ionicons name="checkbox-outline" size={32} color={COLORS.white100} /> 
                 : <Ionicons name="square-outline" size={32} color={COLORS.white100} />}
-            <Text style={styles.text}>{props.text}</Text>
+            <Text style={styles.text} numberOfLines={2} >{props.text}</Text>
         </View>
     );
 };

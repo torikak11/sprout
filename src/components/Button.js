@@ -30,15 +30,27 @@ export const OutlineSmallButton = (props) => {
 export const FilledLargeButton = (props) => {
     return (
         <Pressable 
-            style={styles.filledLargeButton}
+            style={props.dark ? [styles.filledLargeButton, {backgroundColor: COLORS.white100}] : [styles.filledLargeButton, {backgroundColor: COLORS.blue200}]}
             onPress={props.onPress}
         >
-            <Text style={styles.filledLargeButtonText}>
+            <Text style={props.dark ? [styles.filledLargeButtonText, {color: COLORS.blue200}] : [styles.filledLargeButtonText, {color: COLORS.white100}]}>
                 {props.name}
             </Text>
         </Pressable>
     );
 };
+
+export const ColorBox = (props) => {
+    return (
+        <Pressable 
+            style={props.selected 
+                ? [styles.outlineColorContainer, {backgroundColor: props.color}] 
+                : [styles.colorContainer, {backgroundColor: props.color}]}
+            onPress={props.onPress}  
+        >
+        </Pressable>
+    )
+}
 
 const styles = StyleSheet.create({
     filledSmallButton: {
@@ -68,7 +80,6 @@ const styles = StyleSheet.create({
     filledLargeButton: {
         width: 300,
         height: 50,
-        backgroundColor: COLORS.blue200,
         borderRadius: 30,
         ...SHADOWS.shadow01,
         alignItems: 'center',
@@ -76,6 +87,19 @@ const styles = StyleSheet.create({
     },
     filledLargeButtonText: {
         fontSize: SIZE.body,
-        color: COLORS.white100,
+    },
+    colorContainer: {
+        width: '16%',
+        aspectRatio: 1 / 1,
+        borderRadius: 5,
+        marginHorizontal: 0,
+    },
+    outlineColorContainer: {
+        width: '16%',
+        aspectRatio: 1 / 1,
+        borderRadius: 5,
+        marginHorizontal: 0,
+        borderWidth: 2,
+        borderColor: COLORS.white100,
     }
 });

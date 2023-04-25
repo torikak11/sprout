@@ -1,28 +1,24 @@
 import React, { useState } from "react";
-import { SafeAreaView, ScrollView, View, Text, TextInput, StyleSheet, Pressable, Image } from "react-native";
+import { SafeAreaView, View, Text, TextInput, StyleSheet, Pressable, Image } from "react-native";
 import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
-import { FilledLargeButton } from "../components/Button";
+import { FilledLargeButton, ColorBox } from "../components/Button";
 import { SelectList } from 'react-native-dropdown-select-list';
 import plants from "../data/plants";
+import { useSelector } from "react-redux";
 
 const EditGoal = () => {
-    const [name, setName] = useState('Exercise/Stretch');
-    const [plant, setPlant] = useState('Tomato');
-    const [color, setColor] = useState('Light Green')
-
-    const colors = [
-        {key: '1', value: 'Light Green'},
-        {key: '2', value: 'Dark Green'},
-        {key: '3', value: 'Blue'},
-        {key: '4', value: 'Black'},
-        {key: '5', value: 'Coral'},
-    ]
+    const habit = useSelector((state) => state.habits.selectedHabit);
+    const [name, setName] = useState(habit.name);
+    const [plant, setPlant] = useState(habit.plant.name);
+    const [color, setColor] = useState(habit.color);
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container, {backgroundColor: color}]}>
             <View style={{paddingTop: 20, alignItems: 'center'}}>
                 <View style={styles.border}>
-                    <Text style={styles.label}>NAME</Text>
+                    {color === COLORS.blue200 
+                        ? <Text style={[styles.label, {color: COLORS.white100}]}>NAME</Text> 
+                        : <Text style={styles.label}>NAME</Text>}
                     <TextInput 
                         style={[styles.input, {width: 300}]}
                         value={name} 
@@ -30,21 +26,35 @@ const EditGoal = () => {
                     />
                 </View>
                 <View style={styles.border}>
-                    <Text style={styles.label}>COLOR</Text>
+                    {color === COLORS.blue200 
+                        ? <Text style={[styles.label, {color: COLORS.white100}]}>COLOR</Text> 
+                        : <Text style={styles.label}>COLOR</Text>}
                     <View style={styles.colorContainer}>
-                        <Pressable style={[styles.colorBox, {backgroundColor: COLORS.blue100}]}></Pressable>
-                        <Pressable style={[styles.colorBox, {backgroundColor: COLORS.blue200}]}></Pressable>
-                        <Pressable style={[styles.colorBox, {backgroundColor: COLORS.green100, borderWidth: 2, borderColor: COLORS.white100}]}></Pressable>
-                        <Pressable style={[styles.colorBox, {backgroundColor: COLORS.green200}]}></Pressable>
-                        <Pressable style={[styles.colorBox, {backgroundColor: COLORS.coral200}]}></Pressable>
+                        {color === COLORS.blue100 
+                            ? <ColorBox selected={true} color={COLORS.blue100} /> 
+                            : <ColorBox selected={false} color={COLORS.blue100} onPress={() => setColor(COLORS.blue100)} />}
+                        {color === COLORS.blue200 
+                            ? <ColorBox selected={true} color={COLORS.blue200} /> 
+                            : <ColorBox selected={false} color={COLORS.blue200} onPress={() => setColor(COLORS.blue200)} />}
+                        {color === COLORS.green100 
+                            ? <ColorBox selected={true} color={COLORS.green100} /> 
+                            : <ColorBox selected={false} color={COLORS.green100} onPress={() => setColor(COLORS.green100)} />}
+                        {color === COLORS.green200 
+                            ? <ColorBox selected={true} color={COLORS.green200} /> 
+                            : <ColorBox selected={false} color={COLORS.green200} onPress={() => setColor(COLORS.green200)} />}
+                        {color === COLORS.coral200 
+                            ? <ColorBox selected={true} color={COLORS.coral200} /> 
+                            : <ColorBox selected={false} color={COLORS.coral200} onPress={() => setColor(COLORS.coral200)} />}
                     </View>
                 </View>
                 <View style={styles.border}>
-                    <Text style={styles.label}>PLANT</Text>
+                    {color === COLORS.blue200 
+                        ? <Text style={[styles.label, {color: COLORS.white100}]}>PLANT</Text> 
+                        : <Text style={styles.label}>PLANT</Text>}
                     <View style={styles.plantContainer}>
                         <View style={styles.imageBackground}>
                             <Image 
-                                source={require('../../assets/images/small-plant.png')} 
+                                source={habit.plant.image} 
                                 style={styles.image}
                             />
                         </View>
@@ -63,7 +73,7 @@ const EditGoal = () => {
                     </View>
                 </View>
                 <View style={{marginTop: 20}}>
-                    <FilledLargeButton name="Save" />
+                    {color === COLORS.blue200 ? <FilledLargeButton name="Save" dark={true} /> : <FilledLargeButton name="Save" dark={false} />}
                 </View>
             </View>
         </SafeAreaView>
@@ -73,7 +83,6 @@ const EditGoal = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: COLORS.green100,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
     },
