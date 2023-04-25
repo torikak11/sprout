@@ -1,4 +1,4 @@
-import {React, useState} from 'react';
+import {React} from 'react';
 import { SafeAreaView, View, Text, FlatList, StyleSheet } from 'react-native';
 import { HabitsList } from '../components/List';
 import { COLORS, FONTS, SIZE } from '../data/theme';

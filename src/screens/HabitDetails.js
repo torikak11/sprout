@@ -2,6 +2,7 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, Image, Text } from 'react-native';
 import { COLORS, FONTS, SIZE } from '../data/theme';
 import { FilledLargeButton } from '../components/Button';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { useSelector } from 'react-redux';
 
 const HabitDetails = () => {
@@ -28,6 +29,14 @@ const HabitDetails = () => {
                                 </Text>
                             </View>
                             <Text style={styles.text}>day streak</Text>
+                        </View>
+                        <View style={styles.border}>
+                            {habit.color === COLORS.blue200 
+                                ? <Text style={[styles.label, {color: COLORS.white200}]}>MARK AS COMPLETE</Text> 
+                                : <Text style={styles.label}>MARK AS COMPLETE</Text>}
+                            {habit.completed 
+                                ? <Ionicons name="checkmark-circle" size={52} color={COLORS.white100} /> 
+                                : <Ionicons name="checkmark-circle-outline" size={52} color={COLORS.white100} />}
                         </View>
                         <View style={{marginTop: 10,}}>
                         {habit.color === COLORS.blue200 
@@ -66,7 +75,7 @@ const styles = StyleSheet.create({
         borderBottomColor: COLORS.white200,
         borderBottomWidth: 1,
         alignItems: 'center',
-        paddingBottom: 15,
+        paddingBottom: 10,
         marginBottom: 10,
     },
     label: {

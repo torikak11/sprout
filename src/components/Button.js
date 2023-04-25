@@ -30,10 +30,16 @@ export const OutlineSmallButton = (props) => {
 export const FilledLargeButton = (props) => {
     return (
         <Pressable 
-            style={props.dark ? [styles.filledLargeButton, {backgroundColor: COLORS.white100}] : [styles.filledLargeButton, {backgroundColor: COLORS.blue200}]}
+            style={props.dark 
+                ? [styles.filledLargeButton, {backgroundColor: COLORS.white100}] 
+                : [styles.filledLargeButton, {backgroundColor: COLORS.blue200}]}
             onPress={props.onPress}
         >
-            <Text style={props.dark ? [styles.filledLargeButtonText, {color: COLORS.blue200}] : [styles.filledLargeButtonText, {color: COLORS.white100}]}>
+            <Text 
+                style={props.dark 
+                    ? [styles.filledLargeButtonText, {color: COLORS.blue200}] 
+                    : [styles.filledLargeButtonText, {color: COLORS.white100}]}
+            >
                 {props.name}
             </Text>
         </Pressable>

@@ -1,3 +1,4 @@
+import { COLORS } from "./theme";
 
 export default [
     {
@@ -26,7 +27,7 @@ export default [
             name: "Lavender",
             image: require("../../assets/images/large-plant.png"),
         },
-        color: '#7C826B',
+        color: COLORS.green200,
         percentage: 100,
     },
     {
@@ -90,7 +91,7 @@ export default [
             name: "Lavender",
             image: require("../../assets/images/medium-plant.png")
         },
-        color: '#c5d9d9',
+        color: COLORS.blue100,
         percentage: 40,
     },
     {
@@ -129,7 +130,7 @@ export default [
             name: "Lavender",
             image: require("../../assets/images/small-plant.png")
         },
-        color: '#DBB18A',
+        color: COLORS.coral100,
         percentage: 20,
     },
     {
@@ -158,7 +159,7 @@ export default [
             name: "Lavender",
             image: require("../../assets/images/small-plant.png")
         },
-        color: '#1D2A2E',
+        color: COLORS.blue200,
         percentage: 0,
     },
 ]

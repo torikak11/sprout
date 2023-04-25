@@ -38,7 +38,7 @@ export default [
             name: "Tomato",
             image: require("../../assets/images/large-plant.png"),
         },
-        color: COLORS.coral200,
+        color: COLORS.coral100,
     },
     {
         id: "4",

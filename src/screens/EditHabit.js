@@ -42,9 +42,9 @@ const EditGoal = () => {
                         {color === COLORS.green200 
                             ? <ColorBox selected={true} color={COLORS.green200} /> 
                             : <ColorBox selected={false} color={COLORS.green200} onPress={() => setColor(COLORS.green200)} />}
-                        {color === COLORS.coral200 
-                            ? <ColorBox selected={true} color={COLORS.coral200} /> 
-                            : <ColorBox selected={false} color={COLORS.coral200} onPress={() => setColor(COLORS.coral200)} />}
+                        {color === COLORS.coral100 
+                            ? <ColorBox selected={true} color={COLORS.coral100} /> 
+                            : <ColorBox selected={false} color={COLORS.coral100} onPress={() => setColor(COLORS.coral100)} />}
                     </View>
                 </View>
                 <View style={styles.border}>

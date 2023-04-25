@@ -11,14 +11,6 @@ const EditGoal = () => {
     const [name, setName] = useState('');
     const [plant, setPlant] = useState('');
 
-    const colors = [
-        {key: '1', value: 'Light Green'},
-        {key: '2', value: 'Dark Green'},
-        {key: '3', value: 'Blue'},
-        {key: '4', value: 'Black'},
-        {key: '5', value: 'Coral'},
-    ]
-
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={{alignItems: 'center', paddingBottom: 70, paddingTop: 20}}>
