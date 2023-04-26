@@ -47,7 +47,7 @@ const BottomNav = () => {
             component={NewGoalNav} 
             options={{
                 tabBarIcon: ({color, size}) => (
-                <IonIcons name="add-circle" color={color} size={size} />
+                <IonIcons name="add-circle" color={color} size={30} />
                 )
             }}
             />

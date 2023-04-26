@@ -1,21 +1,26 @@
 import React, { useState } from "react";
 import { SafeAreaView, ScrollView, View, Text, TextInput, StyleSheet, Pressable, Image } from "react-native";
 import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
-import { Task } from "../components/Task";
 import { FilledLargeButton } from "../components/Button";
 import IonIcons from '@expo/vector-icons/Ionicons';
 import { SelectList } from 'react-native-dropdown-select-list';
 import plants from "../data/plants";
+import { useNavigation } from "@react-navigation/native";
+import { ColorBox } from "../components/Button";
 
 const EditGoal = () => {
+    const navigation = useNavigation();
     const [name, setName] = useState('');
     const [plant, setPlant] = useState('');
+    const [color, setColor] = useState(COLORS.green200);
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container, {backgroundColor: color}]}>
             <ScrollView contentContainerStyle={{alignItems: 'center', paddingBottom: 70, paddingTop: 20}}>
                 <View style={styles.border}>
-                    <Text style={styles.label}>NAME</Text>
+                    {color === COLORS.blue200 
+                        ? <Text style={[styles.label, {color: COLORS.white100}]}>NAME</Text> 
+                        : <Text style={styles.label}>NAME</Text>}
                     <TextInput 
                         style={[styles.input, {width: 300}]}
                         value={name} 
@@ -23,24 +28,40 @@ const EditGoal = () => {
                     />
                 </View>
                 <View style={styles.border}>
-                    <Text style={styles.label}>STEPS</Text>
+                    {color === COLORS.blue200 
+                        ? <Text style={[styles.label, {color: COLORS.white100}]}>STEPS</Text> 
+                        : <Text style={styles.label}>STEPS</Text>}
                     <Pressable style={styles.stepButtonContainer}>
                         <IonIcons name="add" size={32} color={COLORS.white100} />
                         <Text style={styles.text}>Add new step</Text>
                     </Pressable>
                 </View>
                 <View style={styles.border}>
-                    <Text style={styles.label}>COLOR</Text>
+                    {color === COLORS.blue200 
+                        ? <Text style={[styles.label, {color: COLORS.white100}]}>COLOR</Text> 
+                        : <Text style={styles.label}>COLOR</Text>}
                     <View style={styles.colorContainer}>
-                        <Pressable style={[styles.colorBox, {backgroundColor: COLORS.blue100}]}></Pressable>
-                        <Pressable style={[styles.colorBox, {backgroundColor: COLORS.blue200}]}></Pressable>
-                        <Pressable style={[styles.colorBox, {backgroundColor: COLORS.green100}]}></Pressable>
-                        <Pressable style={[styles.colorBox, {backgroundColor: COLORS.green200, borderWidth: 2, borderColor: COLORS.white100}]}></Pressable>
-                        <Pressable style={[styles.colorBox, {backgroundColor: COLORS.coral200}]}></Pressable>
+                        {color === COLORS.blue100 
+                            ? <ColorBox selected={true} color={COLORS.blue100} /> 
+                            : <ColorBox selected={false} color={COLORS.blue100} onPress={() => setColor(COLORS.blue100)} />}
+                        {color === COLORS.blue200 
+                            ? <ColorBox selected={true} color={COLORS.blue200} /> 
+                            : <ColorBox selected={false} color={COLORS.blue200} onPress={() => setColor(COLORS.blue200)} />}
+                        {color === COLORS.green100 
+                            ? <ColorBox selected={true} color={COLORS.green100} /> 
+                            : <ColorBox selected={false} color={COLORS.green100} onPress={() => setColor(COLORS.green100)} />}
+                        {color === COLORS.green200 
+                            ? <ColorBox selected={true} color={COLORS.green200} /> 
+                            : <ColorBox selected={false} color={COLORS.green200} onPress={() => setColor(COLORS.green200)} />}
+                        {color === COLORS.coral100 
+                            ? <ColorBox selected={true} color={COLORS.coral100} /> 
+                            : <ColorBox selected={false} color={COLORS.coral100} onPress={() => setColor(COLORS.coral100)} />}
                     </View>
                 </View>
                 <View style={styles.border}>
-                    <Text style={styles.label}>PLANT</Text>
+                    {color === COLORS.blue200 
+                        ? <Text style={[styles.label, {color: COLORS.white100}]}>PLANT</Text> 
+                        : <Text style={styles.label}>PLANT</Text>}
                     <View style={styles.plantContainer}>
                         <View style={styles.imageBackground}>
                             <Image 
@@ -63,7 +84,22 @@ const EditGoal = () => {
                     </View>
                 </View>
                 <View style={{marginTop: 20}}>
-                    <FilledLargeButton name="Save" />
+                    {color === COLORS.blue200 
+                        ? <FilledLargeButton 
+                            name="Save" 
+                            dark={true}
+                            onPress={() => {
+                                navigation.navigate('Add New');
+                            }}  
+                            /> 
+                        : <FilledLargeButton 
+                            name="Save" 
+                            dark={false} 
+                            onPress={() => {
+                                navigation.navigate('Add New');
+                            }} 
+                            />
+                    }
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -73,7 +109,6 @@ const EditGoal = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: COLORS.green200,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
     },

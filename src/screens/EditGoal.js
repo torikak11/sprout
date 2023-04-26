@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SafeAreaView, ScrollView, View, Text, TextInput, StyleSheet, Pressable, Image, FlatList } from "react-native";
+import { SafeAreaView, ScrollView, StatusBar, View, Text, TextInput, StyleSheet, Pressable, Image, FlatList } from "react-native";
 import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
 import { FilledLargeButton } from "../components/Button";
 import IonIcons from '@expo/vector-icons/Ionicons';
@@ -29,6 +29,7 @@ const EditGoal = () => {
 
     return (
         <SafeAreaView style={[styles.container, {backgroundColor: color}]}>
+            <StatusBar barStyle={'dark-content'} />
             <ScrollView contentContainerStyle={{alignItems: 'center', paddingBottom: 70, paddingTop: 20}}>
                 <View style={styles.border}>
                     {color === COLORS.blue200 
@@ -61,7 +62,7 @@ const EditGoal = () => {
                         ? <Text style={[styles.label, {color: COLORS.white100}]}>COLOR</Text> 
                         : <Text style={styles.label}>COLOR</Text>}
                     <View style={styles.colorContainer}>
-                    {color === COLORS.blue100 
+                        {color === COLORS.blue100 
                             ? <ColorBox selected={true} color={COLORS.blue100} /> 
                             : <ColorBox selected={false} color={COLORS.blue100} onPress={() => setColor(COLORS.blue100)} />}
                         {color === COLORS.blue200 

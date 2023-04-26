@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SafeAreaView, View, Text, TextInput, StyleSheet, Pressable, Image } from "react-native";
+import { SafeAreaView, View, Text, TextInput, StyleSheet, StatusBar, Image } from "react-native";
 import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
 import { FilledLargeButton, ColorBox } from "../components/Button";
 import { SelectList } from 'react-native-dropdown-select-list';
@@ -18,6 +18,7 @@ const EditGoal = () => {
 
     return (
         <SafeAreaView style={[styles.container, {backgroundColor: color}]}>
+            <StatusBar barStyle={'dark-content'} />
             <View style={{paddingTop: 20, alignItems: 'center'}}>
                 <View style={styles.border}>
                     {color === COLORS.blue200 
