@@ -48,7 +48,7 @@ const EditGoal = () => {
                     {color === COLORS.blue200 
                         ? <Text style={[styles.label, {color: COLORS.white100}]}>STEPS</Text> 
                         : <Text style={styles.label}>STEPS</Text>}
-                    <Pressable style={styles.stepButtonContainer}>
+                    <Pressable style={styles.stepButtonContainer} >
                         <IonIcons name="add" size={32} color={COLORS.white100} />
                         <Text style={styles.text}>Add new step</Text>
                     </Pressable>

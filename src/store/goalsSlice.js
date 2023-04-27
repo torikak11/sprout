@@ -11,7 +11,7 @@ export const goalsSlice = createSlice({
     reducers: {
         addGoal: (state, action) => {
             const newGoal = action.payload.newGoal;
-            state.goals.push({id: newGoal.id, name: newGoal.name, steps: newGoal.steps, color: newGoal.color, plant: newGoal.plant, percentage: 0})
+            state.goals.push({...newGoal, percentage: 0})
             console.log(state.goals)
         },
         deleteGoal: (state, action) => {

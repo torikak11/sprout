@@ -13,7 +13,7 @@ const EditGoal = () => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const [name, setName] = useState(goal.name);
-    const [steps, setSteps] = useState([]);
+    const [steps, setSteps] = useState(goal.steps);
     const [plant, setPlant] = useState(goal.plant);
     const [color, setColor] = useState(goal.color);
 

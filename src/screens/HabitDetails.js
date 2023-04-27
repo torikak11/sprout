@@ -3,12 +3,19 @@ import { SafeAreaView, StyleSheet, ScrollView, View, Image, Text } from 'react-n
 import { COLORS, FONTS, SIZE } from '../data/theme';
 import { FilledLargeButton } from '../components/Button';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import {  useSelector } from 'react-redux';
+import {  useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import { habitsSlice } from '../store/habitsSlice';
 
 const HabitDetails = () => {
     const habit = useSelector((state) => state.habits.selectedHabit);
     const navigation = useNavigation();
+    const dispatch = useDispatch();
+
+    const handleDeleteHabiit = () => {
+        dispatch(habitsSlice.actions.deleteHabit(habit.id));
+        navigation.navigate("Stack Habits");
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -45,16 +52,12 @@ const HabitDetails = () => {
                             ? <FilledLargeButton 
                                 name="Delete Habit" 
                                 dark={true} 
-                                onPress={() => {
-                                    navigation.navigate("Stack Habits")
-                                }}
+                                onPress={handleDeleteHabiit}
                                 /> 
                             : <FilledLargeButton 
                                 name="Delete Habit" 
                                 dark={false} 
-                                onPress={() => {
-                                    navigation.navigate("Stack Habits")
-                                }}
+                                onPress={handleDeleteHabiit}
                                 />
                         }
                         </View>

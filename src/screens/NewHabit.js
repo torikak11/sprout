@@ -1,16 +1,32 @@
 import React, { useState } from "react";
 import { SafeAreaView, View, Text, TextInput, StyleSheet, Pressable, Image } from "react-native";
 import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
-import { FilledLargeButton } from "../components/Button";
+import { FilledLargeButton, ColorBox, PlantBox } from "../components/Button";
 import plants from "../data/plants";
 import { useNavigation } from "@react-navigation/native";
-import { ColorBox } from "../components/Button";
+import { useDispatch } from "react-redux";
+import { habitsSlice } from "../store/habitsSlice";
 
 const NewHabit = () => {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
     const [name, setName] = useState('');
-    const [plant, setPlant] = useState('');
+    const [plant, setPlant] = useState('Zinnia');
     const [color, setColor] = useState(COLORS.green200)
+
+    const handleAddHabit = () => {
+        const newHabit = {
+            id: Date.now().toString(),
+            name, 
+            plant,
+            color,
+        };
+        dispatch(habitsSlice.actions.addHabit({newHabit}));
+        setName('');
+        setPlant("Zinnia");
+        setColor(COLORS.green200);
+        navigation.navigate('Add New')
+    }
 
     return (
         <SafeAreaView style={[styles.container, {backgroundColor: color}]}>
@@ -51,13 +67,22 @@ const NewHabit = () => {
                     {color === COLORS.blue200 
                         ? <Text style={[styles.label, {color: COLORS.white100}]}>PLANT</Text> 
                         : <Text style={styles.label}>PLANT</Text>}
-                    <View style={styles.plantContainer}>
-                        <View style={styles.imageBackground}>
-                            <Image 
-                                source={require('../../assets/images/s-tomato.png')} 
-                                style={styles.image}
-                            />
-                        </View>
+                    <View style={styles.colorContainer}>
+                        {plant === "Zinnia"
+                            ? <PlantBox selected={true} image={require("../../assets/images/small-plant.png")} /> 
+                            : <PlantBox selected={false} image={require("../../assets/images/small-plant.png")} onPress={() => setPlant("Zinnia")} />}
+                        {plant === "Tomato"
+                            ? <PlantBox selected={true} image={require("../../assets/images/s-tomato.png")} /> 
+                            : <PlantBox selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => setPlant("Tomato")} />}
+                        {plant === "Sunflower"
+                            ? <PlantBox selected={true} image={require("../../assets/images/s-tomato.png")} /> 
+                            : <PlantBox selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => setPlant("Sunflower")} />}
+                        {plant === "Tulip"
+                            ? <PlantBox selected={true} image={require("../../assets/images/s-tomato.png")} /> 
+                            : <PlantBox selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => setPlant("Tulip")} />}
+                        {plant === "Lily"
+                            ? <PlantBox selected={true} image={require("../../assets/images/s-tomato.png")} /> 
+                            : <PlantBox selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => setPlant("Lily")} />}
                     </View>
                 </View>
                 <View style={{marginTop: 20}}>
@@ -65,16 +90,12 @@ const NewHabit = () => {
                         ? <FilledLargeButton 
                             name="Save" 
                             dark={true}
-                            onPress={() => {
-                                navigation.navigate('Add New');
-                            }}  
+                            onPress={handleAddHabit}  
                             /> 
                         : <FilledLargeButton 
                             name="Save" 
                             dark={false} 
-                            onPress={() => {
-                                navigation.navigate('Add New');
-                            }} 
+                            onPress={handleAddHabit} 
                             />
                     }
                 </View>
