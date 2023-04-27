@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { SafeAreaView, View, Text, TextInput, StyleSheet, StatusBar, Image } from "react-native";
 import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
 import { FilledLargeButton, ColorBox } from "../components/Button";
-import { SelectList } from 'react-native-dropdown-select-list';
 import plants from "../data/plants";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -63,18 +62,6 @@ const EditGoal = () => {
                                 style={styles.image}
                             />
                         </View>
-                        <SelectList 
-                            data={plants}
-                            placeholder={plant}
-                            setSelected={(item) => setPlant(item)}
-                            boxStyles={{backgroundColor: COLORS.white100, width: 200}}
-                            fontFamily={FONTS.regular}
-                            maxHeight={100}
-                            dropdownStyles={{
-                                backgroundColor: COLORS.white100,
-                                width: "100%",
-                            }}
-                        />
                     </View>
                 </View>
                 <View style={{marginTop: 20}}>

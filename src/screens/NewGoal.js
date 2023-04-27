@@ -1,18 +1,35 @@
 import React, { useState } from "react";
 import { SafeAreaView, ScrollView, View, Text, TextInput, StyleSheet, Pressable, Image } from "react-native";
 import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
-import { FilledLargeButton } from "../components/Button";
+import { FilledLargeButton, ColorBox, PlantBox } from "../components/Button";
 import IonIcons from '@expo/vector-icons/Ionicons';
-import { SelectList } from 'react-native-dropdown-select-list';
-import plants from "../data/plants";
 import { useNavigation } from "@react-navigation/native";
-import { ColorBox } from "../components/Button";
+import { goalsSlice } from "../store/goalsSlice";
+import { useDispatch } from "react-redux";
 
 const EditGoal = () => {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
     const [name, setName] = useState('');
-    const [plant, setPlant] = useState('');
+    const [steps, setSteps] = useState([]);
+    const [plant, setPlant] = useState("Zinnia");
     const [color, setColor] = useState(COLORS.green200);
+
+    const handleAddGoal = () => {
+        const newGoal = {
+            id: Date.now().toString(),
+            name, 
+            steps,
+            plant,
+            color,
+        };
+        dispatch(goalsSlice.actions.addGoal({newGoal}));
+        setName('');
+        setSteps([]);
+        setPlant("Zinnia");
+        setColor(COLORS.green200);
+        navigation.navigate('Add New')
+    }
 
     return (
         <SafeAreaView style={[styles.container, {backgroundColor: color}]}>
@@ -62,25 +79,22 @@ const EditGoal = () => {
                     {color === COLORS.blue200 
                         ? <Text style={[styles.label, {color: COLORS.white100}]}>PLANT</Text> 
                         : <Text style={styles.label}>PLANT</Text>}
-                    <View style={styles.plantContainer}>
-                        <View style={styles.imageBackground}>
-                            <Image 
-                                source={require('../../assets/images/small-plant.png')} 
-                                style={styles.image}
-                            />
-                        </View>
-                        <SelectList 
-                            data={plants}
-                            placeholder={plant}
-                            setSelected={(item) => setPlant(item)}
-                            boxStyles={{backgroundColor: COLORS.white100, width: 200}}
-                            fontFamily={FONTS.regular}
-                            maxHeight={100}
-                            dropdownStyles={{
-                                backgroundColor: COLORS.white100,
-                                width: "100%",
-                            }}
-                        />
+                    <View style={styles.colorContainer}>
+                        {plant === "Zinnia"
+                            ? <PlantBox selected={true} image={require("../../assets/images/small-plant.png")} /> 
+                            : <PlantBox selected={false} image={require("../../assets/images/small-plant.png")} onPress={() => setPlant("Zinnia")} />}
+                        {plant === "Tomato"
+                            ? <PlantBox selected={true} image={require("../../assets/images/s-tomato.png")} /> 
+                            : <PlantBox selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => setPlant("Tomato")} />}
+                        {plant === "Sunflower"
+                            ? <PlantBox selected={true} image={require("../../assets/images/s-tomato.png")} /> 
+                            : <PlantBox selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => setPlant("Sunflower")} />}
+                        {plant === "Tulip"
+                            ? <PlantBox selected={true} image={require("../../assets/images/s-tomato.png")} /> 
+                            : <PlantBox selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => setPlant("Tulip")} />}
+                        {plant === "Lily"
+                            ? <PlantBox selected={true} image={require("../../assets/images/s-tomato.png")} /> 
+                            : <PlantBox selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => setPlant("Lily")} />}
                     </View>
                 </View>
                 <View style={{marginTop: 20}}>
@@ -88,16 +102,12 @@ const EditGoal = () => {
                         ? <FilledLargeButton 
                             name="Save" 
                             dark={true}
-                            onPress={() => {
-                                navigation.navigate('Add New');
-                            }}  
+                            onPress={handleAddGoal} 
                             /> 
                         : <FilledLargeButton 
                             name="Save" 
                             dark={false} 
-                            onPress={() => {
-                                navigation.navigate('Add New');
-                            }} 
+                            onPress={handleAddGoal} 
                             />
                     }
                 </View>

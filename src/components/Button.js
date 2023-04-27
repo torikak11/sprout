@@ -1,5 +1,5 @@
 import { COLORS, SIZE, SHADOWS } from "../data/theme";
-import { StyleSheet, Pressable, Text } from "react-native";
+import { StyleSheet, Pressable, Text, Image, View } from "react-native";
 
 export const FilledSmallButton = (props) => {
     return (
@@ -58,6 +58,19 @@ export const ColorBox = (props) => {
     )
 }
 
+export const PlantBox = (props) => {
+    return(
+        <Pressable 
+            style={props.selected 
+                ? [styles.outlinePlantContainer] 
+                : [styles.plantContainer]}
+            onPress={props.onPress} 
+        >
+            <Image source={props.image} style={styles.image} />
+        </Pressable>
+    )
+}
+
 const styles = StyleSheet.create({
     filledSmallButton: {
         width: 90,
@@ -107,5 +120,31 @@ const styles = StyleSheet.create({
         marginHorizontal: 0,
         borderWidth: 2,
         borderColor: COLORS.white100,
-    }
+    },
+    plantContainer: {
+        width: '16%',
+        aspectRatio: 1 / 1,
+        borderRadius: 5,
+        marginHorizontal: 0,
+        backgroundColor: COLORS.white100,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    outlinePlantContainer: {
+        width: '16%',
+        aspectRatio: 1 / 1,
+        borderRadius: 5,
+        marginHorizontal: 0,
+        borderWidth: 2,
+        borderColor: COLORS.blue200,
+        backgroundColor: COLORS.white100,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    image: {
+        resizeMode: 'contain', 
+        height: 40,
+        width: 40, 
+
+    },
 });

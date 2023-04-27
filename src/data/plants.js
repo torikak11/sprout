@@ -1,7 +1,7 @@
 export default [
     {
         id: "1",
-        value: "Zinnia",
+        name: "Zinnia",
         images: {
             small: "../../assets/images/small-plant.png",
             medium: "../../assets/images/medium-plant.png",
@@ -11,7 +11,7 @@ export default [
     },
     {
         id: "2",
-        value: "Tomato",
+        name: "Tomato",
         images: {
             small: "../../assets/images/s-tomato.png",
             medium: "../../assets/images/medium-plant.png",

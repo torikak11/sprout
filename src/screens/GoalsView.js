@@ -29,12 +29,15 @@ const GoalsView = () => {
                 <Text style={styles.text}>Your Goals</Text>
             </View>
             <View style={styles.listContainer}>
-                <FlatList
-                    data={goals}
-                    renderItem={renderItem}
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{marginTop: 20}}
-                />
+                {goals.length > 0 
+                    ? <FlatList
+                        data={goals}
+                        renderItem={renderItem}
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{marginTop: 20}}
+                        />
+                    : <View><Text>No Goals</Text></View>
+                }
             </View>
         </SafeAreaView>
     );

@@ -3,12 +3,14 @@ import { SafeAreaView, StyleSheet, ScrollView, View, Image, Text, FlatList } fro
 import { COLORS, FONTS, SIZE } from '../data/theme';
 import { Task } from '../components/Task';
 import { FilledLargeButton } from '../components/Button';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import { goalsSlice } from '../store/goalsSlice';
 
 const GoalDetails = () => {
     const goal = useSelector((state) => state.goals.selectedGoal);
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
     const renderItem = ({ item }) => (
         <Task 
@@ -16,6 +18,12 @@ const GoalDetails = () => {
             complete={item.complete}
         />
     )
+
+    const handleDeleteGoal = () => {
+        console.log(goal.id)
+        dispatch(goalsSlice.actions.deleteGoal(goal.id));
+        navigation.navigate("Stack Goals");
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -55,16 +63,12 @@ const GoalDetails = () => {
                                 ? <FilledLargeButton 
                                     name="Delete Goal" 
                                     dark={true}
-                                    onPress={() => {
-                                        navigation.navigate("Stack Goals")
-                                    }} 
+                                    onPress={handleDeleteGoal} 
                                     /> 
                                 : <FilledLargeButton 
                                     name="Delete Goal" 
                                     dark={false}
-                                    onPress={() => {
-                                        navigation.navigate("Stack Goals")
-                                    }}  
+                                    onPress={handleDeleteGoal}  
                                     />
                             }
                         </View>

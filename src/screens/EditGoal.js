@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { SafeAreaView, ScrollView, StatusBar, View, Text, TextInput, StyleSheet, Pressable, Image, FlatList } from "react-native";
 import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
-import { FilledLargeButton } from "../components/Button";
+import { FilledLargeButton, ColorBox, PlantBox } from "../components/Button";
 import IonIcons from '@expo/vector-icons/Ionicons';
-import { SelectList } from 'react-native-dropdown-select-list';
 import plants from "../data/plants";
 import { useDispatch, useSelector } from "react-redux";
-import { ColorBox } from "../components/Button";
 import { useNavigation } from "@react-navigation/native";
 import { goalsSlice } from '../store/goalsSlice';
 
@@ -83,25 +81,22 @@ const EditGoal = () => {
                     {color === COLORS.blue200 
                         ? <Text style={[styles.label, {color: COLORS.white100}]}>PLANT</Text> 
                         : <Text style={styles.label}>PLANT</Text>}
-                    <View style={styles.plantContainer}>
-                        <View style={styles.imageBackground}>
-                            <Image 
-                                source={plant.image} 
-                                style={styles.image}
-                            />
-                        </View>
-                        <SelectList 
-                            data={plants}
-                            placeholder={plant.name}
-                            setSelected={(item) => setPlant(item)}
-                            boxStyles={{backgroundColor: COLORS.white100, width: 200}}
-                            fontFamily={FONTS.regular}
-                            maxHeight={100}
-                            dropdownStyles={{
-                                backgroundColor: COLORS.white100,
-                                width: "100%",
-                            }}
-                        />
+                    <View style={styles.colorContainer}>
+                        {plant === "Zinnia"
+                            ? <PlantBox selected={true} image={require("../../assets/images/small-plant.png")} /> 
+                            : <PlantBox selected={false} image={require("../../assets/images/small-plant.png")} onPress={() => setPlant("Zinnia")} />}
+                        {plant === "Tomato"
+                            ? <PlantBox selected={true} image={require("../../assets/images/s-tomato.png")} /> 
+                            : <PlantBox selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => setPlant("Tomato")} />}
+                        {plant === "Sunflower"
+                            ? <PlantBox selected={true} image={require("../../assets/images/s-tomato.png")} /> 
+                            : <PlantBox selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => setPlant("Sunflower")} />}
+                        {plant === "Tulip"
+                            ? <PlantBox selected={true} image={require("../../assets/images/s-tomato.png")} /> 
+                            : <PlantBox selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => setPlant("Tulip")} />}
+                        {plant === "Lily"
+                            ? <PlantBox selected={true} image={require("../../assets/images/s-tomato.png")} /> 
+                            : <PlantBox selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => setPlant("Lily")} />}
                     </View>
                 </View>
                 <View style={{marginTop: 20}}>
