@@ -13,6 +13,7 @@ const EditGoal = () => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const [name, setName] = useState(goal.name);
+    const [steps, setSteps] = useState([]);
     const [plant, setPlant] = useState(goal.plant);
     const [color, setColor] = useState(goal.color);
 
@@ -24,6 +25,20 @@ const EditGoal = () => {
             />
         </View>
     )
+
+    const handleSaveGoal = () => {
+        const editedGoal = {
+            id: goal.id,
+            name, 
+            steps,
+            plant,
+            color,
+            percentage: goal.percentage,
+        };
+        dispatch(goalsSlice.actions.editGoal(editedGoal));
+        dispatch(goalsSlice.actions.setSelectedGoal(goal.id));
+        navigation.navigate('Goal Details');
+    }
 
     return (
         <SafeAreaView style={[styles.container, {backgroundColor: color}]}>
@@ -104,18 +119,12 @@ const EditGoal = () => {
                         ? <FilledLargeButton 
                             name="Save" 
                             dark={true}
-                            onPress={() => {
-                                dispatch(goalsSlice.actions.setSelectedGoal(goal.id));
-                                navigation.navigate('Goal Details');
-                            }}  
+                            onPress={handleSaveGoal}  
                             /> 
                         : <FilledLargeButton 
                             name="Save" 
                             dark={false} 
-                            onPress={() => {
-                                dispatch(goalsSlice.actions.setSelectedGoal(goal.id));
-                                navigation.navigate('Goal Details');
-                            }} 
+                            onPress={handleSaveGoal} 
                             />
                     }
                 </View>

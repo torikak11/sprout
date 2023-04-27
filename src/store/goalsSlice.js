@@ -18,9 +18,17 @@ export const goalsSlice = createSlice({
             const goalId = action.payload;
             state.goals = state.goals.filter((goal) => goal.id !== goalId)
         },
+        editGoal: (state, action) => {
+            const editedGoal = action.payload;
+            const goalIndex = state.goals.findIndex((goal) => goal.id === editedGoal.id);
+            if (goalIndex !== -1) {
+                state.goals[goalIndex] = {...editedGoal}
+            }
+            console.log(state.goals)
+        },
         setSelectedGoal: (state, action) => {
             const goalId = action.payload;
-            state.selectedGoal = state.goals.find((g) => g.id === goalId);
+            state.selectedGoal = state.goals.find((goal) => goal.id === goalId);
         }
     },
 });

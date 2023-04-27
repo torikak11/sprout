@@ -20,7 +20,6 @@ const GoalDetails = () => {
     )
 
     const handleDeleteGoal = () => {
-        console.log(goal.id)
         dispatch(goalsSlice.actions.deleteGoal(goal.id));
         navigation.navigate("Stack Goals");
     }
