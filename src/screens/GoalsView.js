@@ -26,7 +26,7 @@ const GoalsView = () => {
     return(
         <SafeAreaView style={styles.container}>
             <View style={styles.headingContainer}>
-                <Text style={styles.text}>Your Goals</Text>
+                <Text style={styles.heading}>Your Goals</Text>
             </View>
             <View style={styles.listContainer}>
                 {goals.length > 0 
@@ -34,9 +34,9 @@ const GoalsView = () => {
                         data={goals}
                         renderItem={renderItem}
                         showsVerticalScrollIndicator={false}
-                        contentContainerStyle={{marginTop: 20}}
+                        contentContainerStyle={{marginTop: 20, paddingBottom: 90}}
                         />
-                    : <View><Text>No Goals</Text></View>
+                    : <View style={styles.textContainer}><Text style={styles.text}>No Goals</Text></View>
                 }
             </View>
         </SafeAreaView>
@@ -57,12 +57,22 @@ const styles = StyleSheet.create({
     listContainer: {
         flex: 8,
     },
-    text: {
+    heading: {
         color: COLORS.blue200,
         fontSize: SIZE.heading,
         fontFamily: FONTS.regular,
-        marginLeft: 25,
+        marginLeft: 25
     },
+    text: {
+        color: COLORS.blue200,
+        fontSize: SIZE.heading02,
+
+    },
+    textContainer: {
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 });
 
 export default GoalsView;

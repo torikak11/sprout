@@ -1,115 +1,114 @@
-import React, { useState } from "react";
-import { SafeAreaView, ScrollView, View, Text, TextInput, StyleSheet, Pressable, Image } from "react-native";
+import { useState, useEffect } from "react";
+import { SafeAreaView, ScrollView, View, Text, TextInput, StyleSheet, Pressable, FlatList } from "react-native";
 import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
-import { FilledLargeButton, ColorBox, PlantBox } from "../components/Button";
+import { FilledLargeButton } from "../components/Button";
+import { ColorSelector, PlantSelector } from "../components/Selector";
 import IonIcons from '@expo/vector-icons/Ionicons';
 import { useNavigation } from "@react-navigation/native";
 import { goalsSlice } from "../store/goalsSlice";
 import { useDispatch } from "react-redux";
+import goalPlants from "../data/goalPlants";
 
-const EditGoal = () => {
+const NewGoal = () => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const [name, setName] = useState('');
     const [steps, setSteps] = useState([]);
-    const [plant, setPlant] = useState("Zinnia");
+    const [plant, setPlant] = useState(goalPlants[0]);
     const [color, setColor] = useState(COLORS.green200);
 
     const handleAddGoal = () => {
         const newGoal = {
             id: Date.now().toString(),
             name, 
-            steps,
+            steps: steps.filter((step) => step.name !== ''),
             plant,
             color,
         };
         dispatch(goalsSlice.actions.addGoal({newGoal}));
         setName('');
         setSteps([]);
-        setPlant("Zinnia");
+        setPlant(goalPlants[0]);
         setColor(COLORS.green200);
-        navigation.navigate('Add New')
-    }
+        navigation.navigate('Stack Goals')
+    };
+
+    const handleAddStep = () => {
+        const newStep = {id: Date.now().toString(), name: '', complete: false};
+        setSteps([...steps, newStep]);
+    };
+
+    const handleDeleteStep = (index) => {
+        const newSteps = steps.filter((step, i) => i !== index);
+        setSteps(newSteps);
+    };
+
+    const handleStepChange = (index, text) => {
+        const newSteps = [...steps];
+        newSteps[index].name = text;
+        newSteps.filter((step) => step.name !== '');
+        setSteps(newSteps);
+    };
+
+    const renderSteps = ({item, index}) => {
+        return (
+            <View style={styles.stepContainer}>
+                <TextInput 
+                    style={styles.stepInput}
+                    value={item.name}
+                    placeholder="Add step here"
+                    maxLength={60}
+                    onChangeText={(text) => handleStepChange(index, text)}
+                />
+                <Pressable onPress={() => handleDeleteStep(index)}>
+                    <IonIcons name="remove-circle-outline" size={32} color={COLORS.white100} />
+                </Pressable>
+            </View>
+        );
+    };
 
     return (
         <SafeAreaView style={[styles.container, {backgroundColor: color}]}>
             <ScrollView contentContainerStyle={{alignItems: 'center', paddingBottom: 70, paddingTop: 20}}>
                 <View style={styles.border}>
-                    {color === COLORS.blue200 
-                        ? <Text style={[styles.label, {color: COLORS.white100}]}>NAME</Text> 
-                        : <Text style={styles.label}>NAME</Text>}
+                    <Text style={color === COLORS.blue200 ? [styles.label, {color: COLORS.white100}] : styles.label}>NAME</Text> 
                     <TextInput 
                         style={[styles.input, {width: 300}]}
                         value={name} 
+                        maxLength={80}
                         onChangeText={name => setName(name)}
                     />
                 </View>
                 <View style={styles.border}>
-                    {color === COLORS.blue200 
-                        ? <Text style={[styles.label, {color: COLORS.white100}]}>STEPS</Text> 
-                        : <Text style={styles.label}>STEPS</Text>}
-                    <Pressable style={styles.stepButtonContainer} >
-                        <IonIcons name="add" size={32} color={COLORS.white100} />
-                        <Text style={styles.text}>Add new step</Text>
-                    </Pressable>
-                </View>
-                <View style={styles.border}>
-                    {color === COLORS.blue200 
-                        ? <Text style={[styles.label, {color: COLORS.white100}]}>COLOR</Text> 
-                        : <Text style={styles.label}>COLOR</Text>}
-                    <View style={styles.colorContainer}>
-                        {color === COLORS.blue100 
-                            ? <ColorBox selected={true} color={COLORS.blue100} /> 
-                            : <ColorBox selected={false} color={COLORS.blue100} onPress={() => setColor(COLORS.blue100)} />}
-                        {color === COLORS.blue200 
-                            ? <ColorBox selected={true} color={COLORS.blue200} /> 
-                            : <ColorBox selected={false} color={COLORS.blue200} onPress={() => setColor(COLORS.blue200)} />}
-                        {color === COLORS.green100 
-                            ? <ColorBox selected={true} color={COLORS.green100} /> 
-                            : <ColorBox selected={false} color={COLORS.green100} onPress={() => setColor(COLORS.green100)} />}
-                        {color === COLORS.green200 
-                            ? <ColorBox selected={true} color={COLORS.green200} /> 
-                            : <ColorBox selected={false} color={COLORS.green200} onPress={() => setColor(COLORS.green200)} />}
-                        {color === COLORS.coral100 
-                            ? <ColorBox selected={true} color={COLORS.coral100} /> 
-                            : <ColorBox selected={false} color={COLORS.coral100} onPress={() => setColor(COLORS.coral100)} />}
+                <Text style={color === COLORS.blue200 ? [styles.label, {color: COLORS.white100}] : styles.label}>STEPS</Text>
+                    <View style={styles.stepsContainer}>
+                        <FlatList 
+                            data={steps}
+                            renderItem={renderSteps}
+                            scrollEnabled={false}
+                        />
+                    </View>
+                    <View style={styles.addStepContainer}>
+                        <Pressable style={styles.stepButtonContainer} onPress={handleAddStep} >
+                            <IonIcons name="add" size={32} color={COLORS.white100} />
+                            <Text style={styles.text}>Add Step</Text>
+                        </Pressable>
                     </View>
                 </View>
                 <View style={styles.border}>
-                    {color === COLORS.blue200 
-                        ? <Text style={[styles.label, {color: COLORS.white100}]}>PLANT</Text> 
-                        : <Text style={styles.label}>PLANT</Text>}
-                    <View style={styles.colorContainer}>
-                        {plant === "Zinnia"
-                            ? <PlantBox selected={true} image={require("../../assets/images/small-plant.png")} /> 
-                            : <PlantBox selected={false} image={require("../../assets/images/small-plant.png")} onPress={() => setPlant("Zinnia")} />}
-                        {plant === "Tomato"
-                            ? <PlantBox selected={true} image={require("../../assets/images/s-tomato.png")} /> 
-                            : <PlantBox selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => setPlant("Tomato")} />}
-                        {plant === "Sunflower"
-                            ? <PlantBox selected={true} image={require("../../assets/images/s-tomato.png")} /> 
-                            : <PlantBox selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => setPlant("Sunflower")} />}
-                        {plant === "Tulip"
-                            ? <PlantBox selected={true} image={require("../../assets/images/s-tomato.png")} /> 
-                            : <PlantBox selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => setPlant("Tulip")} />}
-                        {plant === "Lily"
-                            ? <PlantBox selected={true} image={require("../../assets/images/s-tomato.png")} /> 
-                            : <PlantBox selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => setPlant("Lily")} />}
-                    </View>
+                <Text style={color === COLORS.blue200 ? [styles.label, {color: COLORS.white100}] : styles.label}>COLOR</Text>
+                    <ColorSelector currentColor={color} setColor={setColor} />
+                </View>
+                <View style={styles.border}>
+                <Text style={color === COLORS.blue200 ? [styles.label, {color: COLORS.white100}] : styles.label}>PLANT</Text>
+                    <PlantSelector currentPlantName={plant.name} setPlant={setPlant} />
                 </View>
                 <View style={{marginTop: 20}}>
-                    {color === COLORS.blue200 
-                        ? <FilledLargeButton 
-                            name="Save" 
-                            dark={true}
-                            onPress={handleAddGoal} 
-                            /> 
-                        : <FilledLargeButton 
-                            name="Save" 
-                            dark={false} 
-                            onPress={handleAddGoal} 
-                            />
-                    }
+                    <FilledLargeButton 
+                        name="Save"
+                        dark={color === COLORS.blue200 ? true : false}
+                        onPress={handleAddGoal}
+                    />
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -153,12 +152,6 @@ const styles = StyleSheet.create({
         color: COLORS.white100,
         fontSize: SIZE.body,
     },
-    dateContainer: {
-        width: '40%',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
     imageBackground: {
         backgroundColor: COLORS.white100,
         padding: 5,
@@ -169,27 +162,33 @@ const styles = StyleSheet.create({
         height: 50,
         resizeMode: 'contain',
     },
-    plantContainer: {
+    stepInput: {
+        height: 40,
+        width: 250,
+        borderRadius: 10,
+        paddingHorizontal: 5,
+        backgroundColor: COLORS.white100,
+        fontFamily: FONTS.regular,
+        color: '#333',
+        ...SHADOWS.shadow01
+    },
+    stepsContainer: {
         width: '100%',
+        justifyContent: 'flex-start'
+    },
+    stepContainer: {
+        width: '100%',
+        marginBottom: 10,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginVertical: 10,
     },
-    colorContainer: {
-        flexDirection: 'row',
+    addStepContainer: {
         width: '100%',
-        justifyContent: 'space-evenly',
+        marginBottom: 10,
         alignItems: 'center',
-        marginVertical: 10,
+        justifyContent: 'space-between',
     },
-    colorBox: {
-        width: '16%',
-        aspectRatio: 1 / 1,
-        backgroundColor: 'blue',
-        borderRadius: 5,
-        marginHorizontal: 0,
-    }
 });
 
-export default EditGoal;
+export default NewGoal;

@@ -5,9 +5,9 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 export const Task = (props) => {
     return (
         <View style={styles.container}>
-            {props.complete 
-                ? <Ionicons name="checkbox-outline" size={32} color={COLORS.white100} /> 
-                : <Ionicons name="square-outline" size={32} color={COLORS.white100} />}
+            <View style={styles.icon}>
+                <Ionicons name={props.complete ? "checkbox-outline" : "square-outline"} size={32} color={COLORS.white100} />
+            </View>
             <Text style={styles.text} numberOfLines={2} >{props.text}</Text>
         </View>
     );
@@ -15,12 +15,18 @@ export const Task = (props) => {
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         width: '100%',
         flexDirection: 'row',
+        flexWrap: 'wrap',
         alignItems: 'center',
-        justifyContent: 'flex-start',
+        justifyContent: 'space-between',
+    },
+    icon: {
+        flex: 1,
     },
     text: {
+        flex: 7,
         color: COLORS.white100,
         fontSize: SIZE.small,
         marginLeft: 7,

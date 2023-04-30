@@ -27,7 +27,7 @@ const GoalDetails = () => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.plantContainer}>
-                <Image source={goal.plant.image} style={styles.image} />
+                <Image source={goal.plant.images.small} style={styles.image} />
             </View>
             <View style={[styles.detailsContainer, {backgroundColor: goal.color}]}>
                 <ScrollView contentContainerStyle={{paddingBottom: 70, paddingTop: 20}}>
