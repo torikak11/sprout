@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState} from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, Image, Text, FlatList } from 'react-native';
 import { COLORS, FONTS, SIZE } from '../data/theme';
 import { Task } from '../components/Task';
@@ -11,18 +11,49 @@ const GoalDetails = () => {
     const goal = useSelector((state) => state.goals.selectedGoal);
     const navigation = useNavigation();
     const dispatch = useDispatch();
+    const [steps, setSteps] = useState(goal.steps);
+    const [percentage, setPercentage] = useState(goal.percentage);
 
     const renderItem = ({ item }) => (
         <Task 
             text={item.name}
             complete={item.complete}
+            onPress={() => handleCompleteStep(item)}
         />
-    )
+    );
+
+    const handleCompleteStep = (item) => {
+        const updatedSteps = steps.map(step => {
+            if (step.id === item.id) {
+                return {
+                    ...step,
+                    complete: !step.complete
+                }
+            }
+            return step;
+        });
+
+        const stepsCompleted = updatedSteps.filter((step) => step.complete).length;
+        const updatedPercentage = Math.floor((stepsCompleted / updatedSteps.length) * 100);
+
+        const editedGoal = {
+            id: goal.id,
+            name: goal.name,
+            steps: updatedSteps,
+            plant: goal.plant,
+            color: goal.color,
+            percentage: updatedPercentage,
+            complete: updatedPercentage === 100 ? true : false,
+        }
+        setSteps(updatedSteps);
+        setPercentage(updatedPercentage);
+        dispatch(goalsSlice.actions.editGoal(editedGoal));
+    };
 
     const handleDeleteGoal = () => {
         dispatch(goalsSlice.actions.deleteGoal(goal.id));
-        navigation.navigate("Stack Goals");
-    }
+        navigation.navigate('Stack Goals');
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -36,40 +67,29 @@ const GoalDetails = () => {
                             <Text style={styles.nameText}>{goal.name}</Text>
                         </View>
                         <View style={styles.border}>
-                            {goal.color === COLORS.blue200 
-                                ? <Text style={[styles.label, {color: COLORS.white200}]}>PROGRESS</Text> 
-                                : <Text style={styles.label}>PROGRESS</Text>}
+                            <Text style={goal.color === COLORS.blue200 ? [styles.label, {color: COLORS.white200}] : styles.label}>PROGRESS</Text>
                             <View style={styles.progressContainer}>
                                 <Text style={styles.percentage}>
-                                    {goal.percentage}%
+                                    {percentage}%
                                 </Text>
                             </View>
                         </View>
                         <View style={styles.border}>
-                            {goal.color === COLORS.blue200 
-                                ? <Text style={[styles.label, {color: COLORS.white200}]}>STEPS</Text> 
-                                : <Text style={styles.label}>STEPS</Text>}
+                            <Text style={goal.color === COLORS.blue200 ? [styles.label, {color: COLORS.white200}] : styles.label}>STEPS</Text>
                             <View style={styles.stepContainer}>
                                 <FlatList 
-                                    data={goal.steps}
+                                    data={steps}
                                     renderItem={renderItem}
                                     scrollEnabled={false}
                                 />
                             </View>
                         </View>
                         <View style={{marginVertical: 10}}>
-                            {goal.color === COLORS.blue200 
-                                ? <FilledLargeButton 
-                                    name="Delete Goal" 
-                                    dark={true}
-                                    onPress={handleDeleteGoal} 
-                                    /> 
-                                : <FilledLargeButton 
-                                    name="Delete Goal" 
-                                    dark={false}
-                                    onPress={handleDeleteGoal}  
-                                    />
-                            }
+                            <FilledLargeButton 
+                                name="Delete Goal"
+                                dark={goal.color === COLORS.blue200 ? true : false}
+                                onPress={handleDeleteGoal}
+                            />
                         </View>
                     </View>
                 </ScrollView>

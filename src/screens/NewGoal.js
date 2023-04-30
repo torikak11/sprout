@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { SafeAreaView, ScrollView, View, Text, TextInput, StyleSheet, Pressable, FlatList } from "react-native";
 import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
 import { FilledLargeButton } from "../components/Button";
@@ -30,7 +30,7 @@ const NewGoal = () => {
         setSteps([]);
         setPlant(goalPlants[0]);
         setColor(COLORS.green200);
-        navigation.navigate('Stack Goals')
+        navigation.navigate('Add New')
     };
 
     const handleAddStep = () => {

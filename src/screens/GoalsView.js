@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { StyleSheet, SafeAreaView, View, Text, FlatList } from "react-native";
 import { GoalsList } from "../components/List";
 import { COLORS, FONTS, SIZE } from "../data/theme";
@@ -10,6 +10,7 @@ const GoalsView = () => {
     const navigation = useNavigation();
     const goals = useSelector(state => state.goals.goals);
     const dispatch = useDispatch();
+    const sortedGoals = [...goals].sort((a, b) => a.complete - b.complete);
 
     const renderItem = ({ item }) => (
         <GoalsList
@@ -31,7 +32,7 @@ const GoalsView = () => {
             <View style={styles.listContainer}>
                 {goals.length > 0 
                     ? <FlatList
-                        data={goals}
+                        data={sortedGoals}
                         renderItem={renderItem}
                         showsVerticalScrollIndicator={false}
                         contentContainerStyle={{marginTop: 20, paddingBottom: 90}}

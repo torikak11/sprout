@@ -11,7 +11,7 @@ export const goalsSlice = createSlice({
     reducers: {
         addGoal: (state, action) => {
             const newGoal = action.payload.newGoal;
-            state.goals.push({...newGoal, percentage: 0})
+            state.goals.push({...newGoal, percentage: 0, complete: false})
             console.log(state.goals)
         },
         deleteGoal: (state, action) => {
@@ -29,6 +29,10 @@ export const goalsSlice = createSlice({
         setSelectedGoal: (state, action) => {
             const goalId = action.payload;
             state.selectedGoal = state.goals.find((goal) => goal.id === goalId);
-        }
+        },
+        sortGoals: (state, action) => {
+            const currentGoals = action.payload;
+            state.goals = currentGoals.sort((a, b) => b.complete - a.complete);
+        },
     },
 });
