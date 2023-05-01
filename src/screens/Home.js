@@ -59,27 +59,12 @@ const Home = () => {
                     <Text style={styles.textName}>Victoria</Text>
                 </View>
                 <View style={styles.plantContainer}>
-                    {pressed === 1
-                        ? <FlatList 
-                            data={goals.concat(habits)}
-                            renderItem={renderItem}
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                        />
-                        : pressed === 2
-                        ? <FlatList 
-                            data={goals}
-                            renderItem={renderItem}
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                        />
-                        : <FlatList 
-                            data={habits}
-                            renderItem={renderItem}
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                        />
-                    }
+                    <FlatList 
+                        data={pressed === 1 ? goals.concat(habits) : pressed === 2 ? goals : habits}
+                        renderItem={renderItem}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                    />
                 </View>
                 <View style={styles.buttonContainer}>
                     {pressed === 1 
