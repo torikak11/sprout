@@ -10,6 +10,7 @@ const HabitsView = () => {
     const habits = useSelector(state => state.habits.habits);
     const dispatch = useDispatch();
     const navigation = useNavigation();
+    const sortedHabits = [...habits].sort((a, b) => a.complete - b.complete);
 
     const renderItem = ({ item }) => (
         <HabitsList
@@ -45,7 +46,7 @@ const HabitsView = () => {
             </View>
             <View style={styles.listContainer}>
                 <FlatList
-                    data={habits}
+                    data={sortedHabits}
                     renderItem={renderItem}
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{marginTop: 20}}

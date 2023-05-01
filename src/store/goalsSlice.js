@@ -30,9 +30,5 @@ export const goalsSlice = createSlice({
             const goalId = action.payload;
             state.selectedGoal = state.goals.find((goal) => goal.id === goalId);
         },
-        sortGoals: (state, action) => {
-            const currentGoals = action.payload;
-            state.goals = currentGoals.sort((a, b) => b.complete - a.complete);
-        },
     },
 });

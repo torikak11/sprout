@@ -3,7 +3,7 @@ export default [
         id: "1",
         name: "Zinnia",
         images: {
-            small: require("../../assets/images/small-plant.png"),
+            small: require("../../assets/images/s-zinnia.png"),
             medium: require("../../assets/images/medium-plant.png"),
             large: require("../../assets/images/large-plant.png"),
         },

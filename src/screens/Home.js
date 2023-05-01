@@ -1,17 +1,19 @@
 import { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet, View, FlatList, ImageBackground, Text, Image, Pressable } from "react-native";
+import { SafeAreaView, StyleSheet, View, FlatList, ImageBackground, Text, Image } from "react-native";
 import { FilledSmallButton, OutlineSmallButton } from '../components/Button';
 import { COLORS, FONTS, SIZE } from "../data/theme";
-import goals from "../data/goals";
-import habits from "../data/habits";
 import all from "../data/habits";
-
+import { useSelector } from 'react-redux';
+import { goalsSlice } from '../store/goalsSlice';
+import { habitsSlice } from '../store/habitsSlice';
 
 const Home = () => {
     //sets state to current time for greeting
     const [currentTime, setCurrentTime] = useState('');
     const [image, setImage] = useState('');
     const [pressed, setPressed] = useState(1);
+    const goals = useSelector(state => state.goals.goals);
+    const habits = useSelector(state => state.habits.habits);
 
     useEffect(() => {
         let hour = new Date().getHours();
@@ -40,7 +42,7 @@ const Home = () => {
     const renderItem = ({item}) => (
         <View style={styles.imageContainer}> 
             <Image 
-                source={item.plant.image}
+                source={item.plant.images.small}
                 style={styles.images}
             />
         </View>
@@ -59,7 +61,7 @@ const Home = () => {
                 <View style={styles.plantContainer}>
                     {pressed === 1
                         ? <FlatList 
-                            data={all}
+                            data={goals.concat(habits)}
                             renderItem={renderItem}
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}
@@ -104,6 +106,7 @@ const styles = StyleSheet.create({
     },
     image: {
         flex: 1,
+        width: '100%'
     },
     buttonContainer: {
         flex: 2,

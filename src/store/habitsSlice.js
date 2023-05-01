@@ -30,6 +30,6 @@ export const habitsSlice = createSlice({
         setSelectedHabit: (state, action) => {
             const habitId = action.payload;
             state.selectedHabit = state.habits.find((habit) => habit.id === habitId);
-        }
+        },
     },
 });
