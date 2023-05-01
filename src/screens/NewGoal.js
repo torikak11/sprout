@@ -2,7 +2,7 @@ import { useState } from "react";
 import { SafeAreaView, ScrollView, View, Text, TextInput, StyleSheet, Pressable, FlatList } from "react-native";
 import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
 import { FilledLargeButton } from "../components/Button";
-import { ColorSelector, PlantSelector } from "../components/Selector";
+import { ColorSelector, GoalPlantSelector } from "../components/Selector";
 import IonIcons from '@expo/vector-icons/Ionicons';
 import { useNavigation } from "@react-navigation/native";
 import { goalsSlice } from "../store/goalsSlice";
@@ -101,7 +101,7 @@ const NewGoal = () => {
                 </View>
                 <View style={styles.border}>
                 <Text style={color === COLORS.blue200 ? [styles.label, {color: COLORS.white100}] : styles.label}>PLANT</Text>
-                    <PlantSelector currentPlantName={plant.name} setPlant={setPlant} />
+                    <GoalPlantSelector currentPlantName={plant.name} setPlant={setPlant} />
                 </View>
                 <View style={{marginTop: 20}}>
                     <FilledLargeButton 

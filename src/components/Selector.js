@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 import { COLORS, FONTS, SIZE } from "../data/theme";
 import { View, Pressable, Image, Text } from "react-native";
 import goalPlants from "../data/goalPlants";
+import habitPlants from "../data/habitPlants";
 
 const ColorBox = (props) => {
     return (
@@ -53,7 +54,7 @@ const PlantBox = (props) => {
     )
 }
 
-export const PlantSelector = (props) => {
+export const GoalPlantSelector = (props) => {
     return (
         <View style={styles.colorsContainer}>
             {props.currentPlantName === "Zinnia"
@@ -68,6 +69,25 @@ export const PlantSelector = (props) => {
             {props.currentPlantName === "Daisy"
                 ? <PlantBox name={"Daisy"} selected={true} image={require("../../assets/images/s-tomato.png")} /> 
                 : <PlantBox name={"Daisy"} selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => props.setPlant(goalPlants[3])} />}
+        </View>
+    );
+};
+
+export const HabitPlantSelector = (props) => {
+    return (
+        <View style={styles.colorsContainer}>
+            {props.currentPlantName === "Tomato"
+                ? <PlantBox name={"Tomato"} selected={true} image={require("../../assets/images/large-plant.png")} /> 
+                : <PlantBox name={"Tomato"} selected={false} image={require("../../assets/images/large-plant.png")} onPress={() => props.setPlant(habitPlants[0])} />}
+            {props.currentPlantName === "Pepper"
+                ? <PlantBox name={"Pepper"} selected={true} image={require("../../assets/images/s-tomato.png")} /> 
+                : <PlantBox name={"Pepper"} selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => props.setPlant(habitPlants[1])} />}
+            {props.currentPlantName === "Carrot"
+                ? <PlantBox name={"Carrot"} selected={true} image={require("../../assets/images/small-plant.png")} /> 
+                : <PlantBox name={"Carrot"} selected={false} image={require("../../assets/images/small-plant.png")} onPress={() => props.setPlant(habitPlants[2])} />}
+            {props.currentPlantName === "Basil"
+                ? <PlantBox name={"Basil"} selected={true} image={require("../../assets/images/s-tomato.png")} /> 
+                : <PlantBox name={"Basil"} selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => props.setPlant(habitPlants[3])} />}
         </View>
     );
 };

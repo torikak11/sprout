@@ -1,6 +1,6 @@
 import { COLORS, SIZE, SHADOWS, FONTS } from "../data/theme";
 import { StyleSheet, View, Text, Pressable } from "react-native";
-import Ionicons from '@expo/vector-icons/Ionicons';
+import IonIcons from '@expo/vector-icons/Ionicons';
 
 export const GoalsList = (props) => {
     return (
@@ -8,7 +8,7 @@ export const GoalsList = (props) => {
             <View style={styles.contentContainer}>
                 <View style={styles.progressContainer}>
                     <Text style={styles.percentage}>
-                        {props.percentage === 100 ? <Ionicons name="checkmark" size={32} color={COLORS.white100} /> : props.percentage + "%"}
+                        {props.percentage === 100 ? <IonIcons name="checkmark" size={32} color={COLORS.white100} /> : props.percentage + "%"}
                     </Text>
                 </View>
                 <Pressable onPress={props.onPress} style={styles.pressContainer}>
@@ -18,7 +18,7 @@ export const GoalsList = (props) => {
                         </Text>
                     </View>
                     <View style={styles.iconContainer}> 
-                        <Ionicons name="arrow-forward-outline" size={32} color={COLORS.white100} />
+                        <IonIcons name="arrow-forward-outline" size={32} color={COLORS.white100} />
                     </View>
                 </Pressable>
             </View>
@@ -31,18 +31,16 @@ export const HabitsList = (props) => {
         <View style={[styles.container, {backgroundColor: props.background}]}>
             <View style={styles.contentContainer}>
                 <Pressable onPress={props.checkOnPress}>
-                    {props.complete 
-                        ? <Ionicons name="checkmark-circle" size={48} color={COLORS.white100} /> 
-                        : <Ionicons name="checkmark-circle-outline" size={48} color={COLORS.white100} />}
+                    <IonIcons name={props.complete ? "checkmark-circle" : "ellipse-outline"} size={48} color={COLORS.white100}/>
                 </Pressable>
                 <Pressable onPress={props.arrowOnPress} style={styles.pressContainer}>
-                    <View style={{flex: 1}}>
+                    <View style={{flex: 1, marginLeft: 10}}>
                         <Text style={styles.text} numberOfLines={1}>
                             {props.name}
                         </Text>
                     </View>
                     <View style={styles.iconContainer}>
-                        <Ionicons name="arrow-forward-outline" size={32} color={COLORS.white100} />
+                        <IonIcons name="arrow-forward-outline" size={32} color={COLORS.white100} />
                     </View>
                 </Pressable>
             </View>

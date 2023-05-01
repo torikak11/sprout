@@ -2,17 +2,17 @@ import { useState } from "react";
 import { SafeAreaView, View, Text, TextInput, StyleSheet } from "react-native";
 import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
 import { FilledLargeButton } from "../components/Button";
-import { ColorSelector, PlantSelector } from "../components/Selector";
+import { ColorSelector, HabitPlantSelector } from "../components/Selector";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { habitsSlice } from "../store/habitsSlice";
-import goalPlants from "../data/goalPlants";
+import habitPlants from "../data/goalPlants";
 
 const NewHabit = () => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const [name, setName] = useState('');
-    const [plant, setPlant] = useState(goalPlants[0]);
+    const [plant, setPlant] = useState(habitPlants[0]);
     const [color, setColor] = useState(COLORS.green200)
 
     const handleAddHabit = () => {
@@ -24,7 +24,7 @@ const NewHabit = () => {
         };
         dispatch(habitsSlice.actions.addHabit({newHabit}));
         setName('');
-        setPlant(goalPlants[0]);
+        setPlant(habitPlants[0]);
         setColor(COLORS.green200);
         navigation.navigate('Add New')
     }
@@ -37,16 +37,17 @@ const NewHabit = () => {
                     <TextInput 
                         style={[styles.input, {width: 300}]}
                         value={name} 
+                        maxLength={60}
                         onChangeText={name => setName(name)}
                     />
                 </View>
                 <View style={styles.border}>
-                <Text style={color === COLORS.blue200 ? [styles.label, {color: COLORS.white100}] : styles.label}>COLOR</Text>
+                    <Text style={color === COLORS.blue200 ? [styles.label, {color: COLORS.white100}] : styles.label}>COLOR</Text>
                     <ColorSelector currentColor={color} setColor={setColor} />
                 </View>
                 <View style={styles.border}>
                     <Text style={color === COLORS.blue200 ? [styles.label, {color: COLORS.white100}] : styles.label}>PLANT</Text>
-                        <PlantSelector currentPlantName={plant.name} setPlant={setPlant} />
+                    <HabitPlantSelector currentPlantName={plant.name} setPlant={setPlant} />
                 </View>
                 <View style={{marginTop: 20}}>
                     <FilledLargeButton 

@@ -1,4 +1,4 @@
-import {React} from 'react';
+
 import { SafeAreaView, View, Text, FlatList, StyleSheet } from 'react-native';
 import { HabitsList } from '../components/List';
 import { COLORS, FONTS, SIZE } from '../data/theme';
@@ -15,14 +15,28 @@ const HabitsView = () => {
         <HabitsList
             name={item.name}
             background={item.color}
-            complete={item.completed}
+            complete={item.complete}
             arrowOnPress={() => {
                 dispatch(habitsSlice.actions.setSelectedHabit(item.id));
                 navigation.navigate('Habit Details');
             }}
-            checkOnPress={() => console.warn("pressed")}
+            checkOnPress={() => handleCompleteStreak(item)}
         />
-    )
+    );
+
+    const handleCompleteStreak = (item) => {
+        const updatedComplete = !item.complete
+
+        const updatedHabit = {
+            id: item.id,
+            name: item.name,
+            color: item.color,
+            plant: item.plant,
+            streak: updatedComplete ? item.streak + 1 : item.streak - 1,
+            complete: updatedComplete,
+        };
+        dispatch(habitsSlice.actions.editHabit(updatedHabit));
+    };
 
     return (
         <SafeAreaView style={styles.container}>

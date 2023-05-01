@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { SafeAreaView, View, Text, TextInput, StyleSheet, StatusBar, Image } from "react-native";
+import { useState } from "react";
+import { SafeAreaView, View, Text, TextInput, StyleSheet, StatusBar } from "react-native";
 import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
 import { FilledLargeButton, ColorBox, PlantBox } from "../components/Button";
-import plants from "../data/plants";
+import { HabitPlantSelector, ColorSelector } from "../components/Selector";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { habitsSlice } from "../store/habitsSlice";
@@ -22,6 +22,7 @@ const EditGoal = () => {
             plant,
             color,
             streak: habit.streak,
+            complete: habit.complete,
         };
         dispatch(habitsSlice.actions.editHabit(editedHabit));
         dispatch(habitsSlice.actions.setSelectedHabit(habit.id));
@@ -33,72 +34,28 @@ const EditGoal = () => {
             <StatusBar barStyle={'dark-content'} />
             <View style={{paddingTop: 20, alignItems: 'center'}}>
                 <View style={styles.border}>
-                    {color === COLORS.blue200 
-                        ? <Text style={[styles.label, {color: COLORS.white100}]}>NAME</Text> 
-                        : <Text style={styles.label}>NAME</Text>}
+                    <Text style={color === COLORS.blue200 ? [styles.label, {color: COLORS.white100}] : styles.label}>NAME</Text>
                     <TextInput 
                         style={[styles.input, {width: 300}]}
                         value={name} 
+                        maxLength={60}
                         onChangeText={name => setName(name)}
                     />
                 </View>
                 <View style={styles.border}>
-                    {color === COLORS.blue200 
-                        ? <Text style={[styles.label, {color: COLORS.white100}]}>COLOR</Text> 
-                        : <Text style={styles.label}>COLOR</Text>}
-                    <View style={styles.colorContainer}>
-                        {color === COLORS.blue100 
-                            ? <ColorBox selected={true} color={COLORS.blue100} /> 
-                            : <ColorBox selected={false} color={COLORS.blue100} onPress={() => setColor(COLORS.blue100)} />}
-                        {color === COLORS.blue200 
-                            ? <ColorBox selected={true} color={COLORS.blue200} /> 
-                            : <ColorBox selected={false} color={COLORS.blue200} onPress={() => setColor(COLORS.blue200)} />}
-                        {color === COLORS.green100 
-                            ? <ColorBox selected={true} color={COLORS.green100} /> 
-                            : <ColorBox selected={false} color={COLORS.green100} onPress={() => setColor(COLORS.green100)} />}
-                        {color === COLORS.green200 
-                            ? <ColorBox selected={true} color={COLORS.green200} /> 
-                            : <ColorBox selected={false} color={COLORS.green200} onPress={() => setColor(COLORS.green200)} />}
-                        {color === COLORS.coral100 
-                            ? <ColorBox selected={true} color={COLORS.coral100} /> 
-                            : <ColorBox selected={false} color={COLORS.coral100} onPress={() => setColor(COLORS.coral100)} />}
-                    </View>
+                    <Text style={color === COLORS.blue200 ? [styles.label, {color: COLORS.white100}] : styles.label}>COLOR</Text>
+                    <ColorSelector currentColor={color} setColor={setColor} />
                 </View>
                 <View style={styles.border}>
-                    {color === COLORS.blue200 
-                        ? <Text style={[styles.label, {color: COLORS.white100}]}>PLANT</Text> 
-                        : <Text style={styles.label}>PLANT</Text>}
-                    <View style={styles.colorContainer}>
-                        {plant === "Zinnia"
-                            ? <PlantBox selected={true} image={require("../../assets/images/small-plant.png")} /> 
-                            : <PlantBox selected={false} image={require("../../assets/images/small-plant.png")} onPress={() => setPlant("Zinnia")} />}
-                        {plant === "Tomato"
-                            ? <PlantBox selected={true} image={require("../../assets/images/s-tomato.png")} /> 
-                            : <PlantBox selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => setPlant("Tomato")} />}
-                        {plant === "Sunflower"
-                            ? <PlantBox selected={true} image={require("../../assets/images/s-tomato.png")} /> 
-                            : <PlantBox selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => setPlant("Sunflower")} />}
-                        {plant === "Tulip"
-                            ? <PlantBox selected={true} image={require("../../assets/images/s-tomato.png")} /> 
-                            : <PlantBox selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => setPlant("Tulip")} />}
-                        {plant === "Lily"
-                            ? <PlantBox selected={true} image={require("../../assets/images/s-tomato.png")} /> 
-                            : <PlantBox selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => setPlant("Lily")} />}
-                    </View>
+                    <Text style={color === COLORS.blue200 ? [styles.label, {color: COLORS.white100}] : styles.label}>PLANT</Text>
+                    <HabitPlantSelector currentPlantName={plant.name} setPlant={setPlant} />
                 </View>
                 <View style={{marginTop: 20}}>
-                    {color === COLORS.blue200 
-                        ? <FilledLargeButton 
-                            name="Save" 
-                            dark={true} 
-                            onPress={handleSaveHabit} 
-                            /> 
-                        : <FilledLargeButton 
-                            name="Save" 
-                            dark={false} 
-                            onPress={handleSaveHabit} 
-                            />
-                    }
+                <FilledLargeButton 
+                        name="Save"
+                        dark={color === COLORS.blue200 ? true : false}
+                        onPress={handleSaveHabit}
+                    />
                 </View>
             </View>
         </SafeAreaView>
@@ -142,27 +99,6 @@ const styles = StyleSheet.create({
         height: 50,
         resizeMode: 'contain',
     },
-    plantContainer: {
-        width: '100%',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginVertical: 10,
-    },
-    colorContainer: {
-        flexDirection: 'row',
-        width: '100%',
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
-        marginVertical: 10,
-    },
-    colorBox: {
-        width: '16%',
-        aspectRatio: 1 / 1,
-        backgroundColor: 'blue',
-        borderRadius: 5,
-        marginHorizontal: 0,
-    }
 });
 
 export default EditGoal;

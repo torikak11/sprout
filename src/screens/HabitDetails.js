@@ -2,25 +2,46 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, View, Image, Text } from 'react-native';
 import { COLORS, FONTS, SIZE } from '../data/theme';
 import { FilledLargeButton } from '../components/Button';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import IonIcons from '@expo/vector-icons/Ionicons';
 import {  useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { habitsSlice } from '../store/habitsSlice';
+import { Pressable } from 'react-native';
+import { useState } from 'react';
 
 const HabitDetails = () => {
     const habit = useSelector((state) => state.habits.selectedHabit);
     const navigation = useNavigation();
     const dispatch = useDispatch();
+    const [complete, setComplete] = useState(habit.complete);
+    const [streak, setStreak] = useState(habit.streak)
 
     const handleDeleteHabiit = () => {
         dispatch(habitsSlice.actions.deleteHabit(habit.id));
         navigation.navigate("Stack Habits");
     }
 
+    const handleCompleteStreak = () => {
+        const updatedStreak = complete ? streak - 1 : streak + 1;
+        const updatedComplete = !complete;
+
+        const updatedHabit = {
+            id: habit.id,
+            name: habit.name,
+            color: habit.color,
+            plant: habit.plant,
+            streak: updatedStreak,
+            complete: updatedComplete,
+        };
+        setStreak(updatedStreak);
+        setComplete(updatedComplete);
+        dispatch(habitsSlice.actions.editHabit(updatedHabit));
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.plantContainer}>
-                <Image source={habit.plant.image} />
+                <Image source={habit.plant.images.small} style={styles.image} />
             </View>
             <View style={[styles.detailsContainer, {backgroundColor: habit.color}]}>
                 <ScrollView>
@@ -29,23 +50,19 @@ const HabitDetails = () => {
                             <Text style={styles.nameText}>{habit.name}</Text>
                         </View>
                         <View style={styles.border}>
-                            {habit.color === COLORS.blue200 
-                                ? <Text style={[styles.label, {color: COLORS.white200}]}>PROGRESS</Text> 
-                                : <Text style={styles.label}>PROGRESS</Text>}
+                            <Text style={habit.color === COLORS.blue200 ? [styles.label, {color: COLORS.white100}] : styles.label}>PROGRESS</Text>
                             <View style={styles.progressContainer}>
                                 <Text style={styles.percentage}>
-                                    {habit.streak}
+                                    {streak}
                                 </Text>
                             </View>
                             <Text style={styles.text}>day streak</Text>
                         </View>
                         <View style={styles.border}>
-                            {habit.color === COLORS.blue200 
-                                ? <Text style={[styles.label, {color: COLORS.white200}]}>MARK AS COMPLETE</Text> 
-                                : <Text style={styles.label}>MARK AS COMPLETE</Text>}
-                            {habit.completed 
-                                ? <Ionicons name="checkmark-circle" size={52} color={COLORS.white100} /> 
-                                : <Ionicons name="checkmark-circle-outline" size={52} color={COLORS.white100} />}
+                            <Text style={habit.color === COLORS.blue200 ? [styles.label, {color: COLORS.white100}] : styles.label}>MARK AS COMPLETE</Text>
+                            <Pressable onPress={handleCompleteStreak}>
+                                <IonIcons name={complete ? "checkmark-circle" : "ellipse-outline"} size={52} color={COLORS.white100} />
+                            </Pressable>
                         </View>
                         <View style={{marginTop: 10,}}>
                         {habit.color === COLORS.blue200 

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+
 import { StyleSheet, SafeAreaView, View, Text, FlatList } from "react-native";
 import { GoalsList } from "../components/List";
 import { COLORS, FONTS, SIZE } from "../data/theme";

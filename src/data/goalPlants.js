@@ -4,8 +4,8 @@ export default [
         name: "Zinnia",
         images: {
             small: require("../../assets/images/small-plant.png"),
-            medium: "../../assets/images/medium-plant.png",
-            large: "../../assets/images/large-plant.png",
+            medium: require("../../assets/images/medium-plant.png"),
+            large: require("../../assets/images/large-plant.png"),
         },
     },
     {

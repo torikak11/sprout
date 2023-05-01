@@ -12,7 +12,7 @@ export const habitsSlice = createSlice({
     reducers: {
         addHabit: (state, action) => {
             const newHabit = action.payload.newHabit;
-            state.habits.push({...newHabit, streak: 0});
+            state.habits.push({...newHabit, streak: 0, complete: false});
             console.log(state.habits)
         },
         deleteHabit: (state, action) => {
