@@ -2,10 +2,7 @@ import { useState, useEffect } from 'react';
 import { SafeAreaView, StyleSheet, View, FlatList, ImageBackground, Text, Image } from "react-native";
 import { FilledSmallButton, OutlineSmallButton } from '../components/Button';
 import { COLORS, FONTS, SIZE } from "../data/theme";
-import all from "../data/habits";
 import { useSelector } from 'react-redux';
-import { goalsSlice } from '../store/goalsSlice';
-import { habitsSlice } from '../store/habitsSlice';
 
 const Home = () => {
     //sets state to current time for greeting
