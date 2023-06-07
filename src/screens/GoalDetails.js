@@ -5,10 +5,9 @@ import { Task } from '../components/Task';
 import { FilledLargeButton } from '../components/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { goalsSlice } from '../store/goalsSlice';
 
 const GoalDetails = () => {
-    const goal = useSelector((state) => state.goals.selectedGoal);
+    const goal = null
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const [steps, setSteps] = useState(goal.steps);

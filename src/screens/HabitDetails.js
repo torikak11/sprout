@@ -5,19 +5,18 @@ import { FilledLargeButton } from '../components/Button';
 import IonIcons from '@expo/vector-icons/Ionicons';
 import {  useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { habitsSlice } from '../store/habitsSlice';
 import { Pressable } from 'react-native';
 import { useState } from 'react';
 
 const HabitDetails = () => {
-    const habit = useSelector((state) => state.habits.selectedHabit);
+    const habit = null;
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const [complete, setComplete] = useState(habit.complete);
     const [streak, setStreak] = useState(habit.streak)
 
     const handleDeleteHabiit = () => {
-        dispatch(habitsSlice.actions.deleteHabit(habit.id));
+        //dispatch(habitsSlice.actions.deleteHabit(habit.id));
         navigation.navigate("Stack Habits");
     }
 

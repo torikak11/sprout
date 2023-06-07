@@ -5,7 +5,6 @@ import { FilledLargeButton } from "../components/Button";
 import { ColorSelector, HabitPlantSelector } from "../components/Selector";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
-import { habitsSlice } from "../store/habitsSlice";
 import habitPlants from "../data/goalPlants";
 
 const NewHabit = () => {
@@ -22,7 +21,7 @@ const NewHabit = () => {
             plant,
             color,
         };
-        dispatch(habitsSlice.actions.addHabit({newHabit}));
+        //dispatch(habitsSlice.actions.addHabit({newHabit}));
         setName('');
         setPlant(habitPlants[0]);
         setColor(COLORS.green200);

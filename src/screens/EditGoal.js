@@ -7,10 +7,9 @@ import IonIcons from '@expo/vector-icons/Ionicons';
 import plantGoals from "../data/plants";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import { goalsSlice } from '../store/goalsSlice';
 
 const EditGoal = () => {
-    const goal = useSelector((state) => state.goals.selectedGoal);
+    const goal = null;
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const [name, setName] = useState(goal.name);

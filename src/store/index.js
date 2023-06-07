@@ -1,10 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { goalsSlice } from "./goalsSlice";
-import { habitsSlice } from "./habitsSlice";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { apiSlice } from "./apiSlice";
+import { authSlice } from "./authSlice";
 
 export const store = configureStore({
-    reducer: {
-        goals: goalsSlice.reducer,
-        habits: habitsSlice.reducer,
-    }
-})
+  reducer: {
+    [apiSlice.reducerPath]: apiSlice.reducer,
+    auth: authSlice.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiSlice.middleware),
+});

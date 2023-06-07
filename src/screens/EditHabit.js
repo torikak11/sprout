@@ -5,10 +5,9 @@ import { FilledLargeButton, ColorBox, PlantBox } from "../components/Button";
 import { HabitPlantSelector, ColorSelector } from "../components/Selector";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import { habitsSlice } from "../store/habitsSlice";
 
 const EditGoal = () => {
-    const habit = useSelector((state) => state.habits.selectedHabit);
+    const habit = null;
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const [name, setName] = useState(habit.name);
