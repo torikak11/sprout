@@ -9,46 +9,38 @@ import {
   Pressable,
   FlatList,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
 import { FilledLargeButton } from "../components/Button";
 import { ColorSelector } from "../components/Selector";
-import IonIcons from "@expo/vector-icons/Ionicons";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
-import { useCreateGoalMutation, useGetPlantsQuery } from "../store/apiSlice";
+import { useQuery } from "@tanstack/react-query";
+import { getPlants } from "../api/plants";
 
 const NewGoal = () => {
-  const navigation = useNavigation();
-  const [name, setName] = useState("");
-  const [steps, setSteps] = useState([]);
-  const [plant, setPlant] = useState(null);
-  const [color, setColor] = useState(COLORS.green200);
-
-  //fetch plants data
   const {
-    data: plantsData,
+    data: plantData,
     isLoading: plantsIsLoading,
     error: plantsError,
-  } = useGetPlantsQuery();
-
-  if (plantsError) {
-    return <Text>Error fetching plants: {plantsError.error}</Text>;
-  }
+  } = useQuery({
+    queryKey: ["plants"],
+    queryFn: getPlants,
+  });
 
   if (plantsIsLoading) {
-    return <Text>Loading</Text>;
+    return <ActivityIndicator />;
   }
 
-  // fetch createGoal hook
-  const [createGoal, { data, isLoading, error }] = useCreateGoalMutation();
-
-  if (error) {
-    return <Text>Error creating goal: {error.error}</Text>;
+  if (plantsError) {
+    return <Text>{plantsError.message}</Text>;
   }
 
-  if (isLoading) {
-    return <Text>Loading</Text>;
-  }
+  const [name, setName] = useState("");
+  const [steps, setSteps] = useState([]);
+  const [plant, setPlant] = useState(plantData[0]);
+  const [color, setColor] = useState(COLORS.green200);
 
   const handleAddGoal = async () => {
     const newGoal = {
@@ -57,35 +49,30 @@ const NewGoal = () => {
       plant: plant._id,
       color,
     };
-    const result = await createGoal(newGoal); //dispatch(goalsSlice.actions.addGoal({newGoal}));
-    if (result.data?.status === "OK") {
-      Alert.alert("Goal created");
-    }
     setName("");
     setSteps([]);
-    setPlant(null);
+    setPlant(plantData[0]);
     setColor(COLORS.green200);
-    navigation.navigate("Add New");
   };
 
-  const handleAddStep = () => {
+  const handleAddStep = async () => {
     const newStep = { id: Date.now().toString(), name: "", complete: false };
     setSteps([...steps, newStep]);
   };
 
-  const handleDeleteStep = (index) => {
+  const handleDeleteStep = async (index) => {
     const newSteps = steps.filter((step, i) => i !== index);
     setSteps(newSteps);
   };
 
-  const handleStepChange = (index, text) => {
+  const handleStepChange = async (index, text) => {
     const newSteps = [...steps];
     newSteps[index].name = text;
     newSteps.filter((step) => step.name !== "");
     setSteps(newSteps);
   };
 
-  const handleAddPlant = (item) => {
+  const handleAddPlant = async (item) => {
     setPlant(item);
   };
 
@@ -99,8 +86,10 @@ const NewGoal = () => {
           maxLength={60}
           onChangeText={(text) => handleStepChange(index, text)}
         />
-        <Pressable onPress={() => handleDeleteStep(index)}>
-          <IonIcons
+        <Pressable
+        onPress={() => handleDeleteStep(index)}
+        >
+          <Ionicons
             name="remove-circle-outline"
             size={32}
             color={COLORS.white100}
@@ -176,7 +165,7 @@ const NewGoal = () => {
               style={styles.stepButtonContainer}
               onPress={handleAddStep}
             >
-              <IonIcons name="add" size={32} color={COLORS.white100} />
+              <Ionicons name="add" size={32} color={COLORS.white100} />
               <Text style={styles.text}>Add Step</Text>
             </Pressable>
           </View>
@@ -205,7 +194,7 @@ const NewGoal = () => {
           </Text>
           <View style={styles.plantsContainer}>
             <FlatList
-              data={plantsData}
+              data={plantData}
               renderItem={renderPlants}
               scrollEnabled={false}
             />

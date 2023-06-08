@@ -3,12 +3,10 @@ import { SafeAreaView, View, Text, TextInput, StyleSheet, StatusBar } from "reac
 import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
 import { FilledLargeButton, ColorBox, PlantBox } from "../components/Button";
 import { HabitPlantSelector, ColorSelector } from "../components/Selector";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
 const EditGoal = () => {
     const habit = null;
-    const dispatch = useDispatch();
     const navigation = useNavigation();
     const [name, setName] = useState(habit.name);
     const [plant, setPlant] = useState(habit.plant);
@@ -23,8 +21,6 @@ const EditGoal = () => {
             streak: habit.streak,
             complete: habit.complete,
         };
-        dispatch(habitsSlice.actions.editHabit(editedHabit));
-        dispatch(habitsSlice.actions.setSelectedHabit(habit.id));
         navigation.navigate('Habit Details');
     }
 

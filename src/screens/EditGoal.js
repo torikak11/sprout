@@ -4,13 +4,10 @@ import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
 import { FilledLargeButton } from "../components/Button";
 import { ColorSelector, PlantSelector } from "../components/Selector";
 import IonIcons from '@expo/vector-icons/Ionicons';
-import plantGoals from "../data/plants";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
 const EditGoal = () => {
     const goal = null;
-    const dispatch = useDispatch();
     const navigation = useNavigation();
     const [name, setName] = useState(goal.name);
     const [steps, setSteps] = useState(goal.steps);
@@ -27,8 +24,6 @@ const EditGoal = () => {
             percentage: goal.percentage,
             complete: goal.complete,
         };
-        dispatch(goalsSlice.actions.editGoal(editedGoal));
-        dispatch(goalsSlice.actions.setSelectedGoal(goal.id));
         navigation.navigate('Goal Details');
     };
 

@@ -3,12 +3,9 @@ import { StyleSheet, SafeAreaView, View, Text, FlatList } from "react-native";
 import { GoalsList } from "../components/List";
 import { COLORS, FONTS, SIZE } from "../data/theme";
 import { useNavigation } from '@react-navigation/native';
-import { useSelector, useDispatch } from 'react-redux';
 
 const GoalsView = () => {
     const navigation = useNavigation();
-    const goals = useSelector(state => state.goals.goals);
-    const dispatch = useDispatch();
     const sortedGoals = []
 
     const renderItem = ({ item }) => (

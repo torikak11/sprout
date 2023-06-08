@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { FilledSmallButton, OutlineSmallButton } from "../components/Button";
 import { COLORS, FONTS, SIZE } from "../data/theme";
-import { useSelector } from "react-redux";
 
 const Home = () => {
   //sets state to current time for greeting

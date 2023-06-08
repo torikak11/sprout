@@ -4,12 +4,10 @@ import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
 import { FilledLargeButton } from "../components/Button";
 import { ColorSelector, HabitPlantSelector } from "../components/Selector";
 import { useNavigation } from "@react-navigation/native";
-import { useDispatch } from "react-redux";
 import habitPlants from "../data/goalPlants";
 
 const NewHabit = () => {
     const navigation = useNavigation();
-    const dispatch = useDispatch();
     const [name, setName] = useState('');
     const [plant, setPlant] = useState(habitPlants[0]);
     const [color, setColor] = useState(COLORS.green200)
