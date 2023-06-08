@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Pressable,
   FlatList,
+  Image,
   Alert,
   ActivityIndicator,
 } from "react-native";
@@ -28,18 +29,12 @@ const NewGoal = () => {
     queryKey: ["plants"],
     queryFn: getPlants,
   });
+  const plants = plantData?.plants;
 
-  if (plantsIsLoading) {
-    return <ActivityIndicator />;
-  }
-
-  if (plantsError) {
-    return <Text>{plantsError.message}</Text>;
-  }
-
+  const navigation = useNavigation();
   const [name, setName] = useState("");
   const [steps, setSteps] = useState([]);
-  const [plant, setPlant] = useState(plantData[0]);
+  const [plant, setPlant] = useState(plants[0]);
   const [color, setColor] = useState(COLORS.green200);
 
   const handleAddGoal = async () => {
@@ -51,8 +46,9 @@ const NewGoal = () => {
     };
     setName("");
     setSteps([]);
-    setPlant(plantData[0]);
+    setPlant({});
     setColor(COLORS.green200);
+    navigation.navigate("Add New");
   };
 
   const handleAddStep = async () => {
@@ -76,6 +72,14 @@ const NewGoal = () => {
     setPlant(item);
   };
 
+  if (plantsIsLoading) {
+    return <ActivityIndicator />;
+  }
+
+  if (plantsError) {
+    return <Text>{plantsError.message}</Text>;
+  }
+
   const renderSteps = ({ item, index }) => {
     return (
       <View style={styles.stepContainer}>
@@ -86,33 +90,13 @@ const NewGoal = () => {
           maxLength={60}
           onChangeText={(text) => handleStepChange(index, text)}
         />
-        <Pressable
-        onPress={() => handleDeleteStep(index)}
-        >
+        <Pressable onPress={() => handleDeleteStep(index)}>
           <Ionicons
             name="remove-circle-outline"
             size={32}
             color={COLORS.white100}
           />
         </Pressable>
-      </View>
-    );
-  };
-
-  const renderPlants = ({ item }) => {
-    return (
-      <View style={styles.plantButton}>
-        <Pressable
-          style={
-            item._id === plant._id
-              ? styles.selectedPlantContainer
-              : styles.plantContainer
-          }
-          onPress={() => handleAddPlant(item)}
-        >
-          <Image source={item.image} style={styles.plantImage} />
-        </Pressable>
-        <Text style={styles.text}>{item.name}</Text>
       </View>
     );
   };
@@ -193,11 +177,25 @@ const NewGoal = () => {
             PLANT
           </Text>
           <View style={styles.plantsContainer}>
-            <FlatList
-              data={plantData}
-              renderItem={renderPlants}
-              scrollEnabled={false}
-            />
+            {plants.map((item) => {
+              return (
+                <View style={styles.plantButton}>
+                  <Pressable
+                    style={
+                      item._id === plant._id
+                        ? styles.selectedPlantContainer
+                        : styles.plantContainer
+                    }
+                    onPress={() => handleAddPlant(item)}
+                  >
+                    <Image source={item.image} style={styles.plantImage} />
+                  </Pressable>
+                  <Text style={styles.plantText} numberOfLines={1}>
+                    {item.name}
+                  </Text>
+                </View>
+              );
+            })}
           </View>
         </View>
         <View style={{ marginTop: 20 }}>
@@ -249,6 +247,10 @@ const styles = StyleSheet.create({
     color: COLORS.white100,
     fontSize: SIZE.body,
   },
+  plantText: {
+    color: COLORS.white100,
+    fontSize: SIZE.small,
+  },
   imageBackground: {
     backgroundColor: COLORS.white100,
     padding: 5,
@@ -278,7 +280,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
+    gap: 10,
   },
   addStepContainer: {
     width: "100%",
@@ -307,7 +310,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1 / 1,
     borderRadius: 5,
     marginHorizontal: 0,
-    backgroundColor: "#DDD",
+    backgroundColor: "#CCC",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -317,8 +320,8 @@ const styles = StyleSheet.create({
   },
   plantImage: {
     resizeMode: "contain",
-    height: 40,
-    width: 40,
+    width: "80%",
+    height: "80%",
   },
   plantText: {
     fontSize: SIZE.span,

@@ -2,7 +2,7 @@ import { BASE_URL } from "./config";
 
 export const getPlants = async () => {
   const res = await fetch(`${BASE_URL}/plants`);
-  if (res.status !== 200) {
+  if (!res.ok) {
     throw new Error("Error fetching plants");
   }
   return await res.json();
