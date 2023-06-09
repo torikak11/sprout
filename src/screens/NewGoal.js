@@ -19,6 +19,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 import { useQuery } from "@tanstack/react-query";
 import { getPlants } from "../api/plants";
+import { createGoal } from "../api/goals";
 
 const NewGoal = () => {
   const {
@@ -29,12 +30,13 @@ const NewGoal = () => {
     queryKey: ["plants"],
     queryFn: getPlants,
   });
-  const plants = plantData?.plants;
+  
+  const plants = plantData?.plants
 
   const navigation = useNavigation();
   const [name, setName] = useState("");
   const [steps, setSteps] = useState([]);
-  const [plant, setPlant] = useState(plants[0]);
+  const [plant, setPlant] = useState({});
   const [color, setColor] = useState(COLORS.green200);
 
   const handleAddGoal = async () => {
@@ -69,6 +71,7 @@ const NewGoal = () => {
   };
 
   const handleAddPlant = async (item) => {
+    console.log(item.image)
     setPlant(item);
   };
 
@@ -179,7 +182,7 @@ const NewGoal = () => {
           <View style={styles.plantsContainer}>
             {plants.map((item) => {
               return (
-                <View style={styles.plantButton}>
+                <View key={item._id} style={styles.plantButton}>
                   <Pressable
                     style={
                       item._id === plant._id

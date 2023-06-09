@@ -1,7 +1,11 @@
-import { BASE_URL } from "./config";
+import { AUTH_TOKEN, BASE_URL } from "./config";
 
 export const getGoals = async () => {
-  const res = await fetch(`${BASE_URL}/goals`);
+  const res = await fetch(`${BASE_URL}/goals`, {
+    headers: {
+      Authorization: `Bearer ${AUTH_TOKEN}`,
+    }
+  });
   if (res.status === 401) {
     throw new Error("Not authorized. Please sign in");
   }
@@ -11,8 +15,12 @@ export const getGoals = async () => {
   return await res.json();
 };
 
-export const getPlant = async (id) => {
-  const res = await fetch(`${BASE_URL}/goals/${id}`);
+export const getGoal = async (id) => {
+  const res = await fetch(`${BASE_URL}/goals/${id}`, {
+    headers: {
+      Authorization: `Bearer ${AUTH_TOKEN}`,
+    }
+  });
   if (res.status === 401) {
     throw new Error("Not authorized. Please sign in");
   }
@@ -30,6 +38,7 @@ export const createGoal = async (newGoal) => {
     method: "POST",
     headers: {
       "Content-type": "application/json",
+      Authorization: `Bearer ${AUTH_TOKEN}`,
     },
   });
   if (res.status === 401) {

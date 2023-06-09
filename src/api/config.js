@@ -1,1 +1,2 @@
-export const BASE_URL = "https://e33a-138-251-178-58.ngrok-free.app/api/v1";
+export const BASE_URL = "https://31d7-138-251-121-51.ngrok-free.app/api/v1";
+export const AUTH_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDY1ZjE2MzYyZWI4NjI4OWE5YTc3OWIiLCJuYW1lIjoidG9yaSIsImlhdCI6MTY4NjMwNDM5NiwiZXhwIjoxNjg4ODk2Mzk2fQ.elItET2RD2hVzdUDTsp-h-KLGd8EDFPNgXeLDGXH40c"
