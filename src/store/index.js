@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { goalsSlice } from "./goalsSlice";
+import { goalsApi } from "./goalsApi";
 import { habitsSlice } from "./habitsSlice";
 
 export const store = configureStore({
-    reducer: {
-        goals: goalsSlice.reducer,
-        habits: habitsSlice.reducer,
-    }
-})
+  reducer: {
+    goals: goalsApi.reducer,
+    habits: habitsSlice.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(goalsApi.middleware),
+});

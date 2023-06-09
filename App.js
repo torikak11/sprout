@@ -5,6 +5,7 @@ import { useFonts } from 'expo-font';
 import { StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
 import { store } from './src/store';
+import Login from './src/screens/Login';
 
 export default function App() {
   const [loaded] = useFonts({
@@ -18,7 +19,8 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <StatusBar barStyle={'dark-content'} />
-        <BottomNav />
+        <Login />
+        {/* <BottomNav /> */}
       </NavigationContainer>
     </Provider>
   );

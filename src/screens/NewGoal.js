@@ -5,7 +5,7 @@ import { FilledLargeButton } from "../components/Button";
 import { ColorSelector, GoalPlantSelector } from "../components/Selector";
 import IonIcons from '@expo/vector-icons/Ionicons';
 import { useNavigation } from "@react-navigation/native";
-import { goalsSlice } from "../store/goalsSlice";
+import { goalsSlice } from "../store/goalsApi";
 import { useDispatch } from "react-redux";
 import goalPlants from "../data/goalPlants";
 

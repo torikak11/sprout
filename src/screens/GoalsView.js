@@ -4,7 +4,7 @@ import { GoalsList } from "../components/List";
 import { COLORS, FONTS, SIZE } from "../data/theme";
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
-import { goalsSlice } from '../store/goalsSlice';
+import { goalsSlice } from '../store/goalsApi';
 
 const GoalsView = () => {
     const navigation = useNavigation();

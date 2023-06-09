@@ -5,7 +5,7 @@ import { Task } from '../components/Task';
 import { FilledLargeButton } from '../components/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { goalsSlice } from '../store/goalsSlice';
+import { goalsSlice } from '../store/goalsApi';
 
 const GoalDetails = () => {
     const goal = useSelector((state) => state.goals.selectedGoal);
