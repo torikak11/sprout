@@ -38,59 +38,59 @@ export const ColorSelector = (props) => {
     );
 };
 
-const PlantBox = (props) => {
-    return(
-        <View style={styles.plantButton}>
-            <Pressable 
-                style={props.selected 
-                    ? styles.selectedPlantContainer 
-                    : styles.plantContainer}
-                onPress={props.onPress} 
-            >
-                <Image source={props.image} style={styles.image} />
-            </Pressable>
-            <Text style={styles.text}>{props.name}</Text>
-        </View>
-    )
-}
+// const PlantBox = (props) => {
+//     return(
+//         <View style={styles.plantButton}>
+//             <Pressable 
+//                 style={props.selected 
+//                     ? styles.selectedPlantContainer 
+//                     : styles.plantContainer}
+//                 onPress={props.onPress} 
+//             >
+//                 <Image source={props.image} style={styles.image} />
+//             </Pressable>
+//             <Text style={styles.text}>{props.name}</Text>
+//         </View>
+//     )
+// }
 
-export const GoalPlantSelector = (props) => {
-    return (
-        <View style={styles.colorsContainer}>
-            {props.currentPlantName === "Zinnia"
-                ? <PlantBox name={"Zinnia"} selected={true} image={require("../../assets/images/large-plant.png")} /> 
-                : <PlantBox name={"Zinnia"} selected={false} image={require("../../assets/images/large-plant.png")} onPress={() => props.setPlant(goalPlants[0])} />}
-            {props.currentPlantName === "Sunflower"
-                ? <PlantBox name={"Sunflower"} selected={true} image={require("../../assets/images/s-tomato.png")} /> 
-                : <PlantBox name={"Sunflower"} selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => props.setPlant(goalPlants[1])} />}
-            {props.currentPlantName === "Tulip"
-                ? <PlantBox name={"Tulip"} selected={true} image={require("../../assets/images/small-plant.png")} /> 
-                : <PlantBox name={"Tulip"} selected={false} image={require("../../assets/images/small-plant.png")} onPress={() => props.setPlant(goalPlants[2])} />}
-            {props.currentPlantName === "Daisy"
-                ? <PlantBox name={"Daisy"} selected={true} image={require("../../assets/images/s-tomato.png")} /> 
-                : <PlantBox name={"Daisy"} selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => props.setPlant(goalPlants[3])} />}
-        </View>
-    );
-};
+// export const GoalPlantSelector = (props) => {
+//     return (
+//         <View style={styles.colorsContainer}>
+//             {props.currentPlantName === "Zinnia"
+//                 ? <PlantBox name={"Zinnia"} selected={true} image={require(props.image)} /> 
+//                 : <PlantBox name={"Zinnia"} selected={false} image={require(props.image)} onPress={() => props.setPlant(goalPlants[0])} />}
+//             {props.currentPlantName === "Sunflower"
+//                 ? <PlantBox name={"Sunflower"} selected={true} image={require("../../assets/images/s-tomato.png")} /> 
+//                 : <PlantBox name={"Sunflower"} selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => props.setPlant(goalPlants[1])} />}
+//             {props.currentPlantName === "Tulip"
+//                 ? <PlantBox name={"Tulip"} selected={true} image={require("../../assets/images/small-plant.png")} /> 
+//                 : <PlantBox name={"Tulip"} selected={false} image={require("../../assets/images/small-plant.png")} onPress={() => props.setPlant(goalPlants[2])} />}
+//             {props.currentPlantName === "Daisy"
+//                 ? <PlantBox name={"Daisy"} selected={true} image={require("../../assets/images/s-tomato.png")} /> 
+//                 : <PlantBox name={"Daisy"} selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => props.setPlant(goalPlants[3])} />}
+//         </View>
+//     );
+// };
 
-export const HabitPlantSelector = (props) => {
-    return (
-        <View style={styles.colorsContainer}>
-            {props.currentPlantName === "Tomato"
-                ? <PlantBox name={"Tomato"} selected={true} image={require("../../assets/images/large-plant.png")} /> 
-                : <PlantBox name={"Tomato"} selected={false} image={require("../../assets/images/large-plant.png")} onPress={() => props.setPlant(habitPlants[0])} />}
-            {props.currentPlantName === "Pepper"
-                ? <PlantBox name={"Pepper"} selected={true} image={require("../../assets/images/s-tomato.png")} /> 
-                : <PlantBox name={"Pepper"} selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => props.setPlant(habitPlants[1])} />}
-            {props.currentPlantName === "Carrot"
-                ? <PlantBox name={"Carrot"} selected={true} image={require("../../assets/images/small-plant.png")} /> 
-                : <PlantBox name={"Carrot"} selected={false} image={require("../../assets/images/small-plant.png")} onPress={() => props.setPlant(habitPlants[2])} />}
-            {props.currentPlantName === "Basil"
-                ? <PlantBox name={"Basil"} selected={true} image={require("../../assets/images/s-tomato.png")} /> 
-                : <PlantBox name={"Basil"} selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => props.setPlant(habitPlants[3])} />}
-        </View>
-    );
-};
+// export const HabitPlantSelector = (props) => {
+//     return (
+//         <View style={styles.colorsContainer}>
+//             {props.currentPlantName === "Tomato"
+//                 ? <PlantBox name={"Tomato"} selected={true} image={require("../../assets/images/large-plant.png")} /> 
+//                 : <PlantBox name={"Tomato"} selected={false} image={require("../../assets/images/large-plant.png")} onPress={() => props.setPlant(habitPlants[0])} />}
+//             {props.currentPlantName === "Pepper"
+//                 ? <PlantBox name={"Pepper"} selected={true} image={require("../../assets/images/s-tomato.png")} /> 
+//                 : <PlantBox name={"Pepper"} selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => props.setPlant(habitPlants[1])} />}
+//             {props.currentPlantName === "Carrot"
+//                 ? <PlantBox name={"Carrot"} selected={true} image={require("../../assets/images/small-plant.png")} /> 
+//                 : <PlantBox name={"Carrot"} selected={false} image={require("../../assets/images/small-plant.png")} onPress={() => props.setPlant(habitPlants[2])} />}
+//             {props.currentPlantName === "Basil"
+//                 ? <PlantBox name={"Basil"} selected={true} image={require("../../assets/images/s-tomato.png")} /> 
+//                 : <PlantBox name={"Basil"} selected={false} image={require("../../assets/images/s-tomato.png")} onPress={() => props.setPlant(habitPlants[3])} />}
+//         </View>
+//     );
+// };
 
 const styles = StyleSheet.create({
     colorContainer: {
@@ -136,7 +136,6 @@ const styles = StyleSheet.create({
         resizeMode: 'contain', 
         height: 40,
         width: 40, 
-
     },
     plantButton: {
         width: '20%',

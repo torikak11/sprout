@@ -3,14 +3,11 @@ import { SafeAreaView, StyleSheet, ScrollView, View, Image, Text, FlatList } fro
 import { COLORS, FONTS, SIZE } from '../data/theme';
 import { Task } from '../components/Task';
 import { FilledLargeButton } from '../components/Button';
-import { useSelector, useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { goalsSlice } from '../store/goalsApi';
 
 const GoalDetails = () => {
-    const goal = useSelector((state) => state.goals.selectedGoal);
+    const goal = null
     const navigation = useNavigation();
-    const dispatch = useDispatch();
     const [steps, setSteps] = useState(goal.steps);
     const [percentage, setPercentage] = useState(goal.percentage);
 
@@ -47,7 +44,6 @@ const GoalDetails = () => {
         }
         setSteps(updatedSteps);
         setPercentage(updatedPercentage);
-        dispatch(goalsSlice.actions.editGoal(editedGoal));
     };
 
     const handleDeleteGoal = () => {

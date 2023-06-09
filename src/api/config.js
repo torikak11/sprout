@@ -1,0 +1,1 @@
+export const BASE_URL = "https://e33a-138-251-178-58.ngrok-free.app/api/v1";
