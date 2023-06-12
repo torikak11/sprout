@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -13,23 +13,51 @@ import { COLORS, FONTS, SIZE } from "../data/theme";
 import { Task } from "../components/Task";
 import { FilledLargeButton } from "../components/Button";
 import { useNavigation } from "@react-navigation/native";
-import { useQuery } from "@tanstack/react-query";
-import { getGoal } from "../api/goals";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteGoal, getGoal, updateGoal } from "../api/goals";
 
 const GoalDetails = (props) => {
+  const image = "";
   const id = props.route.params.id;
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["goal", id],
+  const navigation = useNavigation();
+
+  //get goal query
+  const {
+    data,
+    isLoading: goalIsLoading,
+    error,
+  } = useQuery({
+    queryKey: ["goals", id],
     queryFn: () => getGoal(id),
   });
 
-  const goal = data;
-  console.log(goal)
+  const goal = data?.goal;
 
-  const navigation = useNavigation();
+  const queryClient = useQueryClient();
 
-  const [steps, setSteps] = useState(goal?.steps);
-  const [percentage, setPercentage] = useState(goal?.percentage);
+  //update goal query
+  const {
+    mutateAsync: updateMutate,
+    isLoading: updateLoading,
+    isError: updateError,
+  } = useMutation({
+    mutationFn: updateGoal,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["goals"] });
+    },
+  });
+
+  //delete goal query
+  const {
+    mutateAsync: deleteMutate,
+    isLoading: deleteLoading,
+    isError: deleteError,
+  } = useMutation({
+    mutationFn: deleteGoal,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["goals"] });
+    },
+  });
 
   const renderItem = ({ item }) => (
     <Task
@@ -39,8 +67,8 @@ const GoalDetails = (props) => {
     />
   );
 
-  const handleCompleteStep = (item) => {
-    const updatedSteps = steps.map((step) => {
+  const handleCompleteStep = async (item) => {
+    const updatedSteps = goal.steps.map((step) => {
       if (step._id === item._id) {
         return {
           ...step,
@@ -56,33 +84,61 @@ const GoalDetails = (props) => {
     );
 
     const editedGoal = {
+      _id: goal._id,
       name: goal.name,
       steps: updatedSteps,
-      plant: goal.plant,
+      plant: {_id: goal.plant._id},
       color: goal.color,
       percentage: updatedPercentage,
       complete: updatedPercentage === 100 ? true : false,
     };
-    setSteps(updatedSteps);
-    setPercentage(updatedPercentage);
+    console.log(editedGoal)
+
+    try {
+      await updateMutate(editedGoal);
+    } catch (err) {
+      console.log("Error: ", err.message);
+    }
   };
 
-  const handleDeleteGoal = () => {
-    navigation.navigate("Stack Goals");
+  const handleDeleteGoal = async () => {
+    try {
+      await deleteMutate(id);
+      navigation.navigate("Stack Goals");
+    } catch (err) {
+      console.log("Error: ", err.message);
+    }
   };
 
-  if (isLoading) {
-    return <ActivityIndicator />;
+  if (goalIsLoading || updateLoading || deleteLoading) {
+    return (
+      <ActivityIndicator
+        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      />
+    );
   }
 
   if (error) {
-    return <Text>{error.message}</Text>;
+    return (
+      <Text style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        {error.message}
+      </Text>
+    );
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.plantContainer}>
-        <Image source={goal.plant.images.small} style={styles.image} />
+        <Image
+          source={
+            goal.percentage === 100
+              ? goal.plant.images.large
+              : goal.percentage <= (50)
+              ? goal.plant.images.small
+              : goal.plant.images.medium
+          }
+          style={styles.image}
+        />
       </View>
       <View style={[styles.detailsContainer, { backgroundColor: goal.color }]}>
         <ScrollView
@@ -103,7 +159,7 @@ const GoalDetails = (props) => {
                 PROGRESS
               </Text>
               <View style={styles.progressContainer}>
-                <Text style={styles.percentage}>{percentage}%</Text>
+                <Text style={styles.percentage}>{goal.percentage}%</Text>
               </View>
             </View>
             <View style={styles.border}>
@@ -118,7 +174,7 @@ const GoalDetails = (props) => {
               </Text>
               <View style={styles.stepContainer}>
                 <FlatList
-                  data={steps}
+                  data={goal.steps}
                   renderItem={renderItem}
                   scrollEnabled={false}
                 />
@@ -146,10 +202,12 @@ const styles = StyleSheet.create({
   plantContainer: {
     flex: 2,
     alignItems: "center",
-    paddingLeft: 30,
+    justifyContent: "flex-end",
   },
   image: {
     resizeMode: "contain",
+    height: "80%",
+    width: "40%",
   },
   detailsContainer: {
     flex: 6,

@@ -1,4 +1,11 @@
-import { StyleSheet, SafeAreaView, View, Text, FlatList, ActivityIndicator } from "react-native";
+import {
+  StyleSheet,
+  SafeAreaView,
+  View,
+  Text,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import { GoalsList } from "../components/List";
 import { COLORS, FONTS, SIZE } from "../data/theme";
 import { useNavigation } from "@react-navigation/native";
@@ -6,6 +13,8 @@ import { getGoals } from "../api/goals";
 import { useQuery } from "@tanstack/react-query";
 
 const GoalsView = () => {
+
+  // Get goals data query
   const { data, isLoading, error } = useQuery({
     queryKey: ["goals"],
     queryFn: getGoals,
@@ -21,17 +30,25 @@ const GoalsView = () => {
       background={item.color}
       percentage={item.percentage}
       onPress={() => {
-        navigation.navigate("Goal Details", {id: item._id});
+        navigation.navigate("Goal Details", { id: item._id });
       }}
     />
   );
 
   if (isLoading) {
-    return <ActivityIndicator />;
+    return (
+      <ActivityIndicator
+        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      />
+    );
   }
 
   if (error) {
-    return <Text>{error.message}</Text>;
+    return (
+      <Text style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        {error.message}
+      </Text>
+    );
   }
 
   return (

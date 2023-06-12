@@ -7,9 +7,12 @@ import {
   ImageBackground,
   Text,
   Image,
+  ActivityIndicator,
 } from "react-native";
 import { FilledSmallButton, OutlineSmallButton } from "../components/Button";
 import { COLORS, FONTS, SIZE } from "../data/theme";
+import { useQuery } from "@tanstack/react-query";
+import { getGoals } from "../api/goals";
 
 const Home = () => {
   //sets state to current time for greeting
@@ -41,11 +44,48 @@ const Home = () => {
     setImage(image);
   });
 
+  const {
+    data: goalsData,
+    isLoading: goalsLoading,
+    error: goalsError,
+  } = useQuery({
+    queryKey: ["goals"],
+    queryFn: getGoals,
+  });
+
+  const goals = goalsData?.goals;
+  console.log(goals)
+
   const renderItem = ({ item }) => (
     <View style={styles.imageContainer}>
-      <Image source={item.plant.images.small} style={styles.images} />
+      <Image
+        source={
+          item.percentage === 100
+            ? item.plant.images.large
+            : item.percentage <= 50
+            ? item.plant.images.small
+            : item.plant.images.medium
+        }
+        style={styles.images}
+      />
     </View>
   );
+
+  if (goalsLoading) {
+    return (
+      <ActivityIndicator
+        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      />
+    );
+  }
+
+  if (goalsError) {
+    return (
+      <Text style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        {goalsError.message}
+      </Text>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -56,7 +96,7 @@ const Home = () => {
         </View>
         <View style={styles.plantContainer}>
           <FlatList
-            data={[]}
+            data={goals}
             renderItem={renderItem}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
@@ -94,6 +134,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     width: "100%",
+    resizeMode: "cover"
   },
   buttonContainer: {
     flex: 2,
@@ -119,11 +160,14 @@ const styles = StyleSheet.create({
     flex: 4,
   },
   imageContainer: {
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
     justifyContent: "flex-end",
   },
   images: {
     resizeMode: "contain",
+    height: 200,
+    width: 150,
   },
 });
 

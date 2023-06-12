@@ -33,19 +33,56 @@ export const getGoal = async (id) => {
   return await res.json();
 };
 
-export const createGoal = async (newGoal) => {
+export const createGoal = async (data) => {
   const res = await fetch(`${BASE_URL}/goals`, {
     method: "POST",
     headers: {
-      "Content-type": "application/json",
       Authorization: `Bearer ${AUTH_TOKEN}`,
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+  if (res.status === 401) {
+    throw new Error("Not authorized. Please sign in");
+  }
+  if (res.status !== 201) {
+    throw new Error("Error creating goal");
+  }
+  return await res.json();
+};
+
+export const updateGoal = async (data) => {
+  const id = data._id
+  const res = await fetch(`${BASE_URL}/goals/${id}`, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${AUTH_TOKEN}`,
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+  if (res.status === 401) {
+    throw new Error("Not authorized. Please sign in");
+  }
+  if (res.status !== 200) {
+    throw new Error("Error updating goal");
+  }
+  return await res.json();
+};
+
+export const deleteGoal = async (id) => {
+  const res = await fetch(`${BASE_URL}/goals/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${AUTH_TOKEN}`,
+      'Content-type': 'application/json',
     },
   });
   if (res.status === 401) {
     throw new Error("Not authorized. Please sign in");
   }
   if (res.status !== 200) {
-    throw new Error("Error creating goal");
+    throw new Error("Error deleting goal");
   }
-  return await res.json();
+  return await res.text();
 };

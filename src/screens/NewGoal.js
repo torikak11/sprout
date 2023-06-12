@@ -8,20 +8,19 @@ import {
   StyleSheet,
   Pressable,
   FlatList,
-  Image,
-  Alert,
   ActivityIndicator,
 } from "react-native";
 import { COLORS, SIZE, FONTS, SHADOWS } from "../data/theme";
 import { FilledLargeButton } from "../components/Button";
-import { ColorSelector } from "../components/Selector";
+import { ColorSelector, PlantSelector } from "../components/Selector";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getPlants } from "../api/plants";
 import { createGoal } from "../api/goals";
 
 const NewGoal = () => {
+  //get plants query
   const {
     data: plantData,
     isLoading: plantsIsLoading,
@@ -30,8 +29,21 @@ const NewGoal = () => {
     queryKey: ["plants"],
     queryFn: getPlants,
   });
-  
-  const plants = plantData?.plants
+
+  const plants = plantData?.plants;
+
+  const queryClient = useQueryClient();
+
+  //create goal query
+  const { mutateAsync, isLoading, isError } = useMutation({
+    mutationFn: createGoal,
+    onSuccess: (data) => {
+      queryClient.setQueriesData( ["goals"] , (existingGoals) => [
+        data,
+        ...existingGoals,
+      ]);
+    },
+  });
 
   const navigation = useNavigation();
   const [name, setName] = useState("");
@@ -43,14 +55,20 @@ const NewGoal = () => {
     const newGoal = {
       name,
       steps: steps.filter((step) => step.name !== ""),
-      plant: plant._id,
+      plant: plant,
       color,
     };
-    setName("");
-    setSteps([]);
-    setPlant({});
-    setColor(COLORS.green200);
-    navigation.navigate("Add New");
+    try {
+      await mutateAsync(newGoal);
+
+      setName("");
+      setSteps([]);
+      setPlant({});
+      setColor(COLORS.green200);
+      navigation.navigate("Add New");
+    } catch (err) {
+      console.log("Error: ", err.message);
+    }
   };
 
   const handleAddStep = async () => {
@@ -71,16 +89,32 @@ const NewGoal = () => {
   };
 
   const handleAddPlant = async (item) => {
-    console.log(item.image)
-    setPlant(item);
+    const plantId = { _id: item._id };
+    setPlant(plantId);
   };
 
-  if (plantsIsLoading) {
-    return <ActivityIndicator />;
+  if (plantsIsLoading || isLoading) {
+    return (
+      <ActivityIndicator
+        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+      />
+    );
   }
 
   if (plantsError) {
-    return <Text>{plantsError.message}</Text>;
+    return (
+      <Text style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        {plantsError.message}
+      </Text>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Text style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        {isError.message}
+      </Text>
+    );
   }
 
   const renderSteps = ({ item, index }) => {
@@ -182,21 +216,12 @@ const NewGoal = () => {
           <View style={styles.plantsContainer}>
             {plants.map((item) => {
               return (
-                <View key={item._id} style={styles.plantButton}>
-                  <Pressable
-                    style={
-                      item._id === plant._id
-                        ? styles.selectedPlantContainer
-                        : styles.plantContainer
-                    }
-                    onPress={() => handleAddPlant(item)}
-                  >
-                    <Image source={item.image} style={styles.plantImage} />
-                  </Pressable>
-                  <Text style={styles.plantText} numberOfLines={1}>
-                    {item.name}
-                  </Text>
-                </View>
+                <PlantSelector
+                  item={item}
+                  handleAddPlant={handleAddPlant}
+                  plantId={plant._id}
+                  key={item._id}
+                />
               );
             })}
           </View>
@@ -323,8 +348,8 @@ const styles = StyleSheet.create({
   },
   plantImage: {
     resizeMode: "contain",
-    width: "80%",
-    height: "80%",
+    width: "90%",
+    height: "90%",
   },
   plantText: {
     fontSize: SIZE.span,
