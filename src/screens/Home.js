@@ -54,7 +54,6 @@ const Home = () => {
   });
 
   const goals = goalsData?.goals;
-  console.log(goals)
 
   const renderItem = ({ item }) => (
     <View style={styles.imageContainer}>

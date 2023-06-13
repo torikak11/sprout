@@ -10,29 +10,21 @@ import {
 import { COLORS, FONTS, SHADOWS, SIZE } from "../data/theme";
 import { FilledLargeButton } from "../components/Button";
 import { useNavigation } from "@react-navigation/native";
-import { login } from "../api/auth";
-import { Alert } from "react-native";
 
-const Login = () => {
+const Register = () => {
   const navigation = useNavigation();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  console.log(password)
 
-  const handleLogin = async () => {
-    try {
-      const res = await login({email, password})
-      console.log(res.token)
-      navigation.navigate("Home")
-    } catch (err) {
-      Alert.alert("Username or password do not match")
-    }
+  const onRegister = async () => {
+    console.warn("registered");
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.heading}>Welcome Back!</Text>
+        <Text style={styles.heading}>Create an account</Text>
       </View>
       <View
         style={{
@@ -42,6 +34,15 @@ const Login = () => {
           marginHorizontal: "auto",
         }}
       >
+        <Text style={styles.label}>Name</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={[styles.input, { width: "100%" }]}
+            value={name}
+            maxLength={80}
+            onChangeText={(name) => setName(name)}
+          />
+        </View>
         <Text style={styles.label}>Email</Text>
         <View style={styles.inputContainer}>
           <TextInput
@@ -66,26 +67,20 @@ const Login = () => {
               style={[styles.input, { width: "100%" }]}
               value={password}
               maxLength={80}
-              textContentType="password"
+              textContentType="newPassword"
               onChangeText={(password) => setPassword(password)}
             />
           </View>
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <FilledLargeButton dark={false} name="Login" onPress={handleLogin} />
-      </View>
-      <View style={styles.registerContainer}>
-        <Text>No account? </Text>
-        <Pressable onPress={() => {navigation.navigate("Register")}}>
-          <Text style={{ color: COLORS.coral200 }}>Register Here</Text>
-        </Pressable>
+        <FilledLargeButton dark={false} name="Register" />
       </View>
     </SafeAreaView>
   );
 };
 
-export default Login;
+export default Register;
 
 const styles = StyleSheet.create({
   container: {

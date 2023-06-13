@@ -1,10 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import AddNew from "../screens/AddNew";
 import NewGoal from '../screens/NewGoal';
-import NewHabit from "../screens/NewHabit";
 import { COLORS } from "../data/theme";
 import IonIcons from '@expo/vector-icons/Ionicons';
-import { Pressable } from "react-native";
 
 const NewGoalNav = () => {
     const Stack = createStackNavigator();
@@ -34,13 +32,6 @@ const NewGoalNav = () => {
             <Stack.Screen 
                 name="New Goal" 
                 component={NewGoal} 
-                options={{
-                    title: '',
-                }}
-            />
-            <Stack.Screen 
-                name="New Habit" 
-                component={NewHabit} 
                 options={{
                     title: '',
                 }}

@@ -4,6 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { StatusBar } from "react-native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Login from "./src/screens/Login";
+import LoginNav from "./src/navigation/LoginNav";
 
 const client = new QueryClient();
 
@@ -19,7 +21,7 @@ export default function App() {
     <QueryClientProvider client={client}>
       <NavigationContainer>
         <StatusBar barStyle={"dark-content"} />
-        <BottomNav />
+        <LoginNav />
       </NavigationContainer>
     </QueryClientProvider>
   );

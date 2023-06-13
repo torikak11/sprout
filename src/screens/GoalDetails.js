@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+
 import {
   SafeAreaView,
   StyleSheet,
@@ -17,7 +17,6 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteGoal, getGoal, updateGoal } from "../api/goals";
 
 const GoalDetails = (props) => {
-  const image = "";
   const id = props.route.params.id;
   const navigation = useNavigation();
 
