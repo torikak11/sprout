@@ -12,21 +12,22 @@ import { FilledLargeButton } from "../components/Button";
 import { useNavigation } from "@react-navigation/native";
 import { login } from "../api/auth";
 import { Alert } from "react-native";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  console.log(password)
+
+  const {setAuthToken} = useAuth();
 
   const handleLogin = async () => {
     try {
       const res = await login({email, password})
-      console.log(res.token)
-      navigation.navigate("Home")
+      setAuthToken(res.token)
     } catch (err) {
       Alert.alert("Username or password do not match")
-    }
+    } 
   };
 
   return (
