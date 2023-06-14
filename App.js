@@ -6,6 +6,7 @@ import { StatusBar } from "react-native";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import LoginNav from "./src/navigation/LoginNav";
 import AuthContextProvider, { useAuth } from "./src/context/AuthContext";
+import GoalsApiContextProvider from "./src/api/goals";
 
 const client = new QueryClient();
 
@@ -19,7 +20,9 @@ export default function App() {
 
   return (
     <AuthContextProvider>
-      <AppContent />
+      <GoalsApiContextProvider>
+        <AppContent />
+      </GoalsApiContextProvider>
     </AuthContextProvider>
   );
 }

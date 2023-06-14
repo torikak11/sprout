@@ -17,9 +17,16 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getPlants } from "../api/plants";
-import { createGoal } from "../api/goals";
+import { useGoalsApi } from "../api/goals";
 
 const NewGoal = () => {
+  const navigation = useNavigation();
+  const [name, setName] = useState("");
+  const [steps, setSteps] = useState([]);
+  const [plant, setPlant] = useState({});
+  const [color, setColor] = useState(COLORS.green200);
+  const {createGoal} = useGoalsApi();
+
   //get plants query
   const {
     data: plantData,
@@ -37,19 +44,10 @@ const NewGoal = () => {
   //create goal query
   const { mutateAsync, isLoading, isError } = useMutation({
     mutationFn: createGoal,
-    onSuccess: (data) => {
-      queryClient.setQueriesData( ["goals"] , (existingGoals) => [
-        data,
-        ...existingGoals,
-      ]);
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["goals"] });
     },
   });
-
-  const navigation = useNavigation();
-  const [name, setName] = useState("");
-  const [steps, setSteps] = useState([]);
-  const [plant, setPlant] = useState({});
-  const [color, setColor] = useState(COLORS.green200);
 
   const handleAddGoal = async () => {
     const newGoal = {

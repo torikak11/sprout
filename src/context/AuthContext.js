@@ -10,7 +10,6 @@ const AuthContextProvider = ({ children }) => {
     const loadAuthToken = async () => {
       const res = await SecureStore.getItemAsync("authToken");
       if (res) {
-        console.log("loaded token");
         setAuthToken(res);
       }
     };
@@ -22,8 +21,13 @@ const AuthContextProvider = ({ children }) => {
     setAuthToken(newToken);
   };
 
+  const removeAuthToken = async () => {
+    await SecureStore.deleteItemAsync("authToken");
+    setAuthToken(null);
+  };
+
   return (
-    <AuthContext.Provider value={{ authToken, updateAuthToken }}>
+    <AuthContext.Provider value={{ authToken, updateAuthToken, removeAuthToken }}>
       {children}
     </AuthContext.Provider>
   );

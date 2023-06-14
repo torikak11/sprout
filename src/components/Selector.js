@@ -1,8 +1,6 @@
 import { StyleSheet } from "react-native";
 import { COLORS, FONTS, SIZE } from "../data/theme";
 import { View, Pressable, Image, Text } from "react-native";
-import goalPlants from "../data/goalPlants";
-import habitPlants from "../data/habitPlants";
 
 const ColorBox = (props) => {
   return (

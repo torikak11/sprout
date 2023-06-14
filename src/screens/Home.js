@@ -9,16 +9,15 @@ import {
   Image,
   ActivityIndicator,
 } from "react-native";
-import { FilledSmallButton, OutlineSmallButton } from "../components/Button";
 import { COLORS, FONTS, SIZE } from "../data/theme";
 import { useQuery } from "@tanstack/react-query";
-import { getGoals } from "../api/goals";
+import { useGoalsApi } from "../api/goals";
 
 const Home = () => {
   //sets state to current time for greeting
   const [currentTime, setCurrentTime] = useState("");
   const [image, setImage] = useState("");
-  const [pressed, setPressed] = useState(1);
+  const { getGoals, getUserName } = useGoalsApi();
 
   useEffect(() => {
     let hour = new Date().getHours();
@@ -45,6 +44,17 @@ const Home = () => {
   });
 
   const {
+    data: userData,
+    isLoading: userIsLoading,
+    error: userError,
+  } = useQuery({
+    queryKey: ["users"],
+    queryFn: getUserName,
+  });
+
+  const user = userData?.user.name;
+
+  const {
     data: goalsData,
     isLoading: goalsLoading,
     error: goalsError,
@@ -60,10 +70,10 @@ const Home = () => {
       <Image
         source={
           item.percentage === 100
-            ? {uri: item.plant.images.large}
-            : item.percentage <= 50
-            ? {uri: item.plant.images.small}
-            : {uri: item.plant.images.medium}
+            ? { uri: item.plant.images.large }
+            : item.percentage < 50
+            ? { uri: item.plant.images.small }
+            : { uri: item.plant.images.medium }
         }
         style={styles.images}
       />
@@ -91,7 +101,7 @@ const Home = () => {
       <ImageBackground source={image} style={styles.image}>
         <View style={styles.textContainer}>
           <Text style={styles.textGreeting}>{currentTime},</Text>
-          <Text style={styles.textName}>Victoria</Text>
+          <Text style={styles.textName}>{user}</Text>
         </View>
         <View style={styles.plantContainer}>
           <FlatList
@@ -116,7 +126,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     width: "100%",
-    resizeMode: "cover"
+    resizeMode: "cover",
   },
   buttonContainer: {
     flex: 2,

@@ -1,2 +1,1 @@
 export const BASE_URL = "https://04f0-109-144-217-214.ngrok-free.app/api/v1";
-export const AUTH_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDY1ZjE2MzYyZWI4NjI4OWE5YTc3OWIiLCJuYW1lIjoidG9yaSIsImlhdCI6MTY4NjUxNjQ5NSwiZXhwIjoxNjg5MTA4NDk1fQ.rZbqbvBa--blsXrbUKrWjSiXAWTO2UHJu_4cI8wo3hc"

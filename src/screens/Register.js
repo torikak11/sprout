@@ -5,20 +5,27 @@ import {
   SafeAreaView,
   TextInput,
   View,
-  Pressable,
+  Alert,
 } from "react-native";
 import { COLORS, FONTS, SHADOWS, SIZE } from "../data/theme";
 import { FilledLargeButton } from "../components/Button";
-import { useNavigation } from "@react-navigation/native";
+import { register } from "../api/auth";
+import { useAuth } from "../context/AuthContext";
 
 const Register = () => {
-  const navigation = useNavigation();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const {updateAuthToken} = useAuth();
 
-  const onRegister = async () => {
-    console.warn("registered");
+  const handleRegister = async () => {
+    try {
+      const res = await register({name, email, password})
+      await updateAuthToken(res.token)
+    } catch (err) {
+      console.log(err)
+      Alert.alert(err.message)
+    }
   };
 
   return (
@@ -64,7 +71,7 @@ const Register = () => {
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <FilledLargeButton dark={false} name="Register" />
+        <FilledLargeButton dark={false} name="Register" onPress={handleRegister} />
       </View>
     </SafeAreaView>
   );

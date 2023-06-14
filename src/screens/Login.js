@@ -16,12 +16,13 @@ import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const navigation = useNavigation();
-  const [email, setEmail] = useState("");
+  const [typedEmail, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const {updateAuthToken} = useAuth();
 
   const handleLogin = async () => {
+    const email = typedEmail.toLowerCase();
     try {
       const res = await login({email, password})
       await updateAuthToken(res.token)
@@ -47,7 +48,7 @@ const Login = () => {
         <View style={styles.inputContainer}>
           <TextInput
             style={[styles.input, { width: "100%" }]}
-            value={email}
+            value={typedEmail}
             maxLength={80}
             textContentType="emailAddress"
             onChangeText={(email) => setEmail(email)}

@@ -14,11 +14,12 @@ import { Task } from "../components/Task";
 import { FilledLargeButton } from "../components/Button";
 import { useNavigation } from "@react-navigation/native";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteGoal, getGoal, updateGoal } from "../api/goals";
+import { useGoalsApi } from "../api/goals";
 
 const GoalDetails = (props) => {
   const id = props.route.params.id;
   const navigation = useNavigation();
+  const {getGoal, updateGoal, deleteGoal} = useGoalsApi();
 
   //get goal query
   const {
@@ -131,7 +132,7 @@ const GoalDetails = (props) => {
           source={
             goal.percentage === 100
               ? {uri: goal.plant.images.large}
-              : goal.percentage <= (50)
+              : goal.percentage < (50)
               ? {uri: goal.plant.images.small}
               : {uri: goal.plant.images.medium}
           }

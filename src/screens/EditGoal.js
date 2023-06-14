@@ -18,13 +18,14 @@ import { ColorSelector, PlantSelector } from "../components/Selector";
 import IonIcons from "@expo/vector-icons/Ionicons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
-import { updateGoal, getGoal } from "../api/goals";
+import { useGoalsApi } from "../api/goals";
 import { getPlants } from "../api/plants";
 
 const EditGoal = () => {
   const route = useRoute();
   const { goalId: id } = route.params;
   const navigation = useNavigation();
+  const {getGoal, updateGoal} = useGoalsApi();
 
   // Get goal query
   const { data, goalIsLoading, error } = useQuery({

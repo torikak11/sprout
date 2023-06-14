@@ -1,5 +1,6 @@
 import { BASE_URL } from "./config";
 
+
 export const getPlants = async () => {
   const res = await fetch(`${BASE_URL}/plants`);
   if (!res.ok) {

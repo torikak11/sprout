@@ -9,10 +9,12 @@ import {
 import { GoalsList } from "../components/List";
 import { COLORS, FONTS, SIZE } from "../data/theme";
 import { useNavigation } from "@react-navigation/native";
-import { getGoals } from "../api/goals";
+import { useGoalsApi } from "../api/goals";
 import { useQuery } from "@tanstack/react-query";
 
 const GoalsView = () => {
+  const navigation = useNavigation();
+  const {getGoals} = useGoalsApi();
 
   // Get goals data query
   const { data, isLoading, error } = useQuery({
@@ -21,8 +23,6 @@ const GoalsView = () => {
   });
 
   const goals = data?.goals;
-
-  const navigation = useNavigation();
 
   const renderItem = ({ item }) => (
     <GoalsList

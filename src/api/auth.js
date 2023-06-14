@@ -23,7 +23,7 @@ export const register = async (data) => {
     body: JSON.stringify(data),
   });
   if (res.status !== 201) {
-    throw new Error("Error during registration");
+    throw new Error("Email already in use");
   }
   return await res.json();
 };
