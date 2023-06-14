@@ -2,19 +2,16 @@ import { SafeAreaView, View, Text, Pressable, StyleSheet } from 'react-native';
 import { COLORS, FONTS, SIZE } from '../data/theme';
 import { useNavigation } from '@react-navigation/native';
 
-const AddNew = () => {
+const Logout = () => {
     const navigation = useNavigation();
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.border}>
-                <Text style={styles.heading}>Create New</Text>
-            </View>
             <Pressable 
                 style={styles.button}
                 onPress={() => navigation.navigate('New Goal')}
             >
-                <Text style={styles.text}>Goal</Text>
+                <Text style={styles.text}>Logout</Text>
             </Pressable>
         </SafeAreaView>
     );
@@ -56,4 +53,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default AddNew;
+export default Logout;

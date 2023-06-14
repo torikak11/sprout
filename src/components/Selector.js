@@ -80,7 +80,7 @@ export const PlantSelector = ({item, handleAddPlant, plantId}) => {
         }
         onPress={() => handleAddPlant(item)}
       >
-        <Image source={item.image} style={styles.plantImage} />
+        <Image source={{uri: item.image}} style={styles.plantImage} />
       </Pressable>
       <Text style={styles.plantText} numberOfLines={1}>
         {item.name}
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     width: "90%",
     height: "90%",
   },
-  text: {
+  plantText: {
     fontSize: SIZE.span,
     fontFamily: FONTS.regular,
     color: COLORS.white100,

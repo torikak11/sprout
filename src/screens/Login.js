@@ -19,12 +19,12 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const {setAuthToken} = useAuth();
+  const {updateAuthToken} = useAuth();
 
   const handleLogin = async () => {
     try {
       const res = await login({email, password})
-      setAuthToken(res.token)
+      await updateAuthToken(res.token)
     } catch (err) {
       Alert.alert("Username or password do not match")
     } 
@@ -92,13 +92,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.white200,
+    alignItems: "center",
+    justifyContent: 'center'
   },
   textContainer: {
     flex: 1,
     marginTop: 50,
     width: 300,
-    justifyContent: "center",
-    marginHorizontal: "auto",
+    justifyContent: 'center',
   },
   heading: {
     fontFamily: FONTS.bold,

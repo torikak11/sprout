@@ -28,10 +28,9 @@ const Register = () => {
       </View>
       <View
         style={{
-          flex: 1,
+          flex: 3,
           width: 300,
-          justifyContent: "center",
-          marginHorizontal: "auto",
+          justifyContent: "flex-start",
         }}
       >
         <Text style={styles.label}>Name</Text>
@@ -53,24 +52,15 @@ const Register = () => {
             onChangeText={(email) => setEmail(email)}
           />
         </View>
-        <View
-          style={{
-            flex: 1,
-            width: 300,
-            justifyContent: "center",
-            marginHorizontal: "auto",
-          }}
-        >
-          <Text style={styles.label}>Password</Text>
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={[styles.input, { width: "100%" }]}
-              value={password}
-              maxLength={80}
-              textContentType="newPassword"
-              onChangeText={(password) => setPassword(password)}
-            />
-          </View>
+        <Text style={styles.label}>Password</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={[styles.input, { width: "100%" }]}
+            value={password}
+            maxLength={80}
+            textContentType="newPassword"
+            onChangeText={(password) => setPassword(password)}
+          />
         </View>
       </View>
       <View style={styles.buttonContainer}>
@@ -86,13 +76,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.white200,
+    justifyContent: "center",
+    alignItems: "center",
   },
   textContainer: {
     flex: 1,
     marginTop: 50,
     width: 300,
-    justifyContent: "center",
-    marginHorizontal: "auto",
+    justifyContent: "flex-start",
   },
   heading: {
     fontFamily: FONTS.bold,
@@ -124,7 +115,7 @@ const styles = StyleSheet.create({
     ...SHADOWS.shadow01,
   },
   buttonContainer: {
-    flex: 1,
+    flex: 2,
     alignItems: "center",
     justifyContent: "center",
   },

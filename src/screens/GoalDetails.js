@@ -91,7 +91,6 @@ const GoalDetails = (props) => {
       percentage: updatedPercentage,
       complete: updatedPercentage === 100 ? true : false,
     };
-    console.log(editedGoal)
 
     try {
       await updateMutate(editedGoal);
@@ -131,10 +130,10 @@ const GoalDetails = (props) => {
         <Image
           source={
             goal.percentage === 100
-              ? goal.plant.images.large
+              ? {uri: goal.plant.images.large}
               : goal.percentage <= (50)
-              ? goal.plant.images.small
-              : goal.plant.images.medium
+              ? {uri: goal.plant.images.small}
+              : {uri: goal.plant.images.medium}
           }
           style={styles.image}
         />
@@ -205,8 +204,8 @@ const styles = StyleSheet.create({
   },
   image: {
     resizeMode: "contain",
-    height: "80%",
-    width: "40%",
+    height: "90%",
+    width: "50%",
   },
   detailsContainer: {
     flex: 6,

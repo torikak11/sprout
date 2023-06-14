@@ -26,7 +26,6 @@ export default function App() {
 
 function AppContent() {
   const { authToken } = useAuth();
-  console.log(authToken);
 
   return (
     <QueryClientProvider client={client}>

@@ -60,10 +60,10 @@ const Home = () => {
       <Image
         source={
           item.percentage === 100
-            ? item.plant.images.large
+            ? {uri: item.plant.images.large}
             : item.percentage <= 50
-            ? item.plant.images.small
-            : item.plant.images.medium
+            ? {uri: item.plant.images.small}
+            : {uri: item.plant.images.medium}
         }
         style={styles.images}
       />
@@ -101,23 +101,6 @@ const Home = () => {
             showsHorizontalScrollIndicator={false}
           />
         </View>
-        <View style={styles.buttonContainer}>
-          {pressed === 1 ? (
-            <FilledSmallButton name="All" onPress={() => setPressed(1)} />
-          ) : (
-            <OutlineSmallButton name="All" onPress={() => setPressed(1)} />
-          )}
-          {pressed === 2 ? (
-            <FilledSmallButton name="Goals" onPress={() => setPressed(2)} />
-          ) : (
-            <OutlineSmallButton name="Goals" onPress={() => setPressed(2)} />
-          )}
-          {pressed === 3 ? (
-            <FilledSmallButton name="Habits" onPress={() => setPressed(3)} />
-          ) : (
-            <OutlineSmallButton name="Habits" onPress={() => setPressed(3)} />
-          )}
-        </View>
       </ImageBackground>
     </SafeAreaView>
   );
@@ -143,7 +126,7 @@ const styles = StyleSheet.create({
   textContainer: {
     marginLeft: 40,
     marginTop: 50,
-    flex: 4,
+    flex: 2,
   },
   textGreeting: {
     fontSize: SIZE.heading,
@@ -157,6 +140,7 @@ const styles = StyleSheet.create({
   },
   plantContainer: {
     flex: 4,
+    marginBottom: 80,
   },
   imageContainer: {
     paddingHorizontal: 20,
