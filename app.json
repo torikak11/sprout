@@ -4,10 +4,10 @@
     "slug": "sprout",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "https://toriadev-sprout.s3.us-west-2.amazonaws.com/small-plant.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "https://toriadev-sprout.s3.us-west-2.amazonaws.com/small-plant.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
